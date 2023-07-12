@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   build_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/12 14:40:39 by skunert          ###   ########.fr       */
+/*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
+/*   Updated: 2023/07/12 14:40:05 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	main(void)
+int	handle_build_in(char *str)
 {
-	char	*str;
-
-	str = readline("miniHell > ");
-	while (str != NULL)
-	{
-		if (!(handle_build_in(str)))
-			return (0);
-		str = readline("miniHell > ");
-		free(str);
-	}
-	return (0);
+	if (ft_strncmp(str, "echo", 4) == 0)
+		ft_printf("%s\n", str + 5);
+	if (ft_strncmp(str, "exit", 4) == 0)
+		return (0);
+	return (1);
 }
