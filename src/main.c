@@ -6,11 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/07/17 12:58:37 by njantsch         ###   ########.fr       */
-=======
-/*   Updated: 2023/07/17 15:40:56 by skunert          ###   ########.fr       */
->>>>>>> 84000c90ff3ed8e479c384c5981982ca46aa38f3
+/*   Updated: 2023/07/17 17:51:30 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +32,8 @@ void	shell_loop(t_shell *sh)
 	str = readline("miniHell > ");
 	while (str != NULL)
 	{
-<<<<<<< HEAD
-		if (!(handle_build_in(str)))
-			return;
-		free(str);
-=======
 		parser_main(str, sh);
 		free_arr(sh->cmd_table);
->>>>>>> 84000c90ff3ed8e479c384c5981982ca46aa38f3
 		str = readline("miniHell > ");
 	}
 	free(str);
