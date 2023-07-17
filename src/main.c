@@ -6,41 +6,44 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/17 12:58:37 by njantsch         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/17 15:40:56 by skunert          ###   ########.fr       */
+>>>>>>> 84000c90ff3ed8e479c384c5981982ca46aa38f3
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**cpy_envp(char **envp)
+void	free_arr(char **arr)
 {
-	int		i;
-	char	*str;
-	char	**envp_cpy;
+	unsigned int	i;
 
 	i = 0;
-	envp_cpy = ft_calloc(get_len_matrix(envp), sizeof(char *));
-	while (envp[i] != NULL)
+	while (arr != NULL && arr[i] != NULL)
 	{
-		str = get_envp_name(envp[i]);
-		envp_cpy[i] = getenv(str);
-		str = ft_strjoin_free(str, "=");
-		envp_cpy[i] = ft_strjoin_free(str, envp_cpy[i]);
+		free(arr[i]);
 		i++;
 	}
-	return (envp_cpy);
+	free(arr);
 }
 
-void	shell_loop(void)
+void	shell_loop(t_shell *sh)
 {
 	char	*str;
 
 	str = readline("miniHell > ");
 	while (str != NULL)
 	{
+<<<<<<< HEAD
 		if (!(handle_build_in(str)))
 			return;
 		free(str);
+=======
+		parser_main(str, sh);
+		free_arr(sh->cmd_table);
+>>>>>>> 84000c90ff3ed8e479c384c5981982ca46aa38f3
 		str = readline("miniHell > ");
 	}
 	free(str);
@@ -49,9 +52,9 @@ void	shell_loop(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**envp_cpy;
+	t_shell	*sh;
 
-	envp_cpy = NULL;
+	sh = NULL;
 	if (argc != 1 && argv == NULL)
 	{
 		printf("Wrong amount of arguments!\n");
@@ -59,8 +62,8 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 	{
-		envp_cpy = cpy_envp(envp);
-		shell_loop();
+		sh = shell_init(envp);
+		shell_loop(sh);
 	}
 	return (0);
 }

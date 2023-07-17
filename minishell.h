@@ -6,7 +6,11 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/17 12:47:23 by njantsch         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/17 14:59:15 by skunert          ###   ########.fr       */
+>>>>>>> 84000c90ff3ed8e479c384c5981982ca46aa38f3
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +25,26 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+typedef struct shell
+{
+	int		fd_in;
+	int		fd_out;
+	char	*infile;
+	char	*outfile;
+	char	*sterr;
+	char	**envp;
+	char	**cmd_table;
+}	t_shell;
+
+//parsing
+int		parser_main(char *str, t_shell *sh);
+
 //build in
 int		handle_build_in(char *str);
 
 //utils
+t_shell	*shell_init(char **envp);
 char	*get_envp_name(char *str);
 int		get_len_matrix(char **matrix);
+void	free_arr(char **arr);
 #endif
