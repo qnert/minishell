@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/17 12:26:02 by skunert          ###   ########.fr       */
+/*   Created: 2023/07/17 12:25:45 by skunert           #+#    #+#             */
+/*   Updated: 2023/07/17 12:25:55 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	get_len_matrix(char **matrix)
+char	*get_envp_name(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (matrix[i] != NULL)
+	while (str[i + 1] != '=')
+	{
 		i++;
-	return (i);
+	}
+	return (ft_substr(str, 0, i + 1));
 }
