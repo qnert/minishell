@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/17 11:55:31 by skunert          ###   ########.fr       */
+/*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
+/*   Updated: 2023/07/17 11:52:17 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../minishell.h"
 
-# include "./libs/libs.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <sys/stat.h>
-# include <fcntl.h>
+char	*get_envp_name(char *str)
+{
+	int	i;
 
-//build in
-int		handle_build_in(char *str);
+	i = 0;
+	while (str[i + 1] != '=')
+	{
+		i++;
+	}
+	return (ft_substr(str, 0, i + 1));
+}
 
-//utils
-char	*get_envp_name(char *str);
-int		get_len_matrix(char **matrix);
-#endif
+int	get_len_matrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i] != NULL)
+		i++;
+	return (i);
+}

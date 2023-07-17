@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
 
-SRCS = ./src/main.c ./src/build_in.c
+SRCS = ./src/main.c ./src/build_in.c ./src/utils.c
 
 OBJS = $(SRCS:.c=.o)
 
