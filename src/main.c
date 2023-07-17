@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/17 17:51:30 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:57:10 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ void	shell_loop(t_shell *sh)
 	str = readline("miniHell > ");
 	while (str != NULL)
 	{
-		parser_main(str, sh);
-		free_arr(sh->cmd_table);
+		if (str[0] != '\0')
+		{
+			parser_main(str, sh);
+			free_arr(sh->cmd_table);
+		}
 		str = readline("miniHell > ");
 	}
 	free(str);
