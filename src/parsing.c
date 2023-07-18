@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:12:41 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/17 17:51:51 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:09:32 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ void	check_redirect_in(t_shell *sh)
 		while (sh->cmd_table[0][i] == 32 || sh->cmd_table [0][i] == 9)
 			i++;
 		start = i;
-		while (sh->cmd_table[0][i + 1] != ' ')
+		while (ft_isalpha(sh->cmd_table[0][i++]))
+		sh->infile = ft_substr(sh->cmd_table[0], start, i - start);
+		while (sh->cmd_table[0][i] == 32 || sh->cmd_table [0][i] == 9)
 			i++;
-		sh->infile = ft_substr(sh->cmd_table[0], start, i - 1);
-		tmp = ft_substr(sh->cmd_table[0], i + 2,
-				ft_strlen(sh->cmd_table[0]) - 1);
+		tmp = ft_substr(sh->cmd_table[0], i,
+				ft_strlen(sh->cmd_table[0]) - i + 1);
 		free(sh->cmd_table[0]);
 		sh->cmd_table[0] = ft_strdup(tmp);
 		free(tmp);
