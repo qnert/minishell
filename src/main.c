@@ -37,7 +37,6 @@ void	shell_loop(t_shell *sh)
 			parser_main(str, sh);
 			free_arr(sh->cmd_table);
 		}
-		return ;
 		str = readline("miniHell > ");
 	}
 	free(str);

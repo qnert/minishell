@@ -40,7 +40,7 @@ int		parser_main(char *str, t_shell *sh);
 char	**cpy_envp(char **envp);
 
 //build in
-int		handle_build_in(char *str);
+int		check_build_in(char *str);
 
 // access
 int		check_path(t_shell *sh, char **path, char *cmd);
