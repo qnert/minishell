@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   access.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/18 13:43:02 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:24:06 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	access_check(t_shell *sh, char *arg)
 int	check_path(t_shell *sh, char **path, char *cmd)
 {
 	int			i;
-	static	int	j;
+	static int	j;
 	char		*cmd_path;
 
 	i = 0;
@@ -56,6 +56,23 @@ int	check_path(t_shell *sh, char **path, char *cmd)
 			return (free(cmd_path), 0);
 		}
 		free(cmd_path);
+		i++;
+	}
+	return (1);
+}
+
+int	check_cmd(t_shell *sh)
+{
+	int	i;
+
+	i = 0;
+	while (sh->cmd_table[i])
+	{
+		if (access_check(sh, sh->cmd_table[i]) == 1)
+		{
+			if (check_build_in(sh->cmd_table[i]) == 0)
+				return (0);
+		}
 		i++;
 	}
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 13:24:10 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:25:26 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		check_build_in(char *str);
 // access
 int		check_path(t_shell *sh, char **path, char *cmd);
 int		access_check(t_shell *sh, char *arg);
+int		check_cmd(t_shell *sh);
 
 //utils
 t_shell	*shell_init(char **envp);
