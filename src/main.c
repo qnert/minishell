@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 12:47:50 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:58:15 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	shell_loop(t_shell *sh)
 			parser_main(str, sh);
 			free_arr(sh->cmd_table);
 		}
+		return ;
 		str = readline("miniHell > ");
 	}
 	free(str);

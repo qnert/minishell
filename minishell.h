@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/17 17:01:00 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/18 13:24:10 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,21 @@ typedef struct shell
 	char	*sterr;
 	char	**envp;
 	char	**cmd_table;
+	char	**path_to_file_table;
 }	t_shell;
 
 //parsing
 int		parser_main(char *str, t_shell *sh);
 
+//envp
+char	**cpy_envp(char **envp);
+
 //build in
 int		handle_build_in(char *str);
+
+// access
+int		check_path(t_shell *sh, char **path, char *cmd);
+int		access_check(t_shell *sh, char *arg);
 
 //utils
 t_shell	*shell_init(char **envp);
