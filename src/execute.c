@@ -1,50 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 15:33:15 by skunert          ###   ########.fr       */
+/*   Created: 2023/07/18 14:55:34 by skunert           #+#    #+#             */
+/*   Updated: 2023/07/18 15:29:34 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_shell	*shell_init(char **envp)
-{
-	t_shell	*sh;
-
-	sh = malloc(sizeof(t_shell));
-	sh->fd_in = -2;
-	sh->fd_out = -2;
-	sh->infile = NULL;
-	sh->outfile = NULL;
-	sh->sterr = NULL;
-	sh->envp = cpy_envp(envp);
-	sh->cmd_table = NULL;
-	return (sh);
-}
-
-int	get_len_matrix(char **matrix)
-{
-	int	len;
-
-	len = 0;
-	while (matrix[len] != NULL)
-		len++;
-	return (len);
-}
-
-void	print_marix(char **matrix)
+int	exec_cmd(t_shell *sh)
 {
 	int	i;
 
 	i = 0;
-	while (matrix[i])
+	while (sh->cmd_table[i])
 	{
-		printf("%s\n", matrix[i]);
+		if (check_build_in(sh->cmd_table[i]) == true)
+			handle_build_in(sh, sh->cmd_table[i]);
 		i++;
 	}
+	return (1);
 }
