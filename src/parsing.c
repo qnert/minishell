@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:12:41 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 13:42:23 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:15:42 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,15 +120,7 @@ int	parser_main(char *str, t_shell *sh)
 	free_arr(tmp);
 	check_redirect_in(sh);
 	check_redirect_out(sh);
-	i = 0;
-	while (sh->cmd_table[i])
-	{
-		// printf("%s command    %d  i\n", sh->cmd_table[i], i);
-		if (access_check(sh, sh->cmd_table[i]) == 1)
-			perror("");
-		else
-			printf("%s\n", sh->path_to_file_table[i]);
-		i++;
-	}
+	if (check_cmd(sh) == 0)
+		return (0);
 	return (1);
 }
