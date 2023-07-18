@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/17 17:01:10 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:53:12 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	**cpy_envp(char **envp)
-{
-	int		i;
-	char	*str;
-	char	**envp_cpy;
-
-	i = 0;
-	envp_cpy = ft_calloc(get_len_matrix(envp), sizeof(char *));
-	while (envp[i] != NULL)
-	{
-		str = get_envp_name(envp[i]);
-		envp_cpy[i] = getenv(str);
-		str = ft_strjoin_free(str, "=");
-		envp_cpy[i] = ft_strjoin_free(str, envp_cpy[i]);
-		i++;
-	}
-	return (envp_cpy);
-}
 
 t_shell	*shell_init(char **envp)
 {
