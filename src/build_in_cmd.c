@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 15:19:54 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/18 15:43:34 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,14 @@ void	handle_echo(char *str)
 		return ;
 	}
 	printf("%s\n", &str[i]);
+}
+
+void	handle_pwd(void)
+{
+	char	cwd[256];
+
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		perror("getcwd() error");
+	else
+		printf("%s\n", cwd);
 }
