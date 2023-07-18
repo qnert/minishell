@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 12:55:22 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/18 13:08:39 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		parser_main(char *str, t_shell *sh);
 char	**cpy_envp(char **envp);
 
 //build in
-int		handle_build_in(char *str);
+int		check_build_in(char *str);
 
 //utils
 t_shell	*shell_init(char **envp);
