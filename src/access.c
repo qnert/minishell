@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   access.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/18 14:24:06 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/18 14:37:19 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	access_check(t_shell *sh, char *arg)
+bool	access_check(t_shell *sh, char *arg)
 {
 	int		i;
 	char	*cmd;
@@ -29,12 +29,12 @@ int	access_check(t_shell *sh, char *arg)
 	while (arg[i] && arg[i] != ' ')
 		i++;
 	cmd = ft_substr(arg, 0, i);
-	if (check_path(sh, path, cmd) == 1)
-		return (free(cmd), free_arr(path), 1);
-	return (free(cmd), free_arr(path), 0);
+	if (check_path(sh, path, cmd) == false)
+		return (free(cmd), free_arr(path), false);
+	return (free(cmd), free_arr(path), true);
 }
 
-int	check_path(t_shell *sh, char **path, char *cmd)
+bool	check_path(t_shell *sh, char **path, char *cmd)
 {
 	int			i;
 	static int	j;
@@ -44,7 +44,7 @@ int	check_path(t_shell *sh, char **path, char *cmd)
 	if (access(cmd, F_OK | X_OK) == 0)
 	{
 		sh->path_to_file_table[j++] = ft_strdup(cmd);
-		return (0);
+		return (true);
 	}
 	while (path && path[i])
 	{
@@ -53,27 +53,27 @@ int	check_path(t_shell *sh, char **path, char *cmd)
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
 			sh->path_to_file_table[j++] = ft_strdup(cmd_path);
-			return (free(cmd_path), 0);
+			return (free(cmd_path), true);
 		}
 		free(cmd_path);
 		i++;
 	}
-	return (1);
+	return (false);
 }
 
-int	check_cmd(t_shell *sh)
+bool	check_cmd(t_shell *sh)
 {
 	int	i;
 
 	i = 0;
 	while (sh->cmd_table[i])
 	{
-		if (access_check(sh, sh->cmd_table[i]) == 1)
+		if (access_check(sh, sh->cmd_table[i]) == false)
 		{
-			if (check_build_in(sh->cmd_table[i]) == 0)
-				return (0);
+			if (check_build_in(sh->cmd_table[i]) == false)
+				return (false);
 		}
 		i++;
 	}
-	return (1);
+	return (true);
 }
