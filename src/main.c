@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/17 17:57:10 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/18 12:41:24 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	shell_loop(t_shell *sh)
 			parser_main(str, sh);
 			free_arr(sh->cmd_table);
 		}
+		return ;
 		str = readline("miniHell > ");
 	}
 	free(str);
