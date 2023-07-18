@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:12:41 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 12:09:32 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/18 12:52:28 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_redirect_in(t_shell *sh)
 		while (sh->cmd_table[0][i] == 32 || sh->cmd_table [0][i] == 9)
 			i++;
 		start = i;
-		while (ft_isalpha(sh->cmd_table[0][i++]))
+		while (ft_isalnum(sh->cmd_table[0][i++]))
 		sh->infile = ft_substr(sh->cmd_table[0], start, i - start);
 		while (sh->cmd_table[0][i] == 32 || sh->cmd_table [0][i] == 9)
 			i++;
