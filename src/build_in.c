@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 15:43:43 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/18 16:57:36 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,6 @@ void	handle_build_in(t_shell *sh, char *str)
 		print_marix(sh->envp);
 	if (ft_strncmp(str, "pwd", 3) == 0)
 		handle_pwd();
+	if (ft_strncmp(str, "export", 6) == 0)
+		handle_export(sh, str);
 }

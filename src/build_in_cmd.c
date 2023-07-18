@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 15:43:34 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/18 17:55:03 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,29 @@ void	handle_pwd(void)
 		perror("getcwd() error");
 	else
 		printf("%s\n", cwd);
+}
+
+void	handle_export(t_shell *sh, char *str)
+{
+	int		i;
+	int		len;
+
+	i = 0;
+	len = get_len_matrix(sh->envp);
+	while (str[i] != '\0' && str[i] != 32 && str[i] != 9)
+		i++;
+	while (str[i] && (str[i] == 32 || str[i] == 9))
+		i++;
+	if (!str[i])
+		return ;
+	if (ft_strrchr(&str[i], ' ') != 0)
+	{
+		printf("bad assignment\n");
+		return ;
+	}
+	if (check_existence_env(sh, &str[i]) == false)
+	{
+		sh->envp[len] = ft_strdup(&str[i]);
+		sh->envp[len + 1] = NULL;
+	}
 }

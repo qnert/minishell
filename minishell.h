@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 15:43:51 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/18 17:50:27 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	handle_build_in(t_shell *sh, char *str);
 //build_in_cmds
 void	handle_echo(char *str);
 void	handle_pwd(void);
+void	handle_export(t_shell *sh, char *str);
 
 // access
 bool	check_path(t_shell *sh, char **path, char *cmd);
@@ -62,4 +63,5 @@ char	*get_envp_name(char *str);
 int		get_len_matrix(char **matrix);
 void	free_arr(char **arr);
 void	print_marix(char **matrix);
+bool	check_existence_env(t_shell *sh, char *str);
 #endif
