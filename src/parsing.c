@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:12:41 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 14:27:33 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:35:23 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ int	parser_main(char *str, t_shell *sh)
 	i = 0;
 	sh->cmd_table = malloc(sizeof(char *) * count_args(str) + 1);
 	if (!sh->cmd_table)
-		return (1);
+		return (0);
 	sh->path_to_file_table = malloc(sizeof(char *) * count_args(str) + 1);
 	if (!sh->path_to_file_table)
-		return (free(sh->cmd_table), 1);
+		return (free(sh->cmd_table), 0);
 	tmp = ft_split(str, '|');
 	while (tmp[i] != NULL)
 	{
@@ -120,15 +120,7 @@ int	parser_main(char *str, t_shell *sh)
 	free_arr(tmp);
 	check_redirect_in(sh);
 	check_redirect_out(sh);
-	i = 0;
-	while (sh->cmd_table[i])
-	{
-		// printf("%s command    %d  i\n", sh->cmd_table[i], i);
-		if (access_check(sh, sh->cmd_table[i]) == 1)
-			perror("");
-		else
-			printf("%s\n", sh->path_to_file_table[i]);
-		i++;
-	}
+	if (check_cmd(sh) == false)
+		return (0);
 	return (1);
 }

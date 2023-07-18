@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 13:24:10 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:33:33 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
+# include <stdbool.h>
 # include <fcntl.h>
 
 typedef struct shell
@@ -40,11 +41,12 @@ int		parser_main(char *str, t_shell *sh);
 char	**cpy_envp(char **envp);
 
 //build in
-int		check_build_in(char *str);
+bool	check_build_in(char *str);
 
 // access
-int		check_path(t_shell *sh, char **path, char *cmd);
-int		access_check(t_shell *sh, char *arg);
+bool	check_path(t_shell *sh, char **path, char *cmd);
+bool	access_check(t_shell *sh, char *arg);
+bool	check_cmd(t_shell *sh);
 
 //utils
 t_shell	*shell_init(char **envp);
