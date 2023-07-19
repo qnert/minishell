@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 19:55:17 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:21:33 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ int		parser_main(char *str, t_shell *sh);
 int		count_args(char *str);
 
 //envp
+char	*get_envp_name(char *str);
 char	**cpy_envp(char **envp);
+void	erase_env_var(t_shell *sh, int index);
 
 //build in
 bool	check_build_in(char *str);
@@ -56,6 +58,7 @@ void	handle_build_in(t_shell *sh, char *str);
 void	handle_echo(char *str);
 void	handle_pwd(void);
 void	handle_export(t_shell *sh, char *str);
+void	handle_unset(t_shell *sh, char *str);
 
 // access
 bool	check_path(t_shell *sh, char **path, char *cmd);
@@ -73,7 +76,6 @@ int		exec_cmd(t_shell *sh);
 
 //utils
 t_shell	*shell_init(char **envp);
-char	*get_envp_name(char *str);
 int		get_len_matrix(char **matrix);
 void	free_arr(char **arr);
 void	terminate_struct(t_shell *sh);

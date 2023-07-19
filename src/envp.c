@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:25:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 15:33:38 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/19 13:56:26 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,33 @@ char	**cpy_envp(char **envp)
 	}
 	envp_cpy[i] = NULL;
 	return (envp_cpy);
+}
+
+void	change_env_vars(t_shell *sh, int index)
+{
+	free(sh->envp[index]);
+	printf("alles hochschieben\n");
+	while (sh->envp[index] != NULL)
+	{
+		if (sh->envp[index + 1] != NULL)
+		{
+			sh->envp[index] = ft_strdup(sh->envp[index + 1]);
+			free(sh->envp[index + 1]);
+		}
+		else
+			sh->envp[index] = NULL;
+		index++;
+	}
+}
+
+void	erase_env_var(t_shell *sh, int index)
+{
+	if (index == get_len_matrix(sh->envp) - 1)
+	{
+		printf("last env erase\n");
+		free(sh->envp[index]);
+		sh->envp[index] = NULL;
+		return ;
+	}
+	change_env_vars(sh, index);
 }
