@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:12:41 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 14:35:23 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:31:42 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ int	count_args(char *str)
 	counter = 1;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '|')
+		if ((str[i] == '|' && str[i - 1] != '|' && str[i + 1] != '|')
+			|| (str[i] == '|' && str[i + 1] == '|' && str[i - 1] != '|'))
+			counter++;
+		else if (str[i] == '&' && str[i + 1] == '&' && str[i - 1] != '&')
 			counter++;
 		i++;
 	}
@@ -110,7 +113,7 @@ int	parser_main(char *str, t_shell *sh)
 	sh->path_to_file_table = malloc(sizeof(char *) * count_args(str) + 1);
 	if (!sh->path_to_file_table)
 		return (free(sh->cmd_table), 0);
-	tmp = ft_split(str, '|');
+	tmp = check_operands(sh, str);
 	while (tmp[i] != NULL)
 	{
 		sh->cmd_table[i] = ft_strtrim(tmp[i], " ");
