@@ -1,43 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.c                                             :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 12:25:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 15:33:38 by skunert          ###   ########.fr       */
+/*   Created: 2023/07/18 14:55:34 by skunert           #+#    #+#             */
+/*   Updated: 2023/07/18 15:29:34 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_envp_name(char *str)
+int	exec_cmd(t_shell *sh)
 {
 	int	i;
 
 	i = 0;
-	while (str[i + 1] != '=')
-		i++;
-	return (ft_substr(str, 0, i + 1));
-}
-
-char	**cpy_envp(char **envp)
-{
-	int		i;
-	char	*str;
-	char	**envp_cpy;
-
-	i = 0;
-	envp_cpy = ft_calloc(get_len_matrix(envp) + 1, sizeof(char *));
-	while (envp[i] != NULL)
+	while (sh->cmd_table[i])
 	{
-		str = get_envp_name(envp[i]);
-		envp_cpy[i] = getenv(str);
-		str = ft_strjoin_free(str, "=");
-		envp_cpy[i] = ft_strjoin_free(str, envp_cpy[i]);
+		if (check_build_in(sh->cmd_table[i]) == true)
+			handle_build_in(sh, sh->cmd_table[i]);
 		i++;
 	}
-	envp_cpy[i] = NULL;
-	return (envp_cpy);
+	return (1);
 }

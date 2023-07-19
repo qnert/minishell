@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
 /*   Updated: 2023/07/18 19:55:17 by njantsch         ###   ########.fr       */
@@ -50,6 +50,12 @@ char	**cpy_envp(char **envp);
 
 //build in
 bool	check_build_in(char *str);
+void	handle_build_in(t_shell *sh, char *str);
+
+//build_in_cmds
+void	handle_echo(char *str);
+void	handle_pwd(void);
+void	handle_export(t_shell *sh, char *str);
 
 // access
 bool	check_path(t_shell *sh, char **path, char *cmd);
@@ -62,11 +68,16 @@ char	**split_commands(t_shell *sh, char *str);
 void	get_operands_location(t_shell *sh, char *str);
 char	**check_operands(t_shell *sh, char *str);
 
+//execute
+int		exec_cmd(t_shell *sh);
+
 //utils
 t_shell	*shell_init(char **envp);
 char	*get_envp_name(char *str);
 int		get_len_matrix(char **matrix);
 void	free_arr(char **arr);
 void	terminate_struct(t_shell *sh);
+void	print_marix(char **matrix);
+bool	check_existence_env(t_shell *sh, char *str);
 
 #endif

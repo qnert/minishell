@@ -35,7 +35,9 @@ void	shell_loop(t_shell *sh)
 		if (str[0] != '\0')
 		{
 			if (parser_main(str, sh) == 0)
-				return ;
+				printf("cmd not found\n");
+			else
+				exec_cmd(sh);
 			terminate_struct(sh);
 		}
 		str = readline("miniHell > ");

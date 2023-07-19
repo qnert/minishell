@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
 /*   Updated: 2023/07/19 12:27:07 by njantsch         ###   ########.fr       */
@@ -47,4 +47,39 @@ void	terminate_struct(t_shell *sh)
 		free(sh->ors_location);
 	free_arr(sh->path_to_file_table);
 	free_arr(sh->cmd_table);
+}
+
+void	print_marix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+	{
+		printf("%s\n", matrix[i]);
+		i++;
+	}
+}
+
+bool	check_existence_env(t_shell *sh, char *str)
+{
+	int		i;
+	int		start;
+	char	*tmp;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != '=')
+		i++;
+	if (str[i] == '\0')
+		return (printf("wrong args\n"), true);
+	tmp = ft_substr(str, 0, i);
+	start = i + 1;
+	i = 0;
+	while (sh->envp[i] && ft_strncmp(sh->envp[i], tmp, ft_strlen(tmp)))
+		i++;
+	if (sh->envp[i] == NULL)
+		return (false);
+	free(sh->envp[i]);
+	sh->envp[i] = ft_strdup(str);
+	return (true);
 }
