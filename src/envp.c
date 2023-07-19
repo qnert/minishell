@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:25:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/19 13:56:26 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/19 18:43:57 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	**cpy_envp(char **envp)
 void	change_env_vars(t_shell *sh, int index)
 {
 	free(sh->envp[index]);
-	printf("alles hochschieben\n");
 	while (sh->envp[index] != NULL)
 	{
 		if (sh->envp[index + 1] != NULL)

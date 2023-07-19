@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/19 12:47:20 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/19 19:04:32 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,7 @@ void	shell_loop(t_shell *sh)
 	{
 		if (str[0] != '\0')
 		{
-			if (parser_main(str, sh) == 0)
-				printf("cmd not found\n");
-			else
-				exec_cmd(sh);
-			terminate_struct(sh);
+			lexing(str);
 		}
 		str = readline("miniHell > ");
 	}

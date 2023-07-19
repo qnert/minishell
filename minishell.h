@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/19 13:21:33 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/19 18:45:20 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct shell
 
 //parsing
 int		parser_main(char *str, t_shell *sh);
-int		count_args(char *str);
 
 //envp
 char	*get_envp_name(char *str);
@@ -65,20 +64,10 @@ bool	check_path(t_shell *sh, char **path, char *cmd);
 bool	access_check(t_shell *sh, char *arg);
 bool	check_cmd(t_shell *sh);
 
-// operand_check
-char	**split_by_operators(char *str, char **new);
-char	**split_commands(t_shell *sh, char *str);
-void	get_operands_location(t_shell *sh, char *str);
-char	**check_operands(t_shell *sh, char *str);
-
-//execute
-int		exec_cmd(t_shell *sh);
-
 //utils
 t_shell	*shell_init(char **envp);
 int		get_len_matrix(char **matrix);
 void	free_arr(char **arr);
-void	terminate_struct(t_shell *sh);
 void	print_marix(char **matrix);
 bool	check_existence_env(t_shell *sh, char *str);
 
