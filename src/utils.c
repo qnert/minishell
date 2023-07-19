@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 14:11:17 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:27:07 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,16 @@ int	get_len_matrix(char **matrix)
 	while (matrix[len] != NULL)
 		len++;
 	return (len);
+}
+
+void	terminate_struct(t_shell *sh)
+{
+	if (sh->pipes > 0)
+		free(sh->pipes_location);
+	if (sh->ands > 0)
+		free(sh->ands_location);
+	if (sh->ors > 0)
+		free(sh->ors_location);
+	free_arr(sh->path_to_file_table);
+	free_arr(sh->cmd_table);
 }

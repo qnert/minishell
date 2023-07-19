@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/18 14:37:19 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:59:43 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,12 @@ bool	access_check(t_shell *sh, char *arg)
 bool	check_path(t_shell *sh, char **path, char *cmd)
 {
 	int			i;
-	static int	j;
 	char		*cmd_path;
 
 	i = 0;
 	if (access(cmd, F_OK | X_OK) == 0)
 	{
-		sh->path_to_file_table[j++] = ft_strdup(cmd);
+		sh->path_to_file_table[sh->index++] = ft_strdup(cmd);
 		return (true);
 	}
 	while (path && path[i])
@@ -52,7 +51,7 @@ bool	check_path(t_shell *sh, char **path, char *cmd)
 		cmd_path = ft_strjoin_free(cmd_path, cmd);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
-			sh->path_to_file_table[j++] = ft_strdup(cmd_path);
+			sh->path_to_file_table[sh->index++] = ft_strdup(cmd_path);
 			return (free(cmd_path), true);
 		}
 		free(cmd_path);
@@ -66,14 +65,19 @@ bool	check_cmd(t_shell *sh)
 	int	i;
 
 	i = 0;
+	sh->index = 0;
 	while (sh->cmd_table[i])
 	{
 		if (access_check(sh, sh->cmd_table[i]) == false)
 		{
 			if (check_build_in(sh->cmd_table[i]) == false)
+			{
+				sh->path_to_file_table[sh->index] = NULL;
 				return (false);
+			}
 		}
 		i++;
 	}
+	sh->path_to_file_table[sh->index] = NULL;
 	return (true);
 }
