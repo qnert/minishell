@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/18 17:55:03 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/19 14:21:29 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,32 @@ void	handle_export(t_shell *sh, char *str)
 		sh->envp[len] = ft_strdup(&str[i]);
 		sh->envp[len + 1] = NULL;
 	}
+}
+
+void	handle_unset(t_shell *sh, char *str)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	if (sh == NULL)
+		return ;
+	while (str[i] && (str[i] != 32 && str[i] != 9))
+		i++;
+	while (str[i] && (str[i] == 32 || str[i] == 9))
+		i++;
+	tmp = ft_substr(str, i, ft_strlen(str) - i);
+	tmp = ft_strjoin_free(tmp, "=");
+	i = 0;
+	while (sh->envp && sh->envp[i]
+		&& ft_strncmp(sh->envp[i], tmp, ft_strlen(tmp)))
+		i++;
+	if (!sh->envp || sh->envp[i] == NULL)
+	{
+		printf("nix zu tun\n");
+		free(tmp);
+		return ;
+	}
+	printf("was zu tun\n");
+	erase_env_var(sh, i);
 }
