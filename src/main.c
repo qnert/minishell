@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/19 19:04:32 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/20 16:14:57 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,33 @@ void	free_arr(char **arr)
 	free(arr);
 }
 
+void	print_list(t_lexer *lst)
+{
+	t_lexer	*curr;
+
+	curr = lst;
+	while (curr)
+	{
+		if (curr->str)
+			printf("%s\n", curr->str);
+		curr = curr->next;
+	}
+}
+
 void	shell_loop(t_shell *sh)
 {
 	char	*str;
 
+	if (sh == NULL)
+		return ;
 	str = readline("miniHell > ");
 	while (str != NULL)
 	{
 		if (str[0] != '\0')
-		{
-			lexing(str);
-		}
+			lexer(sh, str);
+		if (sh->token_list != NULL && sh->token_list->str != NULL)
+			print_list(sh->token_list);
+		terminate_struct(sh);
 		str = readline("miniHell > ");
 	}
 	free(str);

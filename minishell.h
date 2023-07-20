@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/19 18:45:20 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/20 15:17:20 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,36 @@
 
 typedef struct shell
 {
-	int		index;
-	int		fd_in;
-	int		fd_out;
-	char	*infile;
-	char	*outfile;
-	char	*sterr;
-	char	**envp;
-	char	**cmd_table;
-	char	**path_to_file_table;
-	int		pipes;
-	int		ands;
-	int		ors;
-	int		*pipes_location;
-	int		*ands_location;
-	int		*ors_location;
+	int				index;
+	int				fd_in;
+	int				fd_out;
+	char			*infile;
+	char			*outfile;
+	char			*sterr;
+	char			**envp;
+	char			**cmd_table;
+	char			**path_to_file_table;
+	struct lexer	*token_list;
 }	t_shell;
+
+typedef struct lexer
+{
+	char				*str;
+	int					token;
+	struct lexer		*next;
+}	t_lexer;
+
+typedef enum tokens
+{
+	PIPE = 1,
+	GREAT,
+	GREAT_GREAT,
+	LESS,
+	LESS_LESS,
+}	t_tokens;
+
+//lexer
+void	lexer(t_shell *sh, char *str);
 
 //parsing
 int		parser_main(char *str, t_shell *sh);
@@ -69,6 +83,11 @@ t_shell	*shell_init(char **envp);
 int		get_len_matrix(char **matrix);
 void	free_arr(char **arr);
 void	print_marix(char **matrix);
+void	terminate_struct(t_shell *sh);
 bool	check_existence_env(t_shell *sh, char *str);
+
+//lst_utils
+int		lst_add_new(t_lexer *lst, char *str, int token);
+void	free_lst(t_lexer *lst);
 
 #endif
