@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:55:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/20 16:14:47 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/20 18:17:22 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	check_pipe(t_shell *sh, char *str, int i)
 			sh->token_list->next = NULL;
 		}
 		else
-			lst_add_new(sh->token_list, "|", PIPE);
+			lst_add_new(sh->token_list, ft_strdup("|"), PIPE);
 	}
 }
 
@@ -47,7 +47,7 @@ void	check_redirect_plus(t_shell *sh, char *str, int i)
 			sh->token_list->next = NULL;
 		}
 		else
-			lst_add_new(sh->token_list, "<<", LESS_LESS);
+			lst_add_new(sh->token_list, ft_strdup("<<"), LESS_LESS);
 	}
 	if (str[i] == '>' && str[i + 1] == '>')
 	{
@@ -59,7 +59,7 @@ void	check_redirect_plus(t_shell *sh, char *str, int i)
 			sh->token_list->next = NULL;
 		}
 		else
-			lst_add_new(sh->token_list, ">>", GREAT_GREAT);
+			lst_add_new(sh->token_list, ft_strdup(">>"), GREAT_GREAT);
 	}
 }
 
@@ -75,7 +75,7 @@ void	check_redirect(t_shell *sh, char *str, int i)
 			sh->token_list->next = NULL;
 		}
 		else
-			lst_add_new(sh->token_list, "<", LESS);
+			lst_add_new(sh->token_list, ft_strdup("<"), LESS);
 	}
 	if (str[i] == '>' && str[i + 1] != '>' && str[i - 1] != '>')
 	{
@@ -87,12 +87,12 @@ void	check_redirect(t_shell *sh, char *str, int i)
 			sh->token_list->next = NULL;
 		}
 		else
-			lst_add_new(sh->token_list, ">", GREAT);
+			lst_add_new(sh->token_list, ft_strdup(">"), GREAT);
 	}
 	check_redirect_plus(sh, str, i);
 }
 
-void	lexer(t_shell *sh, char *str)
+bool	lexer(t_shell *sh, char *str)
 {
 	int	i;
 
@@ -103,6 +103,8 @@ void	lexer(t_shell *sh, char *str)
 			break ;
 		check_pipe(sh, str, i);
 		check_redirect(sh, str, i);
+		i = check_words(sh, str, i);
 		i++;
 	}
+	return (true);
 }

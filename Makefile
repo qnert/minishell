@@ -3,7 +3,8 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
 
 SRCS = ./src/main.c ./src/build_in.c ./src/utils.c ./src/envp.c \
-		./src/access.c ./src/lexer.c ./src/build_in_cmd.c ./src/lst_utils.c\
+		./src/access.c ./src/lexer.c ./src/build_in_cmd.c ./src/lst_utils.c \
+		./src/lexer2.c
 
 OBJS = $(SRCS:.c=.o)
 

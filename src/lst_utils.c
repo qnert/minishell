@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:19:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/20 15:10:23 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/20 16:38:18 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	lst_add_new(t_lexer *lst, char *str, int token)
 	new_node = malloc(sizeof(t_lexer));
 	if (new_node == NULL)
 		return (-1);
-	new_node->str = ft_strdup(str);
+	new_node->str = str;
 	new_node->token = token;
 	new_node->next = NULL;
 	while (curr->next != NULL)

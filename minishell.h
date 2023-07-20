@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/20 15:17:20 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/20 18:13:45 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ typedef enum tokens
 }	t_tokens;
 
 //lexer
-void	lexer(t_shell *sh, char *str);
+bool	lexer(t_shell *sh, char *str);
+
+//lexer2
+int		check_words(t_shell *sh, char *str, int i);
+bool	is_whitespace(char c);
 
 //parsing
 int		parser_main(char *str, t_shell *sh);
