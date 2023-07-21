@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 15:17:00 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:57:31 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ void	shell_loop(t_shell *sh)
 		if (str[0] != '\0')
 		{
 			add_history(str);
-			if (lexer(sh, str) == false)
-				terminate_struct(sh);
-			if (parser_main(sh) == false)
+			if (lexer(sh, str) == false || parser_main(sh) == false)
 			{
 				printf("false\n");
 				terminate_struct(sh);
@@ -67,7 +65,7 @@ void	shell_loop(t_shell *sh)
 		}
 		str = readline("miniHell > ");
 	}
-	clear_history();
+	rl_clear_history();
 	free(str);
 	return ;
 }
