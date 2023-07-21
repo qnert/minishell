@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I $(shell brew --prefix readline)/include
 NAME = minishell
 
 SRCS = ./src/main.c ./src/build_in.c ./src/utils.c ./src/envp.c \
@@ -11,8 +11,8 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	cd libs && make
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline ./libs/libs.a
+	$(MAKE) -C libs
+	$(CC) -o $(NAME) $(OBJS) -lreadline -L $(shell brew --prefix readline)/lib ./libs/libs.a
 
 clean:
 	cd libs && make fclean
