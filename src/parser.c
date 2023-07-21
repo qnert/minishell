@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/21 15:09:57 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:18:32 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ bool	check_list(t_shell *sh)
 			pipe++;
 		if ((curr->token == 4 || curr->token == 5) && pipe != 0)
 			return (false);
-		if (curr->next && curr->token == curr->next->token)
+		if (curr->next && curr->token > 0 && curr->token < 6
+			&& curr->token == curr->next->token)
 			return (false);
 		curr = curr->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:55:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 14:48:52 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:16:23 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ bool	lexer(t_shell *sh, char *str)
 			break ;
 		check_pipe(sh, str, i);
 		check_redirect(sh, str, i);
+		i = check_words(sh, str, i);
 		i = check_single_quotes(sh, str, i);
 		if (i == -1)
 			return (false);
 		i = check_double_quotes(sh, str, i);
 		if (i == -1)
 			return (false);
-		i = check_words(sh, str, i);
 		i++;
 	}
 	return (true);
