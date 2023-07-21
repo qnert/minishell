@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:55:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/20 18:17:22 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 12:51:10 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	check_redirect(t_shell *sh, char *str, int i)
 	check_redirect_plus(sh, str, i);
 }
 
-bool	lexer(t_shell *sh, char *str)
+void	lexer(t_shell *sh, char *str)
 {
 	int	i;
 
@@ -106,5 +106,4 @@ bool	lexer(t_shell *sh, char *str)
 		i = check_words(sh, str, i);
 		i++;
 	}
-	return (true);
 }

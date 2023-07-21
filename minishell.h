@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/20 18:13:45 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 12:51:18 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef enum tokens
 }	t_tokens;
 
 //lexer
-bool	lexer(t_shell *sh, char *str);
+void	lexer(t_shell *sh, char *str);
 
 //lexer2
 int		check_words(t_shell *sh, char *str, int i);
