@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 16:36:49 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/21 17:32:53 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,13 @@ void	terminate_struct(t_shell *sh)
 	free_lst(sh->token_list);
 	sh->token_list = NULL;
 	if (sh->infile != NULL)
+	{
 		free(sh->infile);
+		sh->infile = NULL;
+	}
 	if (sh->here_doc_delim != NULL)
+	{
 		free(sh->here_doc_delim);
+		sh->here_doc_delim = NULL;
+	}
 }
