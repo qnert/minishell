@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:19:26 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/20 18:30:14 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 12:21:05 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ int	check_words(t_shell *sh, char *str, int i)
 	int	start;
 
 	start = i;
-	if (str[i] != '-' && ft_isalnum(str[i]) == 0)
+	if (is_whitespace(str[i]) == true)
 		return (i);
-	while ((str[i] == '-' || ft_isalpha(str[i]) == 1) && str[i])
+	while (is_whitespace(str[i]) == false && str[i])
 		i++;
+	i--;
 	if (sh->token_list == NULL)
 	{
 		sh->token_list = malloc(sizeof(t_lexer));
