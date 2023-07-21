@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 17:33:01 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/21 19:46:16 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,17 @@ void	shell_loop(t_shell *sh)
 			else
 				printf("true\n");
 		}
-		if (sh->infile != NULL)
-			printf("infile: %s\n", sh->infile);
-		if (sh->here_doc_delim != NULL)
-			printf("here_doc_delim: %s\n", sh->here_doc_delim);
+		if (sh->infiles != NULL)
+		{
+			printf("infile: %s\n", sh->infiles->file_name);
+			if (sh->infiles->delim != NULL)
+				printf("delim: %s\n", sh->infiles->delim);
+		}
 		if (sh->token_list != NULL && sh->token_list->str != NULL)
 		{
 			print_list(sh->token_list);
 			terminate_struct(sh);
 		}
-		return ;
 		str = readline("miniHell > ");
 	}
 	rl_clear_history();

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 17:32:53 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/21 19:44:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,9 @@ t_shell	*shell_init(char **envp)
 	t_shell	*sh;
 
 	sh = malloc(sizeof(t_shell));
-	sh->fd_in = -2;
-	sh->fd_out = -2;
-	sh->infile = NULL;
-	sh->outfile = NULL;
+	sh->infiles = NULL;
+	sh->outfiles = NULL;
 	sh->sterr = NULL;
-	sh->here_doc_delim = NULL;
 	sh->envp = cpy_envp(envp);
 	sh->cmd_table = NULL;
 	sh->token_list = NULL;
@@ -74,16 +71,9 @@ bool	check_existence_env(t_shell *sh, char *str)
 
 void	terminate_struct(t_shell *sh)
 {
-	free_lst(sh->token_list);
+	free_lst_lexer(sh->token_list);
 	sh->token_list = NULL;
-	if (sh->infile != NULL)
-	{
-		free(sh->infile);
-		sh->infile = NULL;
-	}
-	if (sh->here_doc_delim != NULL)
-	{
-		free(sh->here_doc_delim);
-		sh->here_doc_delim = NULL;
-	}
+	if (sh->infiles != NULL)
+		free_lst_files(sh->infiles);
+	sh->infiles = NULL;
 }
