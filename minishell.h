@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 12:51:18 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 14:33:03 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,22 @@ typedef enum tokens
 	GREAT_GREAT,
 	LESS,
 	LESS_LESS,
+	SINGLE,
+	DOUBLE,
 }	t_tokens;
 
 //lexer
-void	lexer(t_shell *sh, char *str);
+bool	lexer(t_shell *sh, char *str);
 
 //lexer2
 int		check_words(t_shell *sh, char *str, int i);
 bool	is_whitespace(char c);
+int		check_single_quotes(t_shell *sh, char *str, int i);
+int		check_double_quotes(t_shell *sh, char *str, int i);
 
 //parsing
-int		parser_main(char *str, t_shell *sh);
+bool	parser_main(t_shell *sh);
+bool	check_list(t_shell *sh);
 
 //envp
 char	*get_envp_name(char *str);

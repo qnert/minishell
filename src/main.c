@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/20 18:19:24 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:08:06 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,18 @@ void	shell_loop(t_shell *sh)
 	while (str != NULL)
 	{
 		if (str[0] != '\0')
+		{
+			add_history(str);
 			if (lexer(sh, str) == false)
 				terminate_struct(sh);
+			if (parser_main(sh) == false)
+			{
+				printf("false\n");
+				terminate_struct(sh);
+			}
+			else
+				printf("true\n");
+		}
 		if (sh->token_list != NULL && sh->token_list->str != NULL)
 		{
 			print_list(sh->token_list);
@@ -57,6 +67,7 @@ void	shell_loop(t_shell *sh)
 		}
 		str = readline("miniHell > ");
 	}
+	clear_history();
 	free(str);
 	return ;
 }
