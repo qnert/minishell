@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/20 18:19:24 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 12:53:46 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void	shell_loop(t_shell *sh)
 	while (str != NULL)
 	{
 		if (str[0] != '\0')
-			if (lexer(sh, str) == false)
-				terminate_struct(sh);
+			lexer(sh, str);
 		if (sh->token_list != NULL && sh->token_list->str != NULL)
 		{
 			print_list(sh->token_list);
