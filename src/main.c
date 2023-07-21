@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 15:17:00 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:55:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ void	shell_loop(t_shell *sh)
 		if (str[0] != '\0')
 		{
 			add_history(str);
-			if (lexer(sh, str) == false)
-				terminate_struct(sh);
-			if (parser_main(sh) == false)
+			if (lexer(sh, str) == false || parser_main(sh) == false)
 			{
 				printf("false\n");
 				terminate_struct(sh);
@@ -77,7 +75,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell	*sh;
 
 	sh = NULL;
-	if (argc != 1 && argv == NULL)
+	if (argc != 1 || argv == NULL)
 	{
 		printf("Wrong amount of arguments!\n");
 		return (-1);

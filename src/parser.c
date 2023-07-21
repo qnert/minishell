@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/21 15:18:32 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:57:11 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,30 @@ bool	check_list(t_shell *sh)
 	return (true);
 }
 
+void	get_in_out_file(t_shell *sh)
+{
+	t_lexer	*curr;
+
+	curr = sh->token_list;
+	while (curr)
+	{
+		if (curr->token == 4)
+			sh->infile = ft_strdup(curr->next->str);
+		if (curr->token == 5)
+		{
+			sh->infile = ft_strdup("here_doc");
+			sh->here_doc_delim = ft_strdup(curr->next->str);
+		}
+		curr = curr->next;
+	}
+}
+
 bool	parser_main(t_shell *sh)
 {
 	if (sh->token_list == NULL)
 		return (true);
 	if (check_list(sh) == false)
 		return (false);
+	get_in_out_file(sh);
 	return (true);
 }

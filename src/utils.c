@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/20 15:24:59 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/21 16:36:49 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_shell	*shell_init(char **envp)
 	sh->infile = NULL;
 	sh->outfile = NULL;
 	sh->sterr = NULL;
+	sh->here_doc_delim = NULL;
 	sh->envp = cpy_envp(envp);
 	sh->cmd_table = NULL;
 	sh->token_list = NULL;
@@ -75,4 +76,8 @@ void	terminate_struct(t_shell *sh)
 {
 	free_lst(sh->token_list);
 	sh->token_list = NULL;
+	if (sh->infile != NULL)
+		free(sh->infile);
+	if (sh->here_doc_delim != NULL)
+		free(sh->here_doc_delim);
 }
