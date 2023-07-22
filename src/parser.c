@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/22 12:28:00 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/22 12:51:16 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ bool	check_list(t_shell *sh)
 			return (false);
 		if (curr->next && curr->token > 0 && curr->token < 6
 			&& curr->token == curr->next->token)
+			return (false);
+		if (curr->next && curr->token > 3 && curr->token < 6
+			&& (curr->token - 1 == curr->next->token
+				|| curr->token == curr->next->token - 1))
+			return (false);
+		if (curr->next && curr->token > 1 && curr->token < 4
+			&& (curr->token - 1 == curr->next->token
+				|| curr->token == curr->next->token - 1))
+			return (false);
+		if (curr->token > 1 && curr->token < 6 && curr->next->token == 1)
 			return (false);
 		curr = curr->next;
 	}
