@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/22 14:28:42 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 16:08:13 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	table_init(t_shell *sh)
 
 	i = -1;
 	curr = sh->token_list;
-	sh->cmd_table = malloc(sizeof(char *) * sh->pipes + 2);
+	sh->cmd_table = malloc(sizeof(char *) * (sh->pipes + 2));
 	while (curr)
 	{
 		if (curr->token == 1)
@@ -35,7 +35,7 @@ void	table_init(t_shell *sh)
 		}
 		else if (curr->token == 0 && sh->check == 1)
 			sh->cmd_table[i] = ft_strjoin_free(
-					ft_strjoin_free(sh->cmd_table[i], " "), curr->str);
+					ft_strjoin(sh->cmd_table[i], " "), curr->str);
 		curr = curr->next;
 	}
 	sh->cmd_table[++i] = NULL;

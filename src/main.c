@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 14:20:26 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 16:08:46 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,12 @@ void	shell_loop(t_shell *sh)
 		// 		unlink(sh->infiles->file_name);
 		// 	}
 		// }
-		if (sh->token_list != NULL && sh->token_list->str != NULL)
-		{
-			print_list(sh->token_list);
-			terminate_struct(sh);
-		}
+		// if (sh->token_list != NULL && sh->token_list->str != NULL)
+		// {
+		// 	print_list(sh->token_list);
+		// 	terminate_struct(sh);
+		// }
+		terminate_struct(sh);
 		str = readline("miniHell > ");
 	}
 	rl_clear_history();
