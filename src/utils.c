@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 14:26:41 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 14:32:20 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	print_marix(char **matrix)
 	int	i;
 
 	i = 0;
-	while (matrix[i])
+	while (matrix && matrix[i])
 	{
 		printf("%s\n", matrix[i]);
 		i++;
@@ -80,4 +80,6 @@ void	terminate_struct(t_shell *sh)
 	sh->infiles = NULL;
 	sh->pipes = 0;
 	free_arr(sh->cmd_table);
+	sh->cmd_table = NULL;
+	sh->check = 0;
 }
