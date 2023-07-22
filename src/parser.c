@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/22 14:28:42 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 16:09:41 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	table_init(t_shell *sh)
 
 	i = -1;
 	curr = sh->token_list;
-	sh->cmd_table = malloc(sizeof(char *) * sh->pipes + 2);
+	sh->cmd_table = malloc(sizeof(char *) * (sh->pipes + 2));
 	while (curr)
 	{
 		if (curr->token == 1)
