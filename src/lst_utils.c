@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:19:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 12:32:06 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/22 17:39:31 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	lst_add_new(t_lexer *lst, char *str, int token)
 	return (1);
 }
 
-void	lst_add_new_infile(t_files *lst, char *str, char *delim, int pipe)
+void	lst_add_new_file(t_files *lst, char *str, char *delim, int pipe)
 {
 	t_files	*curr;
 	t_files	*new_node;

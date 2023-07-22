@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/22 16:08:13 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 17:44:23 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	get_infile(t_shell *sh)
 				sh->infiles->next = NULL;
 			}
 			else
-				lst_add_new_infile(sh->infiles, curr->next->str,
+				lst_add_new_file(sh->infiles, curr->next->str,
 					NULL, sh->pipes);
 		}
 		curr = curr->next;
@@ -121,7 +121,7 @@ void	get_here_doc(t_shell *sh)
 				sh->infiles->next = NULL;
 			}
 			else
-				lst_add_new_infile(sh->infiles, NULL, curr->next->str, pipe);
+				lst_add_new_file(sh->infiles, NULL, curr->next->str, pipe);
 		}
 		curr = curr->next;
 	}
@@ -134,6 +134,7 @@ bool	parser_main(t_shell *sh)
 	if (check_list(sh) == false)
 		return (false);
 	get_infile(sh);
+	get_outfile(sh);
 	get_here_doc(sh);
 	table_init(sh);
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 14:26:31 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 17:39:13 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ int		check_double_quotes(t_shell *sh, char *str, int i);
 bool	parser_main(t_shell *sh);
 bool	check_list(t_shell *sh);
 
+//parsing2
+void	get_outfile(t_shell *sh);
+
 //envp
 char	*get_envp_name(char *str);
 char	**cpy_envp(char **envp);
@@ -110,7 +113,7 @@ int		ft_infile_check(char *filepath);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
-void	lst_add_new_infile(t_files *infiles, char *str, char *delim, int pipe);
+void	lst_add_new_file(t_files *infiles, char *str, char *delim, int pipe);
 void	free_lst_lexer(t_lexer *lst);
 void	free_lst_files(t_files *lst);
 

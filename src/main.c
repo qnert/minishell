@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 16:08:46 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 17:42:28 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,22 @@ void	shell_loop(t_shell *sh)
 		}
 		printf("amount of pipes: %d\n", sh->pipes);
 		print_marix(sh->cmd_table);
-		// if (sh->infiles != NULL)
-		// {
-		// 	printf("infile: %s\n", sh->infiles->file_name);
-		// 	printf("fd: %d\n", sh->infiles->fd);
-		// 	if (sh->infiles->delim != NULL)
-		// 	{
-		// 		printf("delim: %s\n", sh->infiles->delim);
-		// 		unlink(sh->infiles->file_name);
-		// 	}
-		// }
+		if (sh->outfiles != NULL)
+		{
+			printf("outfile: %s\n", sh->outfiles->file_name);
+			printf("fd: %d\n", sh->outfiles->fd);
+			// if (sh->infiles->delim != NULL)
+			// {
+			// 	printf("delim: %s\n", sh->infiles->delim);
+			// 	unlink(sh->infiles->file_name);
+			// }
+		}
 		// if (sh->token_list != NULL && sh->token_list->str != NULL)
 		// {
 		// 	print_list(sh->token_list);
 		// 	terminate_struct(sh);
 		// }
+
 		terminate_struct(sh);
 		str = readline("miniHell > ");
 	}
