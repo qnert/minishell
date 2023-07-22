@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 14:33:03 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:22:14 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,13 @@
 typedef struct shell
 {
 	int				index;
-	int				fd_in;
-	int				fd_out;
-	char			*infile;
-	char			*outfile;
 	char			*sterr;
 	char			**envp;
 	char			**cmd_table;
 	char			**path_to_file_table;
 	struct lexer	*token_list;
+	struct files	*infiles;
+	struct files	*outfiles;
 }	t_shell;
 
 typedef struct lexer
@@ -42,6 +40,15 @@ typedef struct lexer
 	int					token;
 	struct lexer		*next;
 }	t_lexer;
+
+typedef struct files
+{
+	char			*file_name;
+	char			*delim;
+	int				fd;
+	int				pos;
+	struct files	*next;
+}	t_files;
 
 typedef enum tokens
 {
@@ -97,6 +104,8 @@ bool	check_existence_env(t_shell *sh, char *str);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
-void	free_lst(t_lexer *lst);
+void	lst_add_new_infile(t_files *infiles, char *str, char *delim, int pipe);
+void	free_lst_lexer(t_lexer *lst);
+void	free_lst_files(t_files *lst);
 
 #endif

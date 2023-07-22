@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 16:57:31 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:49:55 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ void	shell_loop(t_shell *sh)
 			else
 				printf("true\n");
 		}
+		if (sh->infiles != NULL)
+		{
+			printf("infile: %s\n", sh->infiles->file_name);
+			if (sh->infiles->delim != NULL)
+				printf("delim: %s\n", sh->infiles->delim);
+		}
 		if (sh->token_list != NULL && sh->token_list->str != NULL)
 		{
 			print_list(sh->token_list);
@@ -75,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell	*sh;
 
 	sh = NULL;
-	if (argc != 1 && argv == NULL)
+	if (argc != 1 || argv == NULL)
 	{
 		printf("Wrong amount of arguments!\n");
 		return (-1);
