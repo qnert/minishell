@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 17:40:52 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:50:49 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,9 @@ void	terminate_struct(t_shell *sh)
 {
 	free_lst_lexer(sh->token_list);
 	sh->token_list = NULL;
-	if (sh->infiles != NULL)
-		free_lst_files(sh->infiles);
+	free_lst_files(sh->infiles);
 	sh->infiles = NULL;
-	if (sh->outfiles != NULL)
-		free_lst_files(sh->outfiles);
+	free_lst_files(sh->outfiles);
 	sh->outfiles = NULL;
 	sh->pipes = 0;
 	free_arr(sh->cmd_table);

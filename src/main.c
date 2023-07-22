@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 18:05:45 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:56:54 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,10 @@ void	shell_loop(t_shell *sh)
 		if (str[0] != '\0')
 		{
 			add_history(str);
-			if (lexer(sh, str) == false || parser_main(sh) == false)
-			{
+			if (lexer(sh, str) == false)
 				printf("false\n");
-				terminate_struct(sh);
-			}
+			else if (parser_main(sh) == false)
+				printf("false\n");
 			else
 				printf("true\n");
 		}
