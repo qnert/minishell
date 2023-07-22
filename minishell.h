@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 19:22:14 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/22 12:22:07 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,10 @@ void	free_arr(char **arr);
 void	print_marix(char **matrix);
 void	terminate_struct(t_shell *sh);
 bool	check_existence_env(t_shell *sh, char *str);
+
+//utils2
+int		ft_outfile_check(char *filepath);
+int		ft_infile_check(char *filepath);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);

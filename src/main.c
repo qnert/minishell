@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 19:46:16 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/22 12:32:30 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,12 @@ void	shell_loop(t_shell *sh)
 		if (sh->infiles != NULL)
 		{
 			printf("infile: %s\n", sh->infiles->file_name);
+			printf("fd: %d\n", sh->infiles->fd);
 			if (sh->infiles->delim != NULL)
+			{
 				printf("delim: %s\n", sh->infiles->delim);
+				unlink(sh->infiles->file_name);
+			}
 		}
 		if (sh->token_list != NULL && sh->token_list->str != NULL)
 		{
