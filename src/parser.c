@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/22 17:44:23 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:05:54 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	table_init(t_shell *sh)
 		}
 		else if (curr->token == 0 && sh->check == 1)
 			sh->cmd_table[i] = ft_strjoin_free(
-					ft_strjoin(sh->cmd_table[i], " "), curr->str);
+					ft_strjoin_free(sh->cmd_table[i], " "), curr->str);
 		curr = curr->next;
 	}
 	sh->cmd_table[++i] = NULL;
@@ -91,7 +91,7 @@ void	get_infile(t_shell *sh)
 				sh->infiles->next = NULL;
 			}
 			else
-				lst_add_new_file(sh->infiles, curr->next->str,
+				lst_add_new_infile(sh->infiles, curr->next->str,
 					NULL, sh->pipes);
 		}
 		curr = curr->next;
@@ -109,7 +109,7 @@ void	get_here_doc(t_shell *sh)
 	{
 		if (curr->token == PIPE)
 			pipe++;
-		if (curr->token == 5)
+		if (curr->token == LESS_LESS)
 		{
 			if (sh->infiles == NULL)
 			{
@@ -121,7 +121,7 @@ void	get_here_doc(t_shell *sh)
 				sh->infiles->next = NULL;
 			}
 			else
-				lst_add_new_file(sh->infiles, NULL, curr->next->str, pipe);
+				lst_add_new_infile(sh->infiles, NULL, curr->next->str, pipe);
 		}
 		curr = curr->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:19:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 17:39:31 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:00:26 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	lst_add_new(t_lexer *lst, char *str, int token)
 	return (1);
 }
 
-void	lst_add_new_file(t_files *lst, char *str, char *delim, int pipe)
+void	lst_add_new_infile(t_files *lst, char *str, char *delim, int pipe)
 {
 	t_files	*curr;
 	t_files	*new_node;
@@ -51,6 +51,26 @@ void	lst_add_new_file(t_files *lst, char *str, char *delim, int pipe)
 		new_node->fd = ft_outfile_check(new_node->file_name);
 	else
 		new_node->fd = ft_infile_check(new_node->file_name);
+	new_node->pos = pipe;
+	new_node->next = NULL;
+	curr->next = new_node;
+}
+
+void	lst_add_new_outfile(t_files *lst, char *str, int token, int pipe)
+{
+	t_files	*curr;
+	t_files	*new_node;
+
+	curr = lst;
+	new_node = malloc(sizeof(t_files));
+	while (curr->next)
+		curr = curr->next;
+	new_node->file_name = ft_strdup(str);
+	new_node->delim = NULL;
+	if (token == 2)
+		new_node->fd = ft_outfile_check(new_node->file_name);
+	else if (token == 3)
+		new_node->fd = ft_outfile_append_check(new_node->file_name);
 	new_node->pos = pipe;
 	new_node->next = NULL;
 	curr->next = new_node;

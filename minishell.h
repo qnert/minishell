@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 17:39:13 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:01:36 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,12 @@ bool	check_existence_env(t_shell *sh, char *str);
 //utils2
 int		ft_outfile_check(char *filepath);
 int		ft_infile_check(char *filepath);
+int		ft_outfile_append_check(char *filepath);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
-void	lst_add_new_file(t_files *infiles, char *str, char *delim, int pipe);
+void	lst_add_new_infile(t_files *infiles, char *str, char *delim, int pipe);
+void	lst_add_new_outfile(t_files *lst, char *str, int token, int pipe);
 void	free_lst_lexer(t_lexer *lst);
 void	free_lst_files(t_files *lst);
 
