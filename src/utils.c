@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 19:44:02 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/22 14:26:41 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_shell	*shell_init(char **envp)
 	t_shell	*sh;
 
 	sh = malloc(sizeof(t_shell));
+	sh->check = 0;
+	sh->pipes = 0;
 	sh->infiles = NULL;
 	sh->outfiles = NULL;
 	sh->sterr = NULL;
@@ -76,4 +78,6 @@ void	terminate_struct(t_shell *sh)
 	if (sh->infiles != NULL)
 		free_lst_files(sh->infiles);
 	sh->infiles = NULL;
+	sh->pipes = 0;
+	free_arr(sh->cmd_table);
 }

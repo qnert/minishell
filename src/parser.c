@@ -6,11 +6,40 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/22 13:00:52 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/22 14:28:42 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	table_init(t_shell *sh)
+{
+	t_lexer	*curr;
+	int		i;
+
+	i = -1;
+	curr = sh->token_list;
+	sh->cmd_table = malloc(sizeof(char *) * sh->pipes + 2);
+	while (curr)
+	{
+		if (curr->token == 1)
+			sh->check = 0;
+		if (curr->token > 1 && curr->token < 6)
+			curr = curr->next->next;
+		if (!curr)
+			break ;
+		if (curr->token == 0 && sh->check == 0)
+		{
+			sh->cmd_table[++i] = ft_strdup(curr->str);
+			sh->check = 1;
+		}
+		else if (curr->token == 0 && sh->check == 1)
+			sh->cmd_table[i] = ft_strjoin_free(
+					ft_strjoin_free(sh->cmd_table[i], " "), curr->str);
+		curr = curr->next;
+	}
+	sh->cmd_table[++i] = NULL;
+}
 
 bool	check_list(t_shell *sh)
 {
@@ -43,15 +72,13 @@ bool	check_list(t_shell *sh)
 
 void	get_infile(t_shell *sh)
 {
-	int		pipe;
 	t_lexer	*curr;
 
-	pipe = 0;
 	curr = sh->token_list;
 	while (curr)
 	{
 		if (curr->token == PIPE)
-			pipe++;
+			sh->pipes++;
 		if (curr->token == 4)
 		{
 			if (sh->infiles == NULL)
@@ -60,11 +87,12 @@ void	get_infile(t_shell *sh)
 				sh->infiles->file_name = ft_strdup(curr->next->str);
 				sh->infiles->delim = NULL;
 				sh->infiles->fd = ft_infile_check(sh->infiles->file_name);
-				sh->infiles->pos = pipe;
+				sh->infiles->pos = sh->pipes;
 				sh->infiles->next = NULL;
 			}
 			else
-				lst_add_new_infile(sh->infiles, curr->next->str, NULL, pipe);
+				lst_add_new_infile(sh->infiles, curr->next->str,
+					NULL, sh->pipes);
 		}
 		curr = curr->next;
 	}
@@ -107,5 +135,6 @@ bool	parser_main(t_shell *sh)
 		return (false);
 	get_infile(sh);
 	get_here_doc(sh);
+	table_init(sh);
 	return (true);
 }
