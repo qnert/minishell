@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 12:22:07 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/22 13:11:26 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 typedef struct shell
 {
 	int				index;
+	int				pipes;
 	char			*sterr;
 	char			**envp;
 	char			**cmd_table;

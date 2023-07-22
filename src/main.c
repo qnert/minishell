@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 12:32:30 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/22 13:12:37 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	shell_loop(t_shell *sh)
 			else
 				printf("true\n");
 		}
+		printf("amount of pipes: %d\n", sh->pipes);
 		if (sh->infiles != NULL)
 		{
 			printf("infile: %s\n", sh->infiles->file_name);
