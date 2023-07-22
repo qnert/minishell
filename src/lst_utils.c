@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:19:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/21 19:45:36 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/22 12:32:06 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,18 @@ void	lst_add_new_infile(t_files *lst, char *str, char *delim, int pipe)
 	new_node = malloc(sizeof(t_files));
 	while (curr->next)
 		curr = curr->next;
-	new_node->file_name = ft_strdup(str);
+	if (str == NULL)
+		new_node->file_name = ft_strdup("here_doc");
+	else
+		new_node->file_name = ft_strdup(str);
 	if (delim != NULL)
 		new_node->delim = ft_strdup(delim);
 	else
 		new_node->delim = NULL;
-	new_node->fd = open(new_node->file_name, O_RDONLY, 0644);
+	if (new_node->delim != NULL)
+		new_node->fd = ft_outfile_check(new_node->file_name);
+	else
+		new_node->fd = ft_infile_check(new_node->file_name);
 	new_node->pos = pipe;
 	new_node->next = NULL;
 	curr->next = new_node;
