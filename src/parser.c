@@ -138,5 +138,7 @@ bool	parser_main(t_shell *sh)
 	get_outfile(sh);
 	get_here_doc(sh);
 	table_init(sh);
+	sh->path_to_file_table = malloc(sizeof(char *)
+			* (get_len_matrix(sh->cmd_table) + 1));
 	return (true);
 }

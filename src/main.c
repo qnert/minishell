@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
 /*   Updated: 2023/07/24 18:44:48 by skunert          ###   ########.fr       */
@@ -55,7 +55,7 @@ void	shell_loop(t_shell *sh)
 			else if (parser_main(sh) == false)
 				printf("false\n");
 			else
-				printf("true\n");
+				execute_main(sh);
 		}
 		// printf("amount of pipes: %d\n", sh->pipes);
 		// print_marix(sh->cmd_table);

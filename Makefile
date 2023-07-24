@@ -4,7 +4,8 @@ NAME = minishell
 
 SRCS = ./src/main.c ./src/build_in.c ./src/utils.c ./src/envp.c \
 		./src/access.c ./src/lexer.c ./src/build_in_cmd.c ./src/lst_utils.c \
-		./src/lexer2.c ./src/parser.c ./src/utils2.c ./src/parser2.c
+		./src/lexer2.c ./src/parser.c ./src/utils2.c ./src/parser2.c \
+		./src/execute.c
 
 OBJS = $(SRCS:.c=.o)
 
