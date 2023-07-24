@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:21:29 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 18:05:22 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/24 15:56:51 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,51 @@ int	ft_infile_check(char *filepath)
 	if (fd < 0)
 		return (perror("Error"), -1);
 	return (fd);
+}
+
+void	change_str_to_env(t_shell *sh, char *str, t_lexer *curr)
+{
+	int	i;
+	int	j;
+	int	start;
+
+	i = 0;
+	j = 0;
+	while (sh->envp && sh->envp[i]
+		&& strncmp(sh->envp[i], str, ft_strlen(str)) != 0)
+		i++;
+	if (sh->envp[i] == NULL)
+	{
+		free(curr->str);
+		curr->str = ft_strdup("");
+		return ;
+	}
+	while (sh->envp && sh->envp[i] && sh->envp[i][j] != '=')
+		j++;
+	j++;
+	start = j;
+	free(curr->str);
+	curr->str = ft_substr(sh->envp[i], start, ft_strlen(sh->envp[i]) - start);
+}
+
+void	get_expand(t_shell *sh, char *tmp, t_lexer *curr)
+{
+	int		i;
+	int		j;
+	char	*ret_str;
+
+	i = 0;
+	j = 0;
+	while (tmp[i] && tmp[i] != '$')
+		i++;
+	if (tmp[i] == '$' && tmp[i + 1] == '\0')
+		return ;
+	while (tmp[i + j] && (tmp[i + j] != 32
+			|| (tmp[i + j] >= 9 && tmp[i + j] <= 13)))
+		j++;
+	ret_str = ft_substr(tmp, i + 1, j);
+	ret_str = ft_strjoin_free(ret_str, "=");
+	change_str_to_env(sh, ret_str, curr);
+	free(ret_str);
+	return ;
 }

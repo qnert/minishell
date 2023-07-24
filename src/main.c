@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/24 18:48:21 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:44:48 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	shell_loop(t_shell *sh)
 				execute_main(sh);
 		}
 		// printf("amount of pipes: %d\n", sh->pipes);
+		// print_marix(sh->cmd_table);
 		// if (sh->outfiles != NULL)
 		// {
 		// 	printf("outfile: %s\n", sh->outfiles->file_name);
@@ -67,7 +68,6 @@ void	shell_loop(t_shell *sh)
 			// 	printf("delim: %s\n", sh->infiles->delim);
 			// 	unlink(sh->infiles->file_name);
 			// }
-		// }
 		// if (sh->token_list != NULL && sh->token_list->str != NULL)
 		// {
 		// 	print_list(sh->token_list);

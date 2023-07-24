@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/19 14:21:29 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/24 15:58:23 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	handle_echo(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != ' ' && str[i] != 9)
+	while (str[i] && str[i] != ' ' && str[i] != 9)
 		i++;
-	while (str[i] == ' ' || str[i] == 9)
+	while (str[i] && (str[i] == ' ' || str[i] == 9))
 		i++;
 	if (str[i] != '\0' && str[i + 1] != '\0'
 		&& (str[i] == '-' && str[i + 1] == 'n'))
@@ -88,10 +88,8 @@ void	handle_unset(t_shell *sh, char *str)
 		i++;
 	if (!sh->envp || sh->envp[i] == NULL)
 	{
-		printf("nix zu tun\n");
 		free(tmp);
 		return ;
 	}
-	printf("was zu tun\n");
 	erase_env_var(sh, i);
 }
