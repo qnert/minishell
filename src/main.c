@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/24 17:41:21 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:48:21 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,10 @@ void	shell_loop(t_shell *sh)
 		if (str[0] != '\0')
 		{
 			add_history(str);
-			if (lexer(sh, str) == false || parser_main(sh) == false)
-			{
+			if (lexer(sh, str) == false)
 				printf("false\n");
-				terminate_struct(sh);
-			}
+			else if (parser_main(sh) == false)
+				printf("false\n");
 			else
 				execute_main(sh);
 		}

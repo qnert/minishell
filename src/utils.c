@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/24 18:46:59 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:48:57 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,9 @@ void	terminate_struct(t_shell *sh)
 {
 	free_lst_lexer(sh->token_list);
 	sh->token_list = NULL;
-	printf("before infiles\n");
-	if (sh->infiles != NULL)
-		free_lst_files(sh->infiles);
+	free_lst_files(sh->infiles);
 	sh->infiles = NULL;
-	printf("before outfiles\n");
-	if (sh->outfiles != NULL)
-		free_lst_files(sh->outfiles);
+	free_lst_files(sh->outfiles);
 	sh->outfiles = NULL;
 	printf("after outfiles\n");
 	sh->pipes = 0;
