@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:19:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 18:00:26 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:41:24 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,13 @@ void	free_lst_files(t_files *lst)
 	curr = lst;
 	while (curr != NULL)
 	{
-		free(curr->file_name);
+		printf("before file_name\n");
+		if (curr->file_name)
+			free(curr->file_name);
+		printf("after file_name\n");
 		if (curr->delim != NULL)
 			free(curr->delim);
+		printf("after delim\n");
 		if (curr->fd != -1)
 			close(curr->fd);
 		curr = curr->next;

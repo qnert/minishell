@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 18:01:36 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:46:11 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 typedef struct shell
 {
+	int				status;
 	int				check;
 	int				index;
 	int				pipes;
@@ -103,7 +104,7 @@ bool	check_cmd(t_shell *sh);
 t_shell	*shell_init(char **envp);
 int		get_len_matrix(char **matrix);
 void	free_arr(char **arr);
-void	print_marix(char **matrix);
+void	print_matrix(char **matrix);
 void	terminate_struct(t_shell *sh);
 bool	check_existence_env(t_shell *sh, char *str);
 
@@ -118,5 +119,10 @@ void	lst_add_new_infile(t_files *infiles, char *str, char *delim, int pipe);
 void	lst_add_new_outfile(t_files *lst, char *str, int token, int pipe);
 void	free_lst_lexer(t_lexer *lst);
 void	free_lst_files(t_files *lst);
+
+//execute
+void	execute_main(t_shell *sh);
+void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile);
+void	which_dup(t_files *infile, t_files *outfile);
 
 #endif

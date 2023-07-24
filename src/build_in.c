@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/19 13:05:44 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/24 18:46:30 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	handle_build_in(t_shell *sh, char *str)
 	if (ft_strncmp(str, "exit", 4) == 0)
 		exit (0);
 	if (ft_strncmp(str, "env", 3) == 0)
-		print_marix(sh->envp);
+		print_matrix(sh->envp);
 	if (ft_strncmp(str, "pwd", 3) == 0)
 		handle_pwd();
 	if (ft_strncmp(str, "export", 6) == 0)

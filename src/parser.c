@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/22 18:05:54 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:45:06 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,7 @@ bool	parser_main(t_shell *sh)
 	get_outfile(sh);
 	get_here_doc(sh);
 	table_init(sh);
+	sh->path_to_file_table = malloc(sizeof(char *)
+			* (get_len_matrix(sh->cmd_table) + 1));
 	return (true);
 }
