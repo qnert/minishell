@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/22 18:01:36 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:45:14 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ bool	check_list(t_shell *sh);
 
 //parsing2
 void	get_outfile(t_shell *sh);
+void	expander(t_shell *sh);
+void	check_and_write_here_doc(t_files *infiles);
 
 //envp
 char	*get_envp_name(char *str);
@@ -111,6 +113,7 @@ bool	check_existence_env(t_shell *sh, char *str);
 int		ft_outfile_check(char *filepath);
 int		ft_infile_check(char *filepath);
 int		ft_outfile_append_check(char *filepath);
+void	get_expand(t_shell *sh, char *tmp, t_lexer *curr);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
