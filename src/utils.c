@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/24 18:48:57 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:59:13 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,10 @@ void	terminate_struct(t_shell *sh)
 	sh->infiles = NULL;
 	free_lst_files(sh->outfiles);
 	sh->outfiles = NULL;
-	printf("after outfiles\n");
 	sh->pipes = 0;
 	free_arr(sh->cmd_table);
+	free_arr(sh->path_to_file_table);
+	sh->path_to_file_table = NULL;
 	sh->cmd_table = NULL;
 	sh->check = 0;
 }
