@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 12:05:13 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 12:19:37 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ void	handle_built_in(t_shell *sh, char *str)
 		handle_export(sh, str);
 	if (ft_strncmp(str, "unset", 5) == 0)
 		handle_unset(sh, str);
+	exit(EXIT_SUCCESS);
 }

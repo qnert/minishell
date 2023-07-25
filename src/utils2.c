@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:21:29 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/24 15:56:51 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 12:22:31 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_outfile_check(char *filepath)
 	return (fd);
 }
 
-int	ft_outfile_append_check(char *filepath)
+int	outfile_check_app(char *filepath)
 {
 	int	fd;
 	int	fd_err;
@@ -47,7 +47,7 @@ int	ft_outfile_append_check(char *filepath)
 			return (-1);
 		}
 	}
-	fd = open(filepath, O_RDWR | O_APPEND, 0644);
+	fd = open(filepath, O_RDWR | O_APPEND);
 	if (fd < 0)
 	{
 		fd_err = open(filepath, O_RDWR | O_CREAT, 0644);

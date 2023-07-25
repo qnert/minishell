@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 12:03:53 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 12:30:10 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 	infile = sh->infiles;
 	while (sh->cmd_table[i] || infile || outfile)
 	{
-		if (check_built_in(sh->cmd_table[i]) == true)
-			return (handle_built_in(sh, sh->cmd_table[i]));
 		pid2 = fork();
 		if (pid2 == 0)
 		{
 			which_dup(infile, outfile);
+			if (check_built_in(sh->cmd_table[i]) == true)
+				handle_built_in(sh, sh->cmd_table[i]);
 			if (infile == NULL || infile->fd > 0)
 				execve(sh->path_to_file_table[i],
 					ft_split(sh->cmd_table[i], ' '), sh->envp);
