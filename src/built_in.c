@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 12:11:30 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/25 13:19:57 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,24 @@ bool	check_built_in(char *str)
 	if (ft_strncmp(str, "env", 3) == 0)
 		return (true);
 	return (false);
+}
+
+void	check_exit(t_shell *sh)
+{
+	int	i;
+
+	i = 0;
+	while (sh->cmd_table[i])
+	{
+		if (ft_strncmp(sh->cmd_table[i], "exit", 4) == 0)
+		{
+			terminate_struct(sh);
+			free_arr(sh->envp);
+			free(sh);
+			exit (EXIT_SUCCESS);
+		}
+		i++;
+	}
 }
 
 void	handle_built_in(t_shell *sh, char *str)

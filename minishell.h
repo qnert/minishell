@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 11:13:12 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 13:30:46 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ bool	check_list(t_shell *sh);
 void	get_outfile(t_shell *sh);
 void	expander(t_shell *sh);
 void	check_and_write_here_doc(t_files *infiles);
+void	get_outfile_append(t_shell *sh);
 
 //envp
 char	*get_envp_name(char *str);
@@ -97,6 +98,7 @@ void	handle_pwd(void);
 void	handle_export(t_shell *sh, char *str);
 void	handle_unset(t_shell *sh, char *str);
 void	handle_cd(char *str);
+void	check_exit(t_shell *sh);
 
 // access
 bool	check_path(t_shell *sh, char **path, char *cmd);
@@ -114,7 +116,7 @@ bool	check_existence_env(t_shell *sh, char *str);
 //utils2
 int		ft_outfile_check(char *filepath);
 int		ft_infile_check(char *filepath);
-int		ft_outfile_append_check(char *filepath);
+int		outfile_check_app(char *filepath);
 void	get_expand(t_shell *sh, char *tmp, t_lexer *curr);
 
 //lst_utils
@@ -128,5 +130,6 @@ void	free_lst_files(t_files *lst);
 void	execute_main(t_shell *sh);
 void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile);
 void	which_dup(t_files *infile, t_files *outfile);
+void	execute_cmd(t_shell *sh, t_files *infile, int i);
 
 #endif
