@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 13:33:36 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:32:12 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,15 @@ void	execute_cmd(t_shell *sh, t_files *infile, int i)
 	char	**tmp;
 
 	tmp = NULL;
-	if (check_built_in(sh->cmd_table[i]) == true)
+	if (check_built_in_child(sh->cmd_table[i]) == true)
+	{
 		handle_built_in(sh, sh->cmd_table[i]);
+		terminate_struct(sh);
+		free_arr(tmp);
+		free_arr(sh->envp);
+		free(sh);
+		exit(EXIT_SUCCESS);
+	}
 	if (infile == NULL || infile->fd > 0)
 	{
 		tmp = ft_split(sh->cmd_table[i], ' ');
@@ -41,7 +48,7 @@ void	execute_cmd(t_shell *sh, t_files *infile, int i)
 	free_arr(tmp);
 	free_arr(sh->envp);
 	free(sh);
-	exit(EXIT_SUCCESS);
+	exit(1);
 }
 
 void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
@@ -54,6 +61,8 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 	infile = sh->infiles;
 	while (sh->cmd_table[i] || infile || outfile)
 	{
+		if (check_built_in_main(sh->cmd_table[i]) == true)
+			return (handle_built_in(sh, sh->cmd_table[i]));
 		pid2 = fork();
 		if (pid2 == 0)
 		{
