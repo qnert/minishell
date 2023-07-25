@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 12:32:22 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:58:31 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ void	table_init(t_shell *sh)
 	{
 		if (curr->token == 1)
 			sh->check = 0;
-		if (curr->token > 1 && curr->token < 6)
+		while (curr->token > 1 && curr->token < 6)
 			curr = curr->next->next;
 		if (!curr)
 			break ;
-		if (curr->token == 0 && sh->check == 0)
+		if (check_word_token(curr->token) && sh->check == 0)
 		{
 			sh->cmd_table[++i] = ft_strdup(curr->str);
 			sh->check = 1;
 		}
-		else if (curr->token == 0 && sh->check == 1)
+		else if (check_word_token(curr->token) && sh->check == 1)
 			sh->cmd_table[i] = ft_strjoin_free(
 					ft_strjoin_free(sh->cmd_table[i], " "), curr->str);
 		curr = curr->next;

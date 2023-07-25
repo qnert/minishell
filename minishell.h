@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 13:48:27 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:58:06 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,10 @@ int		ft_infile_check(char *filepath);
 int		outfile_check_app(char *filepath);
 void	get_expand(t_shell *sh, char *tmp, t_lexer *curr);
 
+//utils3.c
+int		list_len(t_files *files);
+bool	check_word_token(int token);
+
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
 void	lst_add_new_infile(t_files *infiles, char *str, char *delim, int pipe);
@@ -131,6 +135,6 @@ void	free_lst_files(t_files *lst);
 void	execute_main(t_shell *sh);
 void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile);
 void	which_dup(t_files *infile, t_files *outfile);
-void	execute_cmd(t_shell *sh, t_files *infile, int i);
+void	execute_cmd(t_shell *sh, t_files *infile);
 
 #endif

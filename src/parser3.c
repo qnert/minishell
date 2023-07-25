@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 12:28:07 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 16:38:04 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	expander(t_shell *sh)
 	curr = sh->token_list;
 	while (curr)
 	{
-		if (ft_strchr(curr->str, '$') != 0)
+		if ((curr->token == 0 || curr->token == 7)
+			&& ft_strchr(curr->str, '$') != 0)
 			get_expand(sh, curr->str, curr);
 		curr = curr->next;
 	}

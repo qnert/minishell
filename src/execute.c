@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 14:32:12 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:54:53 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	which_dup(t_files *infile, t_files *outfile)
 	}
 }
 
-void	execute_cmd(t_shell *sh, t_files *infile, int i)
+void	execute_cmd(t_shell *sh, t_files *infile)
 {
 	char	**tmp;
 
 	tmp = NULL;
-	if (check_built_in_child(sh->cmd_table[i]) == true)
+	if (check_built_in_child(sh->cmd_table[0]) == true)
 	{
-		handle_built_in(sh, sh->cmd_table[i]);
+		handle_built_in(sh, sh->cmd_table[0]);
 		terminate_struct(sh);
 		free_arr(tmp);
 		free_arr(sh->envp);
@@ -40,8 +40,8 @@ void	execute_cmd(t_shell *sh, t_files *infile, int i)
 	}
 	if (infile == NULL || infile->fd > 0)
 	{
-		tmp = ft_split(sh->cmd_table[i], ' ');
-		execve(sh->path_to_file_table[i], tmp, sh->envp);
+		tmp = ft_split(sh->cmd_table[0], ' ');
+		execve(sh->path_to_file_table[0], tmp, sh->envp);
 	}
 	perror("execve");
 	terminate_struct(sh);
@@ -59,22 +59,22 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 	i = 0;
 	outfile = sh->outfiles;
 	infile = sh->infiles;
-	while (sh->cmd_table[i] || infile || outfile)
+	while (i < list_len(sh->infiles))
 	{
-		if (check_built_in_main(sh->cmd_table[i]) == true)
-			return (handle_built_in(sh, sh->cmd_table[i]));
+		if (check_built_in_main(sh->cmd_table[0]) == true)
+			return (handle_built_in(sh, sh->cmd_table[0]));
 		pid2 = fork();
 		if (pid2 == 0)
 		{
 			which_dup(infile, outfile);
-			execute_cmd(sh, infile, i);
+			execute_cmd(sh, infile);
 		}
 		waitpid(pid2, &sh->status, 0);
-		i++;
 		if (infile)
 			infile = infile->next;
 		if (outfile)
 			outfile = outfile->next;
+		i++;
 	}
 }
 
