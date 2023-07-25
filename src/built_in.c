@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 13:59:26 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:21:52 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	check_exit(t_shell *sh)
 	i = 0;
 	while (sh->cmd_table[i])
 	{
-		printf("%s\n", sh->cmd_table[i]);
 		if (ft_strncmp(sh->cmd_table[i], "exit", 4) == 0)
 		{
 			terminate_struct(sh);
