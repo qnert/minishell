@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 17:27:51 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/24 17:10:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 10:42:34 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,8 @@ void	get_outfile(t_shell *sh)
 
 void	expander(t_shell *sh)
 {
-	int		i;
 	t_lexer	*curr;
 
-	i = 0;
 	curr = sh->token_list;
 	while (curr)
 	{
