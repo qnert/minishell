@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 17:13:32 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 18:55:32 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,12 @@ bool	check_list(t_shell *sh);
 
 //parsing2
 void	get_outfile(t_shell *sh);
-void	expander(t_shell *sh);
-void	check_and_write_here_doc(t_files *infiles);
 void	get_outfile_append(t_shell *sh);
+
+//parsing3
+void	expander(t_shell *sh);
+t_lexer	*check_correct_infile(t_lexer *lst);
+void	check_and_write_here_doc(t_files *infiles);
 
 //envp
 char	*get_envp_name(char *str);

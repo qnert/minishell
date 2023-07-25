@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 18:01:42 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 18:53:57 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,29 @@ void	check_and_write_here_doc(t_files *infiles)
 			read_till_limiter(curr);
 		curr = curr->next;
 	}
+}
+
+t_lexer	*check_correct_infile(t_lexer *lst)
+{
+	t_lexer	*curr;
+	int		word_count;
+	int		infile_count;
+
+	curr = lst;
+	word_count = 0;
+	infile_count = 0;
+	while (curr)
+	{
+		if (curr->token == LESS)
+			infile_count++;
+		if (curr->token == 0)
+			word_count++;
+		curr = curr->next;
+	}
+	if (infile_count == word_count)
+		return (NULL);
+	curr = lst;
+	while (curr->token > 1 && curr->token < 6 && curr->next->next)
+		curr = curr->next->next;
+	return (curr);
 }
