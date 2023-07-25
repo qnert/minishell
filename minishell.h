@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/24 18:45:14 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 11:12:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	handle_echo(char *str);
 void	handle_pwd(void);
 void	handle_export(t_shell *sh, char *str);
 void	handle_unset(t_shell *sh, char *str);
+void	handle_cd(char *str);
 
 // access
 bool	check_path(t_shell *sh, char **path, char *cmd);

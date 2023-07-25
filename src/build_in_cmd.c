@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/24 15:58:23 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 11:11:59 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,18 @@ void	handle_unset(t_shell *sh, char *str)
 		return ;
 	}
 	erase_env_var(sh, i);
+}
+
+void	handle_cd(char *str)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (str[i] && (str[i] < 9 || str[i] > 13) && str[i] != 32)
+		i++;
+	tmp = ft_substr(str, i + 1, ft_strlen(str) - i);
+	if (chdir(tmp) != 0)
+		perror("cd: ");
+	free(tmp);
 }

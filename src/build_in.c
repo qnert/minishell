@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 10:42:49 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 11:12:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ bool	check_build_in(char *str)
 
 void	handle_build_in(t_shell *sh, char *str)
 {
+	if (ft_strncmp(str, "cd", 2) == 0)
+		handle_cd(str);
 	if (ft_strncmp(str, "echo", 4) == 0)
 		handle_echo(str);
 	if (ft_strncmp(str, "exit", 4) == 0)
