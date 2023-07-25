@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:49:35 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 16:57:55 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 17:15:23 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ int	list_len(t_files *files)
 	int		i;
 	t_files	*curr;
 
-	if (files == NULL)
-		i = 1;
-	else
-		i = 0;
+	i = 0;
 	curr = files;
 	while (curr)
 	{
@@ -39,4 +36,16 @@ bool	check_word_token(int token)
 	if (token == 7)
 		return (true);
 	return (false);
+}
+
+t_files	*ft_lstlast_files(t_files *lst)
+{
+	t_files	*curr_pos;
+
+	curr_pos = lst;
+	while (curr_pos != NULL && curr_pos->next != NULL)
+	{
+		curr_pos = curr_pos->next;
+	}
+	return (curr_pos);
 }

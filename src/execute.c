@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 16:54:53 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 18:01:59 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 	pid_t	pid2;
 
 	i = 0;
-	outfile = sh->outfiles;
-	infile = sh->infiles;
-	while (i < list_len(sh->infiles))
+	outfile = ft_lstlast_files(sh->outfiles);
+	infile = ft_lstlast_files(sh->infiles);
+	while (sh->cmd_table[i])
 	{
-		if (check_built_in_main(sh->cmd_table[0]) == true)
-			return (handle_built_in(sh, sh->cmd_table[0]));
+		if (check_built_in_main(sh->cmd_table[i]) == true)
+			return (handle_built_in(sh, sh->cmd_table[i]));
 		pid2 = fork();
 		if (pid2 == 0)
 		{
@@ -70,10 +70,6 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 			execute_cmd(sh, infile);
 		}
 		waitpid(pid2, &sh->status, 0);
-		if (infile)
-			infile = infile->next;
-		if (outfile)
-			outfile = outfile->next;
 		i++;
 	}
 }

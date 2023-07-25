@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 16:58:06 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 17:13:32 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	get_expand(t_shell *sh, char *tmp, t_lexer *curr);
 //utils3.c
 int		list_len(t_files *files);
 bool	check_word_token(int token);
+t_files	*ft_lstlast_files(t_files *lst);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);

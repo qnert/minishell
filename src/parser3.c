@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 16:38:04 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 18:01:42 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	read_till_limiter(t_files *curr)
 {
 	char	*line;
 
-	printf("Eingabe erreicht\n");
-	printf("file descirptor: %d\n", curr->fd);
 	line = get_next_line(STDIN_FILENO);
 	while (ft_strncmp(line, curr->delim, ft_strlen(curr->delim)) != 0)
 	{
@@ -40,8 +38,8 @@ void	read_till_limiter(t_files *curr)
 		line = get_next_line(STDIN_FILENO);
 	}
 	free(line);
-	printf("read finished\n");
-	printf("file descirptor: %d\n", curr->fd);
+	close(curr->fd);
+	curr->fd = open(curr->file_name, O_RDONLY);
 }
 
 void	check_and_write_here_doc(t_files *infiles)
