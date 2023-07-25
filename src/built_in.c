@@ -6,27 +6,32 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 13:19:57 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/25 13:59:26 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-bool	check_built_in(char *str)
+bool	check_built_in_child(char *str)
 {
 	if (ft_strncmp(str, "echo", 4) == 0)
 		return (true);
 	if (ft_strncmp(str, "exit", 4) == 0)
 		return (true);
-	if (ft_strncmp(str, "cd", 2) == 0)
-		return (true);
 	if (ft_strncmp(str, "pwd", 3) == 0)
+		return (true);
+	if (ft_strncmp(str, "env", 3) == 0)
+		return (true);
+	return (false);
+}
+
+bool	check_built_in_main(char *str)
+{
+	if (ft_strncmp(str, "cd", 2) == 0)
 		return (true);
 	if (ft_strncmp(str, "export", 6) == 0)
 		return (true);
 	if (ft_strncmp(str, "unset", 5) == 0)
-		return (true);
-	if (ft_strncmp(str, "env", 3) == 0)
 		return (true);
 	return (false);
 }
@@ -38,6 +43,7 @@ void	check_exit(t_shell *sh)
 	i = 0;
 	while (sh->cmd_table[i])
 	{
+		printf("%s\n", sh->cmd_table[i]);
 		if (ft_strncmp(sh->cmd_table[i], "exit", 4) == 0)
 		{
 			terminate_struct(sh);
@@ -70,5 +76,4 @@ void	handle_built_in(t_shell *sh, char *str)
 		handle_export(sh, str);
 	if (ft_strncmp(str, "unset", 5) == 0)
 		handle_unset(sh, str);
-	exit(EXIT_SUCCESS);
 }

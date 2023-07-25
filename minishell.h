@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 13:30:46 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/25 13:48:27 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ char	**cpy_envp(char **envp);
 void	erase_env_var(t_shell *sh, int index);
 
 //built in
-bool	check_built_in(char *str);
+bool	check_built_in_child(char *str);
+bool	check_built_in_main(char *str);
 void	handle_built_in(t_shell *sh, char *str);
 
 //built_in_cmds
