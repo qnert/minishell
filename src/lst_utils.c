@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:19:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/24 18:53:11 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:23:08 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void	lst_add_new_outfile(t_files *lst, char *str, int token, int pipe)
 		curr = curr->next;
 	new_node->file_name = ft_strdup(str);
 	new_node->delim = NULL;
-	if (token == 2)
+	if (token == GREAT)
 		new_node->fd = ft_outfile_check(new_node->file_name);
-	else if (token == 3)
-		new_node->fd = ft_outfile_append_check(new_node->file_name);
+	else if (token == GREAT_GREAT)
+		new_node->fd = outfile_check_app(new_node->file_name);
 	new_node->pos = pipe;
 	new_node->next = NULL;
 	curr->next = new_node;
