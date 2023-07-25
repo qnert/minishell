@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_in.c                                         :+:      :+:    :+:   */
+/*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 11:12:09 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 11:12:59 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-bool	check_build_in(char *str)
+bool	check_built_in(char *str)
 {
 	if (ft_strncmp(str, "echo", 4) == 0)
 		return (true);
@@ -31,7 +31,7 @@ bool	check_build_in(char *str)
 	return (false);
 }
 
-void	handle_build_in(t_shell *sh, char *str)
+void	handle_built_in(t_shell *sh, char *str)
 {
 	if (ft_strncmp(str, "cd", 2) == 0)
 		handle_cd(str);

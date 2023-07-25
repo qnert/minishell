@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 11:12:02 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 11:13:12 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ char	*get_envp_name(char *str);
 char	**cpy_envp(char **envp);
 void	erase_env_var(t_shell *sh, int index);
 
-//build in
-bool	check_build_in(char *str);
-void	handle_build_in(t_shell *sh, char *str);
+//built in
+bool	check_built_in(char *str);
+void	handle_built_in(t_shell *sh, char *str);
 
-//build_in_cmds
+//built_in_cmds
 void	handle_echo(char *str);
 void	handle_pwd(void);
 void	handle_export(t_shell *sh, char *str);

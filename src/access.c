@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   access.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/24 18:06:44 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:13:46 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ bool	check_cmd(t_shell *sh)
 	{
 		if (access_check(sh, sh->cmd_table[i]) == false)
 		{
-			if (check_build_in(sh->cmd_table[i]) == false)
+			if (check_built_in(sh->cmd_table[i]) == false)
 			{
 				sh->path_to_file_table[sh->index] = NULL;
 				return (false);

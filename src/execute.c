@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/24 18:32:52 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:14:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 	infile = sh->infiles;
 	while (sh->cmd_table[i] || infile || outfile)
 	{
-		if (check_build_in(sh->cmd_table[i]) == true)
-			return (handle_build_in(sh, sh->cmd_table[i]));
+		if (check_built_in(sh->cmd_table[i]) == true)
+			return (handle_built_in(sh, sh->cmd_table[i]));
 		pid2 = fork();
 		if (pid2 == 0)
 		{
