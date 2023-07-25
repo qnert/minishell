@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 12:30:10 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 13:33:36 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,26 @@ void	which_dup(t_files *infile, t_files *outfile)
 	}
 }
 
+void	execute_cmd(t_shell *sh, t_files *infile, int i)
+{
+	char	**tmp;
+
+	tmp = NULL;
+	if (check_built_in(sh->cmd_table[i]) == true)
+		handle_built_in(sh, sh->cmd_table[i]);
+	if (infile == NULL || infile->fd > 0)
+	{
+		tmp = ft_split(sh->cmd_table[i], ' ');
+		execve(sh->path_to_file_table[i], tmp, sh->envp);
+	}
+	perror("execve");
+	terminate_struct(sh);
+	free_arr(tmp);
+	free_arr(sh->envp);
+	free(sh);
+	exit(EXIT_SUCCESS);
+}
+
 void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 {
 	int		i;
@@ -38,11 +58,7 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 		if (pid2 == 0)
 		{
 			which_dup(infile, outfile);
-			if (check_built_in(sh->cmd_table[i]) == true)
-				handle_built_in(sh, sh->cmd_table[i]);
-			if (infile == NULL || infile->fd > 0)
-				execve(sh->path_to_file_table[i],
-					ft_split(sh->cmd_table[i], ' '), sh->envp);
+			execute_cmd(sh, infile, i);
 		}
 		waitpid(pid2, &sh->status, 0);
 		i++;
@@ -62,5 +78,8 @@ void	execute_main(t_shell *sh)
 	infile = NULL;
 	check_cmd(sh);
 	if (sh->pipes == 0)
+	{
 		execute_no_pipes(sh, infile, outfile);
+		check_exit(sh);
+	}
 }

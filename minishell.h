@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 12:17:29 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 13:30:46 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	handle_pwd(void);
 void	handle_export(t_shell *sh, char *str);
 void	handle_unset(t_shell *sh, char *str);
 void	handle_cd(char *str);
+void	check_exit(t_shell *sh);
 
 // access
 bool	check_path(t_shell *sh, char **path, char *cmd);
@@ -129,5 +130,6 @@ void	free_lst_files(t_files *lst);
 void	execute_main(t_shell *sh);
 void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile);
 void	which_dup(t_files *infile, t_files *outfile);
+void	execute_cmd(t_shell *sh, t_files *infile, int i);
 
 #endif
