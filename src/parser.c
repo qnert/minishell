@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/26 16:36:13 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:00:09 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	table_init(t_shell *sh)
 		}
 		else if (check_word_token(curr->token) && sh->check == 1)
 			sh->cmd_table[i] = ft_strjoin_free(
-					ft_strjoin_free(sh->cmd_table[i], ":"), curr->str);
+					ft_strjoin_free(sh->cmd_table[i], "\1"), curr->str);
 		curr = curr->next;
 	}
 	sh->cmd_table[++i] = NULL;
