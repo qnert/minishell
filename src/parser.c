@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/26 15:50:03 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/26 15:50:34 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,17 @@ void	table_init(t_shell *sh)
 	{
 		if (curr->token == 1)
 			sh->check = 0;
-		if (curr->token > 1 && curr->token < 6)
-			curr = curr->next->next;
+		curr = check_correct_infile(curr);
 		if (!curr)
 			break ;
-		if (curr->token == 0 && sh->check == 0)
+		if (check_word_token(curr->token) && sh->check == 0)
 		{
 			sh->cmd_table[++i] = ft_strdup(curr->str);
 			sh->check = 1;
 		}
-		else if (curr->token == 0 && sh->check == 1)
+		else if (check_word_token(curr->token) && sh->check == 1)
 			sh->cmd_table[i] = ft_strjoin_free(
-					ft_strjoin_free(sh->cmd_table[i], " "), curr->str);
+					ft_strjoin_free(sh->cmd_table[i], ":"), curr->str);
 		curr = curr->next;
 	}
 	sh->cmd_table[++i] = NULL;
@@ -137,6 +136,7 @@ bool	parser_main(t_shell *sh)
 	get_infile(sh);
 	get_outfile(sh);
 	get_here_doc(sh);
+	check_and_write_here_doc(sh->infiles);
 	get_outfile_append(sh);
 	table_init(sh);
 	sh->path_to_file_table = malloc(sizeof(char *)

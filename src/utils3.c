@@ -1,20 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/23 08:31:38 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 17:13:57 by skunert          ###   ########.fr       */
+/*   Created: 2023/07/25 16:49:35 by skunert           #+#    #+#             */
+/*   Updated: 2023/07/26 14:25:19 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-t_list	*ft_lstlast(t_list *lst)
+int	list_len(t_files *files)
 {
-	t_list	*curr_pos;
+	int		i;
+	t_files	*curr;
+
+	i = 0;
+	curr = files;
+	while (curr)
+	{
+		i++;
+		curr = curr->next;
+	}
+	return (i);
+}
+
+bool	check_word_token(int token)
+{
+	if (token == 0)
+		return (true);
+	if (token == 6)
+		return (true);
+	if (token == 7)
+		return (true);
+	return (false);
+}
+
+t_files	*ft_lstlast_files(t_files *lst)
+{
+	t_files	*curr_pos;
 
 	curr_pos = lst;
 	while (curr_pos != NULL && curr_pos->next != NULL)

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 12:30:10 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/26 14:35:46 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,53 @@ void	which_dup(t_files *infile, t_files *outfile)
 	}
 }
 
+void	execute_cmd(t_shell *sh, t_files *infile)
+{
+	char	**tmp;
+
+	tmp = NULL;
+	if (check_built_in_child(sh->cmd_table[0]) == true)
+	{
+		handle_built_in(sh, sh->cmd_table[0]);
+		terminate_struct(sh);
+		free_arr(tmp);
+		free_arr(sh->envp);
+		free(sh);
+		exit(EXIT_SUCCESS);
+	}
+	if (infile == NULL || infile->fd > 0)
+	{
+		tmp = ft_split(sh->cmd_table[0], ':');
+		execve(sh->path_to_file_table[0], tmp, sh->envp);
+	}
+	perror("execve");
+	terminate_struct(sh);
+	free_arr(tmp);
+	free_arr(sh->envp);
+	free(sh);
+	exit(1);
+}
+
 void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 {
 	int		i;
 	pid_t	pid2;
 
 	i = 0;
-	outfile = sh->outfiles;
-	infile = sh->infiles;
-	while (sh->cmd_table[i] || infile || outfile)
+	outfile = ft_lstlast_files(sh->outfiles);
+	infile = ft_lstlast_files(sh->infiles);
+	while (sh->cmd_table[i])
 	{
+		if (check_built_in_main(sh->cmd_table[i]) == true)
+			return (handle_built_in(sh, sh->cmd_table[i]));
 		pid2 = fork();
 		if (pid2 == 0)
 		{
 			which_dup(infile, outfile);
-			if (check_built_in(sh->cmd_table[i]) == true)
-				handle_built_in(sh, sh->cmd_table[i]);
-			if (infile == NULL || infile->fd > 0)
-				execve(sh->path_to_file_table[i],
-					ft_split(sh->cmd_table[i], ' '), sh->envp);
+			execute_cmd(sh, infile);
 		}
 		waitpid(pid2, &sh->status, 0);
 		i++;
-		if (infile)
-			infile = infile->next;
-		if (outfile)
-			outfile = outfile->next;
 	}
 }
 
@@ -62,5 +83,8 @@ void	execute_main(t_shell *sh)
 	infile = NULL;
 	check_cmd(sh);
 	if (sh->pipes == 0)
+	{
 		execute_no_pipes(sh, infile, outfile);
+		check_exit(sh);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 11:13:46 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/26 14:27:00 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	access_check(t_shell *sh, char *arg)
 	else
 		path = NULL;
 	i = 0;
-	while (arg[i] && arg[i] != ' ')
+	while (arg[i] && arg[i] != ':')
 		i++;
 	cmd = ft_substr(arg, 0, i);
 	if (check_path(sh, path, cmd) == false)
@@ -70,7 +70,8 @@ bool	check_cmd(t_shell *sh)
 	{
 		if (access_check(sh, sh->cmd_table[i]) == false)
 		{
-			if (check_built_in(sh->cmd_table[i]) == false)
+			if (check_built_in_main(sh->cmd_table[i]) == false
+				&& check_built_in_child(sh->cmd_table[i]) == false)
 			{
 				sh->path_to_file_table[sh->index] = NULL;
 				return (false);

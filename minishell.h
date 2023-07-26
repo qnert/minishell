@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/26 15:47:54 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/26 15:50:39 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,12 @@ bool	check_list(t_shell *sh);
 
 //parsing2
 void	get_outfile(t_shell *sh);
-void	expander(t_shell *sh);
-void	check_and_write_here_doc(t_files *infiles);
 void	get_outfile_append(t_shell *sh);
+
+//parsing3
+void	expander(t_shell *sh);
+t_lexer	*check_correct_infile(t_lexer *lst);
+void	check_and_write_here_doc(t_files *infiles);
 
 //envp
 char	*get_envp_name(char *str);
@@ -89,7 +92,8 @@ char	**cpy_envp(char **envp);
 void	erase_env_var(t_shell *sh, int index);
 
 //built in
-bool	check_built_in(char *str);
+bool	check_built_in_child(char *str);
+bool	check_built_in_main(char *str);
 void	handle_built_in(t_shell *sh, char *str);
 
 //built_in_cmds
@@ -98,6 +102,7 @@ void	handle_pwd(void);
 void	handle_export(t_shell *sh, char *str);
 void	handle_unset(t_shell *sh, char *str);
 void	handle_cd(char *str);
+void	check_exit(t_shell *sh);
 
 // access
 bool	check_path(t_shell *sh, char **path, char *cmd);
@@ -118,6 +123,12 @@ int		ft_infile_check(char *filepath);
 int		outfile_check_app(char *filepath);
 void	get_expand(t_shell *sh, char *tmp, t_lexer *curr);
 
+//utils3.c
+int		list_len(t_files *files);
+bool	check_word_token(int token);
+t_files	*ft_lstlast_files(t_files *lst);
+int		check_split_words(const char *s, char c);
+
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
 void	lst_add_new_infile(t_files *infiles, char *str, char *delim, int pipe);
@@ -129,5 +140,6 @@ void	free_lst_files(t_files *lst);
 void	execute_main(t_shell *sh);
 void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile);
 void	which_dup(t_files *infile, t_files *outfile);
+void	execute_cmd(t_shell *sh, t_files *infile);
 
 #endif
