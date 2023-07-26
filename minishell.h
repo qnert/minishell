@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 18:55:32 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:13:20 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	get_expand(t_shell *sh, char *tmp, t_lexer *curr);
 int		list_len(t_files *files);
 bool	check_word_token(int token);
 t_files	*ft_lstlast_files(t_files *lst);
+int		check_split_words(const char *s, char c);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);

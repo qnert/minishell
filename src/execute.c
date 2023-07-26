@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 19:01:39 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:25:48 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	execute_cmd(t_shell *sh, t_files *infile)
 	}
 	if (infile == NULL || infile->fd > 0)
 	{
-		tmp = ft_split(sh->cmd_table[0], ' ');
+		tmp = ft_split(sh->cmd_table[0], ':');
 		execve(sh->path_to_file_table[0], tmp, sh->envp);
 	}
 	perror("execve");

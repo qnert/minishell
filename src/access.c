@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   access.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 13:49:15 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:27:00 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	access_check(t_shell *sh, char *arg)
 	else
 		path = NULL;
 	i = 0;
-	while (arg[i] && arg[i] != ' ')
+	while (arg[i] && arg[i] != ':')
 		i++;
 	cmd = ft_substr(arg, 0, i);
 	if (check_path(sh, path, cmd) == false)

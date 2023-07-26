@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/26 13:39:13 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/26 13:42:39 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	read_till_limiter(t_files *curr)
 	free(line);
 	close(curr->fd);
 	curr->fd = open(curr->file_name, O_RDONLY);
+	unlink("here_doc");
 }
 
 void	check_and_write_here_doc(t_files *infiles)
