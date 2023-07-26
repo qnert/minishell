@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 16:21:52 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/26 17:41:27 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	check_exit(t_shell *sh)
 
 void	handle_built_in(t_shell *sh, char *str)
 {
+	replace_split_char(str);
 	if (ft_strncmp(str, "cd", 2) == 0)
 		handle_cd(str);
 	if (ft_strncmp(str, "echo", 4) == 0)
