@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 17:58:48 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/25 18:56:47 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	table_init(t_shell *sh)
 	{
 		if (curr->token == 1)
 			sh->check = 0;
-		while (curr->token > 1 && curr->token < 6)
-			curr = curr->next->next;
+		curr = check_correct_infile(curr);
 		if (!curr)
 			break ;
 		if (check_word_token(curr->token) && sh->check == 0)
