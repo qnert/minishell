@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 18:53:57 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/26 13:39:13 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_lexer	*check_correct_infile(t_lexer *lst)
 	{
 		if (curr->token == LESS)
 			infile_count++;
-		if (curr->token == 0)
+		if (check_word_token(curr->token))
 			word_count++;
 		curr = curr->next;
 	}
