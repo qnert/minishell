@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/26 14:35:46 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/26 16:31:19 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	execute_cmd(t_shell *sh, t_files *infile)
 	}
 	if (infile == NULL || infile->fd > 0)
 	{
-		tmp = ft_split(sh->cmd_table[0], ':');
+		tmp = ft_split(sh->cmd_table[0], 1);
 		execve(sh->path_to_file_table[0], tmp, sh->envp);
 	}
 	perror("execve");

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/26 14:27:00 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/26 16:31:17 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	access_check(t_shell *sh, char *arg)
 	else
 		path = NULL;
 	i = 0;
-	while (arg[i] && arg[i] != ':')
+	while (arg[i] && arg[i] != 1)
 		i++;
 	cmd = ft_substr(arg, 0, i);
 	if (check_path(sh, path, cmd) == false)
