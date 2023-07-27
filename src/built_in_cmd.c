@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_in_cmd.c                                     :+:      :+:    :+:   */
+/*   built_in_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/25 11:11:59 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/27 15:34:32 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,18 @@
 void	handle_echo(char *str)
 {
 	int	i;
+	int	check;
 
 	i = 0;
+	check = 0;
 	while (str[i] && str[i] != ' ' && str[i] != 9)
 		i++;
 	while (str[i] && (str[i] == ' ' || str[i] == 9))
 		i++;
-	if (str[i] != '\0' && str[i + 1] != '\0'
-		&& (str[i] == '-' && str[i + 1] == 'n'))
-	{
-		i = i + 2;
-		while (str[i] && (str[i] == ' ' || str[i] == 9))
-			i++;
+	if (ft_check_flag(str, &i, &check) == false)
+		printf("%s\n", &str[i]);
+	else if (check == 0)
 		printf("%s", &str[i]);
-		return ;
-	}
-	printf("%s\n", &str[i]);
 }
 
 void	handle_pwd(void)
@@ -94,16 +90,31 @@ void	handle_unset(t_shell *sh, char *str)
 	erase_env_var(sh, i);
 }
 
-void	handle_cd(char *str)
+void	handle_cd(t_shell *sh, char *str)
 {
 	int		i;
 	char	*tmp;
 
 	i = 0;
+	if (ft_strlen(str) == 2)
+	{
+		tmp = get_home_from_env(sh);
+		if (!tmp)
+		{
+			write(2, "miniHell: cd: HOME not set\n", 27);
+			return ;
+		}
+		if (chdir(tmp) != 0)
+		{
+			free(tmp);
+			perror("cd");
+		}
+		return ;
+	}
 	while (str[i] && (str[i] < 9 || str[i] > 13) && str[i] != 32)
 		i++;
 	tmp = ft_substr(str, i + 1, ft_strlen(str) - i);
 	if (chdir(tmp) != 0)
-		perror("cd: ");
+		perror("cd");
 	free(tmp);
 }

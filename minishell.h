@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/26 17:40:07 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/27 14:16:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	handle_echo(char *str);
 void	handle_pwd(void);
 void	handle_export(t_shell *sh, char *str);
 void	handle_unset(t_shell *sh, char *str);
-void	handle_cd(char *str);
+void	handle_cd(t_shell *sh, char *str);
 void	check_exit(t_shell *sh);
 
 // access
@@ -128,6 +128,10 @@ int		list_len(t_files *files);
 bool	check_word_token(int token);
 t_files	*ft_lstlast_files(t_files *lst);
 void	replace_split_char(char *str);
+bool	ft_check_flag(char *str, int *i, int *check);
+
+//utils4
+char	*get_home_from_env(t_shell *sh);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);

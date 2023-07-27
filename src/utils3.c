@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:49:35 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/26 17:39:53 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/27 15:34:42 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,32 @@ void	replace_split_char(char *str)
 			str[i] = 32;
 		i++;
 	}
+}
+
+bool	ft_check_flag(char *str, int *i, int *check)
+{
+	int	tmp;
+
+	tmp = 0;
+	if (str[*i] != '-')
+		return (false);
+	while (str[*i] && str[*i] == '-')
+	{
+		(*i)++;
+		while (str[*i] && str[*i] != 32)
+		{
+			if (str[*i] == 'n')
+				(*i)++;
+			else
+			{
+				*i = tmp;
+				return (true);
+			}
+		}
+		(*i)++;
+		tmp = (*i);
+	}
+	(*check) = 1;
+	printf("%s", &str[*i]);
+	return (true);
 }
