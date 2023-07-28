@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/26 14:35:52 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/28 15:36:20 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	shell_loop(t_shell *sh)
 			if (lexer(sh, str) == false)
 				printf("false\n");
 			else if (parser_main(sh) == false)
-				printf("false\n");
+				printf("minishell: syntax error near unexpected token\n");
 			else
 				execute_main(sh);
 		}
