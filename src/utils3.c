@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:49:35 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/26 17:39:53 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/29 13:48:00 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,29 @@ void	replace_split_char(char *str)
 			str[i] = 32;
 		i++;
 	}
+}
+
+t_lexer	*get_right_start_point(t_shell *sh)
+{
+	t_lexer	*curr;
+	t_lexer	*tmp;
+
+	curr = sh->token_list;
+	if (!sh->infiles || !sh->infiles->next)
+		return (curr);
+	while (curr)
+	{
+		if (curr->token > 3 && curr->token < 6)
+			tmp = curr;
+		curr = curr->next;
+	}
+	curr = tmp;
+	sh->pipes = 0;
+	while (curr)
+	{
+		if (curr->token == PIPE)
+			sh->pipes++;
+		curr = curr->next;
+	}
+	return (tmp);
 }
