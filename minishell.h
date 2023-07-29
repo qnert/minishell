@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/27 14:16:09 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/28 15:20:37 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct shell
 	int				check;
 	int				index;
 	int				pipes;
+	int				old_stdin;
 	char			*sterr;
 	char			**envp;
 	char			**cmd_table;
@@ -83,7 +84,7 @@ void	get_outfile_append(t_shell *sh);
 
 //parsing3
 void	expander(t_shell *sh);
-t_lexer	*check_correct_infile(t_lexer *lst);
+t_lexer	*check_correct_file(t_lexer *lst);
 void	check_and_write_here_doc(t_files *infiles);
 
 //envp
@@ -145,5 +146,12 @@ void	execute_main(t_shell *sh);
 void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile);
 void	which_dup(t_files *infile, t_files *outfile);
 void	execute_cmd(t_shell *sh, t_files *infile);
+
+//execute_pipes
+void	which_dup_pipes(t_shell *sh, t_files *in, t_files *out, int *fd);
+void	child_process_pipes(t_shell *sh, t_files *in);
+void	redirect_for_other_pipe(int	*fd);
+int		handle_child_pipes(t_shell *sh, t_files *in, t_files *out, int *fd);
+void	execute_pipes(t_shell *sh, t_files *in, t_files *out);
 
 #endif
