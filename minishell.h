@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/28 15:20:37 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/29 13:51:00 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,11 @@ int		list_len(t_files *files);
 bool	check_word_token(int token);
 t_files	*ft_lstlast_files(t_files *lst);
 void	replace_split_char(char *str);
-bool	ft_check_flag(char *str, int *i, int *check);
+t_lexer	*get_right_start_point(t_shell *sh);
 
 //utils4
 char	*get_home_from_env(t_shell *sh);
+bool	ft_check_flag(char *str, int *i, int *check);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);

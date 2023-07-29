@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/28 15:20:33 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/29 13:21:11 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	table_init(t_shell *sh)
 	int		i;
 
 	i = -1;
-	curr = sh->token_list;
+	curr = get_right_start_point(sh);
 	sh->cmd_table = malloc(sizeof(char *) * (sh->pipes + 2));
 	while (curr)
 	{

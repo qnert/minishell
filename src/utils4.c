@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:15:27 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/27 14:15:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/29 13:50:19 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,32 @@ char	*get_home_from_env(t_shell *sh)
 	if (sh->envp && sh->envp[i])
 		return (ft_substr(sh->envp[i], 5, ft_strlen(sh->envp[i])));
 	return (NULL);
+}
+
+bool	ft_check_flag(char *str, int *i, int *check)
+{
+	int	tmp;
+
+	tmp = 0;
+	if (str[*i] != '-')
+		return (false);
+	while (str[*i] && str[*i] == '-')
+	{
+		(*i)++;
+		while (str[*i] && str[*i] != 32)
+		{
+			if (str[*i] == 'n')
+				(*i)++;
+			else
+			{
+				*i = tmp;
+				return (true);
+			}
+		}
+		(*i)++;
+		tmp = (*i);
+	}
+	(*check) = 1;
+	printf("%s", &str[*i]);
+	return (true);
 }

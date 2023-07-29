@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:49:35 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/27 15:34:42 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/29 13:51:38 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,27 @@ void	replace_split_char(char *str)
 	}
 }
 
-bool	ft_check_flag(char *str, int *i, int *check)
+t_lexer	*get_right_start_point(t_shell *sh)
 {
-	int	tmp;
+	t_lexer	*curr;
+	t_lexer	*tmp;
 
-	tmp = 0;
-	if (str[*i] != '-')
-		return (false);
-	while (str[*i] && str[*i] == '-')
+	curr = sh->token_list;
+	if (!sh->infiles || !sh->infiles->next)
+		return (curr);
+	while (curr)
 	{
-		(*i)++;
-		while (str[*i] && str[*i] != 32)
-		{
-			if (str[*i] == 'n')
-				(*i)++;
-			else
-			{
-				*i = tmp;
-				return (true);
-			}
-		}
-		(*i)++;
-		tmp = (*i);
+		if (curr->token > 3 && curr->token < 6)
+			tmp = curr;
+		curr = curr->next;
 	}
-	(*check) = 1;
-	printf("%s", &str[*i]);
-	return (true);
+	curr = tmp;
+	sh->pipes = 0;
+	while (curr)
+	{
+		if (curr->token == PIPE)
+			sh->pipes++;
+		curr = curr->next;
+	}
+	return (tmp);
 }

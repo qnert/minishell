@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:49:56 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/28 15:25:45 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/28 15:50:14 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	handle_child_pipes(t_shell *sh, t_files *in, t_files *out, int *fd)
 void	execute_pipes(t_shell *sh, t_files *in, t_files *out)
 {
 	int		fd[2];
-	pid_t	pid;
 
 	sh->index = 0;
 	out = ft_lstlast_files(sh->outfiles);
@@ -108,7 +107,7 @@ void	execute_pipes(t_shell *sh, t_files *in, t_files *out)
 	sh->old_stdin = dup(STDIN_FILENO);
 	while (sh->cmd_table[sh->index])
 	{
-		pid = handle_child_pipes(sh, in, out, fd);
+		handle_child_pipes(sh, in, out, fd);
 		sh->index++;
 	}
 	dup2(sh->old_stdin, STDIN_FILENO);

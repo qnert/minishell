@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/29 13:14:06 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/29 13:23:00 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ void	free_arr(char **arr)
 	free(arr);
 }
 
-void	print_list(t_lexer *lst)
+void	print_list(t_files *lst)
 {
-	t_lexer	*curr;
+	t_files	*curr;
 
 	curr = lst;
 	while (curr)
 	{
-		if (curr->str)
-			printf("%s %d\n", curr->str, curr->token);
+		if (curr->file_name)
+			printf("%s %d\n", curr->file_name, curr->pos);
 		curr = curr->next;
 	}
 }
