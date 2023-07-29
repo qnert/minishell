@@ -102,7 +102,7 @@ void	handle_echo(char *str);
 void	handle_pwd(void);
 void	handle_export(t_shell *sh, char *str);
 void	handle_unset(t_shell *sh, char *str);
-void	handle_cd(char *str);
+void	handle_cd(t_shell *sh, char *str);
 void	check_exit(t_shell *sh);
 
 // access
@@ -129,6 +129,10 @@ int		list_len(t_files *files);
 bool	check_word_token(int token);
 t_files	*ft_lstlast_files(t_files *lst);
 void	replace_split_char(char *str);
+bool	ft_check_flag(char *str, int *i, int *check);
+
+//utils4
+char	*get_home_from_env(t_shell *sh);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
