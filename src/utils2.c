@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:21:29 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/27 15:47:55 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/29 13:49:19 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,16 @@ void	change_str_to_env(t_shell *sh, char *str, t_lexer *curr)
 		i++;
 	if (sh->envp[i] == NULL)
 	{
+		i = 0;
+		while (str[i] == ' ' || str[i] == '$')
+			i++;
+		if (str[++i] == '\0')
+			return ;
 		free(curr->str);
 		curr->str = ft_strdup("");
 		return ;
 	}
-	while (sh->envp && sh->envp[i] && sh->envp[i][j] != '=')
-		j++;
+	while (sh->envp && sh->envp[i] && sh->envp[i][j++] != '=')
 	j++;
 	start = j;
 	free(curr->str);
