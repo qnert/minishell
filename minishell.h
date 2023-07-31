@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/31 11:48:17 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/31 13:41:42 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "./libs/libs.h"
 # include <stdio.h>
 # include <stdlib.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
@@ -64,6 +65,9 @@ typedef enum tokens
 	SINGLE,
 	DOUBLE,
 }	t_tokens;
+
+//signals
+void	set_signals(void);
 
 //lexer
 bool	lexer(t_shell *sh, char *str);

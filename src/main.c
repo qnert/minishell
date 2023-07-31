@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/31 12:34:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/31 13:56:03 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ void	shell_loop(t_shell *sh)
 		terminate_struct(sh);
 		str = readline("miniHell > ");
 	}
+	terminate_struct(sh);
+	free(sh->envp);
+	free(sh);
 	rl_clear_history();
 	free(str);
 	return ;
@@ -93,6 +96,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 	{
+		set_signals();
 		sh = shell_init(envp);
 		shell_loop(sh);
 	}
