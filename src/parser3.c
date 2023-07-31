@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/31 09:39:53 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/31 15:22:35 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	read_till_limiter(t_files *curr)
 	char	*line;
 
 	line = get_next_line(STDIN_FILENO);
-	while (ft_strncmp(line, curr->delim, ft_strlen(curr->delim)) != 0)
+	while (line != NULL && ft_strncmp(line, curr->delim, ft_strlen(curr->delim)) != 0)
 	{
 		ft_putstr_fd(line, curr->fd);
 		free(line);
