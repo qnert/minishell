@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:49:35 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/29 13:51:38 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:15:27 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_lexer	*get_right_start_point(t_shell *sh)
 
 	curr = sh->token_list;
 	if (!sh->infiles || !sh->infiles->next)
+		return (curr);
+	if (sh->pipes == 0)
 		return (curr);
 	while (curr)
 	{
