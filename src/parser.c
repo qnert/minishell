@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/29 13:21:11 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:49:29 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	table_init(t_shell *sh)
 	sh->cmd_table = malloc(sizeof(char *) * (sh->pipes + 2));
 	while (curr)
 	{
+		curr = check_correct_file(curr);
 		if (curr->token == PIPE)
 			sh->check = 0;
-		curr = check_correct_file(curr);
 		if (!curr)
 			break ;
 		if (check_word_token(curr->token) && sh->check == 0)

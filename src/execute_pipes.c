@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:49:56 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/31 12:33:17 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/31 16:55:53 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	which_dup_pipes(t_shell *sh, t_files *in, t_files *out, int *fd)
 {
-	if (in && in->fd && sh->index == in->pos)
+	if (in && in->fd && sh->index == 0)
 	{
 		close(fd[0]);
 		if (dup2(in->fd, STDIN_FILENO) == -1)
@@ -90,16 +90,14 @@ int	handle_child_pipes(t_shell *sh, t_files *in, t_files *out, int *fd)
 		child_process_pipes(sh, in);
 	}
 	else
-	{
-		waitpid(pid, NULL, 0);
 		redirect_for_other_pipe(fd);
-	}
 	return (pid);
 }
 
 void	execute_pipes(t_shell *sh, t_files *in, t_files *out)
 {
 	int		fd[2];
+	pid_t	pid;
 
 	sh->index = 0;
 	out = ft_lstlast_files(sh->outfiles);
@@ -107,9 +105,10 @@ void	execute_pipes(t_shell *sh, t_files *in, t_files *out)
 	sh->old_stdin = dup(STDIN_FILENO);
 	while (sh->cmd_table[sh->index])
 	{
-		handle_child_pipes(sh, in, out, fd);
+		pid = handle_child_pipes(sh, in, out, fd);
 		sh->index++;
 	}
+	waitpid(pid, &sh->status, 0);
 	dup2(sh->old_stdin, STDIN_FILENO);
 	close(sh->old_stdin);
 }
