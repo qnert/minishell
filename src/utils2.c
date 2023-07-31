@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:21:29 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/29 13:49:19 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/31 12:32:43 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,53 +66,53 @@ int	ft_infile_check(char *filepath)
 	return (fd);
 }
 
-void	change_str_to_env(t_shell *sh, char *str, t_lexer *curr)
-{
-	int	i;
-	int	j;
-	int	start;
-
-	i = 0;
-	j = 0;
-	while (sh->envp && sh->envp[i]
-		&& strncmp(sh->envp[i], str, ft_strlen(str)) != 0)
-		i++;
-	if (sh->envp[i] == NULL)
-	{
-		i = 0;
-		while (str[i] == ' ' || str[i] == '$')
-			i++;
-		if (str[++i] == '\0')
-			return ;
-		free(curr->str);
-		curr->str = ft_strdup("");
-		return ;
-	}
-	while (sh->envp && sh->envp[i] && sh->envp[i][j++] != '=')
-	j++;
-	start = j;
-	free(curr->str);
-	curr->str = ft_substr(sh->envp[i], start, ft_strlen(sh->envp[i]) - start);
-}
-
-void	get_expand(t_shell *sh, char *tmp, t_lexer *curr)
+char	*change_str_to_env(t_shell *sh, char *str)
 {
 	int		i;
 	int		j;
-	char	*ret_str;
 
 	i = 0;
 	j = 0;
-	while (tmp[i] && tmp[i] != '$')
+	if (ft_strlen(str) == 1 && str[i] == '$')
+		return (free(str), ft_strdup("$"));
+	if (ft_strlen(str) == 1 && !ft_isalnum(str[i]))
+		return (free(str), ft_charjoin_free(ft_strdup(""), str[i]));
+	while (sh->envp && sh->envp[i]
+		&& ft_strncmp(sh->envp[i], str + 1, ft_strlen(str) - 1) != 0)
 		i++;
-	if (tmp[i] == '$' && tmp[i + 1] == '\0')
-		return ;
-	while (tmp[i + j] && (tmp[i + j] != 32
-			|| (tmp[i + j] >= 9 && tmp[i + j] <= 13)))
+	if (!sh->envp || !sh->envp[i])
+		return (free(str), ft_strdup(""));
+	while (sh->envp[i][j] != '=')
 		j++;
-	ret_str = ft_substr(tmp, i + 1, j);
-	ret_str = ft_strjoin_free(ret_str, "=");
-	change_str_to_env(sh, ret_str, curr);
-	free(ret_str);
-	return ;
+	free(str);
+	return (ft_substr(sh->envp[i], j + 1, ft_strlen(sh->envp[i]) - j + 1));
+}
+
+void	get_expand(t_shell *sh, t_lexer *curr)
+{
+	int		i;
+	int		start;
+	char	*first_str;
+	char	*env_var;
+
+	i = 0;
+	while (curr->str[i] && curr->str[i] != '$')
+		i++;
+	if (i > 0)
+		first_str = ft_substr(curr->str, 0, i);
+	else
+		first_str = ft_strdup("");
+	while (curr->str[i] && ft_strchr(curr->str + i, '$') != 0)
+	{
+		start = i;
+		while (curr->str[++i] && ft_isalnum(curr->str[i]))
+			i++;
+		env_var = change_str_to_env(sh, ft_substr(curr->str, start, i - start));
+		first_str = ft_strjoin_free(first_str, env_var);
+		free(env_var);
+	}
+	if (curr->str[i] != '\0')
+		first_str = ft_strjoin_free(first_str, &curr->str[i]);
+	free(curr->str);
+	curr->str = first_str;
 }

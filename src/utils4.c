@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:15:27 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/29 13:50:19 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/31 11:49:18 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,19 @@ bool	ft_check_flag(char *str, int *i, int *check)
 	(*check) = 1;
 	printf("%s", &str[*i]);
 	return (true);
+}
+
+char	*ft_charjoin_free(char *str, char c)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	tmp = ft_calloc(ft_strlen(str) + 2, sizeof(char));
+	while (str[++i])
+		tmp[i] = str[i];
+	tmp[i] = c;
+	tmp[++i] = '\0';
+	free(str);
+	return (tmp);
 }
