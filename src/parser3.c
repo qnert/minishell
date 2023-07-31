@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/29 12:45:00 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/31 09:39:53 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	expander(t_shell *sh)
 	{
 		if ((curr->token == 0 || curr->token == 7)
 			&& ft_strchr(curr->str, '$') != 0)
-			get_expand(sh, curr->str, curr);
+			get_expand(sh, curr);
 		curr = curr->next;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/29 13:51:00 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/07/31 11:48:17 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ bool	check_existence_env(t_shell *sh, char *str);
 int		ft_outfile_check(char *filepath);
 int		ft_infile_check(char *filepath);
 int		outfile_check_app(char *filepath);
-void	get_expand(t_shell *sh, char *tmp, t_lexer *curr);
+void	get_expand(t_shell *sh, t_lexer *curr);
 
 //utils3.c
 int		list_len(t_files *files);
@@ -134,6 +134,7 @@ t_lexer	*get_right_start_point(t_shell *sh);
 //utils4
 char	*get_home_from_env(t_shell *sh);
 bool	ft_check_flag(char *str, int *i, int *check);
+char	*ft_charjoin_free(char *str, char c);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
