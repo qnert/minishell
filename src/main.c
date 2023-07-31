@@ -76,6 +76,9 @@ void	shell_loop(t_shell *sh)
 		terminate_struct(sh);
 		str = readline("miniHell > ");
 	}
+	terminate_struct(sh);
+	free(sh->envp);
+	free(sh);
 	rl_clear_history();
 	free(str);
 	return ;
@@ -93,6 +96,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 	{
+		set_signals();
 		sh = shell_init(envp);
 		shell_loop(sh);
 	}

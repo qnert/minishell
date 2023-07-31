@@ -16,6 +16,7 @@
 # include "./libs/libs.h"
 # include <stdio.h>
 # include <stdlib.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
@@ -64,6 +65,9 @@ typedef enum tokens
 	SINGLE,
 	DOUBLE,
 }	t_tokens;
+
+//signals
+void	set_signals(void);
 
 //lexer
 bool	lexer(t_shell *sh, char *str);
