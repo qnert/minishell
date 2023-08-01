@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/31 16:49:29 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/01 11:44:44 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,12 @@ bool	parser_main(t_shell *sh)
 		return (true);
 	if (check_list(sh) == false)
 		return (false);
-	expander(sh);
 	get_infile(sh);
 	get_outfile(sh);
 	get_here_doc(sh);
 	check_and_write_here_doc(sh->infiles);
 	get_outfile_append(sh);
+	expander(sh);
 	table_init(sh);
 	sh->path_to_file_table = malloc(sizeof(char *)
 			* (get_len_matrix(sh->cmd_table) + 1));
