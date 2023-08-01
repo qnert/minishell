@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:21:29 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/01 11:30:26 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/01 14:35:47 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ char	*change_str_to_env(t_shell *sh, char *str)
 
 	i = 0;
 	j = 0;
-	printf("%s\n", str);
 	if (ft_strlen(str) == 1 && str[i] == '$')
 		return (str);
 	if (ft_strlen(str) == 1 && !ft_isalnum(str[i]))
