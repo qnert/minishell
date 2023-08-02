@@ -18,15 +18,15 @@ void	table_init(t_shell *sh)
 	int		i;
 
 	i = -1;
-	curr = get_right_start_point(sh);
+	curr = sh->token_list;
 	sh->cmd_table = malloc(sizeof(char *) * (sh->pipes + 2));
 	while (curr)
 	{
 		curr = check_correct_file(curr);
-		if (curr->token == PIPE)
-			sh->check = 0;
 		if (!curr)
 			break ;
+		if (curr->token == PIPE)
+			sh->check = 0;
 		if (check_word_token(curr->token) && sh->check == 0)
 		{
 			sh->cmd_table[++i] = ft_strdup(curr->str);

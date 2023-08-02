@@ -66,3 +66,21 @@ char	*ft_charjoin_free(char *str, char c)
 	free(str);
 	return (tmp);
 }
+
+t_files	*get_right_file(t_shell *sh, t_files *file)
+{
+	t_files	*curr;
+
+	curr = file;
+	if (!curr || !curr->fd)
+		return (NULL);
+	if (!curr->next || curr->pos != sh->index)
+		return (curr);
+	while (curr && curr->next)
+	{
+		if (curr->pos != curr->next->pos)
+			return (curr);
+		curr = curr->next;
+	}
+	return (curr);
+}

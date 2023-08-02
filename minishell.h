@@ -30,6 +30,7 @@ typedef struct shell
 	int				index;
 	int				pipes;
 	int				old_stdin;
+	int				old_stdout;
 	char			*sterr;
 	char			**envp;
 	char			**cmd_table;
@@ -140,6 +141,7 @@ t_lexer	*get_right_start_point(t_shell *sh);
 char	*get_home_from_env(t_shell *sh);
 bool	ft_check_flag(char *str, int *i, int *check);
 char	*ft_charjoin_free(char *str, char c);
+t_files	*get_right_file(t_shell *sh, t_files *file);
 
 //utils5
 char	*get_expand_here_doc(t_shell *sh, char *str);
@@ -163,5 +165,7 @@ void	child_process_pipes(t_shell *sh, t_files *in);
 void	redirect_for_other_pipe(int	*fd);
 int		handle_child_pipes(t_shell *sh, t_files *in, t_files *out, int *fd);
 void	execute_pipes(t_shell *sh, t_files *in, t_files *out);
+
+void	print_list(t_files *lst);
 
 #endif
