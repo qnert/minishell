@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:21:29 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/01 14:35:47 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/02 17:16:57 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char	*change_str_to_env(t_shell *sh, char *str)
 
 	i = 0;
 	j = 0;
+	if (str[i] == '$' && str[i + 1] == '?')
+		return (get_exit_code_string(sh, str));
 	if (ft_strlen(str) == 1 && str[i] == '$')
 		return (str);
 	if (ft_strlen(str) == 1 && !ft_isalnum(str[i]))
@@ -104,8 +106,8 @@ void	get_expand(t_shell *sh, t_lexer *curr)
 		first_str = ft_strdup("");
 	while (curr->str[i] && ft_strchr(curr->str + i, '$') != 0)
 	{
-		start = i;
-		while (curr->str[++i] && ft_isalnum(curr->str[i]))
+		start = i++;
+		while (curr->str[i] && (ft_isalnum(curr->str[i]) || curr->str[i] == '?'))
 			i++;
 		env_var = change_str_to_env(sh, ft_substr(curr->str, start, i - start));
 		first_str = ft_strjoin_free(first_str, env_var);

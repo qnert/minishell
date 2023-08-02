@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/02 14:15:27 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/02 17:09:06 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ char	*get_home_from_env(t_shell *sh);
 bool	ft_check_flag(char *str, int *i, int *check);
 char	*ft_charjoin_free(char *str, char c);
 t_files	*get_right_file(t_shell *sh, t_files *file);
+char	*get_exit_code_string(t_shell *sh, char *str);
 
 //utils5
 char	*get_expand_here_doc(t_shell *sh, char *str);
