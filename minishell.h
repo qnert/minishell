@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/31 14:10:18 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:15:27 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	get_outfile_append(t_shell *sh);
 //parsing3
 void	expander(t_shell *sh);
 t_lexer	*check_correct_file(t_lexer *lst);
-void	check_and_write_here_doc(t_files *infiles);
+void	check_and_write_here_doc(t_shell *sh, t_files *infiles);
 
 //envp
 char	*get_envp_name(char *str);
@@ -127,6 +127,7 @@ int		ft_outfile_check(char *filepath);
 int		ft_infile_check(char *filepath);
 int		outfile_check_app(char *filepath);
 void	get_expand(t_shell *sh, t_lexer *curr);
+char	*change_str_to_env(t_shell *sh, char *str);
 
 //utils3.c
 int		list_len(t_files *files);
@@ -139,6 +140,9 @@ t_lexer	*get_right_start_point(t_shell *sh);
 char	*get_home_from_env(t_shell *sh);
 bool	ft_check_flag(char *str, int *i, int *check);
 char	*ft_charjoin_free(char *str, char c);
+
+//utils5
+char	*get_expand_here_doc(t_shell *sh, char *str);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/01 11:44:44 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/02 13:38:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ bool	parser_main(t_shell *sh)
 	get_infile(sh);
 	get_outfile(sh);
 	get_here_doc(sh);
-	check_and_write_here_doc(sh->infiles);
+	check_and_write_here_doc(sh, sh->infiles);
 	get_outfile_append(sh);
 	expander(sh);
 	table_init(sh);
