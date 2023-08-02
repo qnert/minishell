@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/02 13:48:47 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:02:05 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	expander(t_shell *sh)
 	}
 }
 
-void	read_till_limiter(t_files *curr)
+void	read_till_limiter(t_shell *sh, t_files *curr)
 {
 	char	*line;
 
@@ -34,6 +34,7 @@ void	read_till_limiter(t_files *curr)
 	while (line != NULL && ft_strncmp(line, curr->delim,
 			ft_strlen(curr->delim)) != 0)
 	{
+		line = get_expand_here_doc(sh, line);
 		ft_putstr_fd(line, curr->fd);
 		free(line);
 		line = get_next_line(STDIN_FILENO);
@@ -44,7 +45,7 @@ void	read_till_limiter(t_files *curr)
 	unlink("here_doc");
 }
 
-void	check_and_write_here_doc(t_files *infiles)
+void	check_and_write_here_doc(t_shell *sh, t_files *infiles)
 {
 	t_files	*curr;
 
@@ -52,7 +53,7 @@ void	check_and_write_here_doc(t_files *infiles)
 	while (curr)
 	{
 		if (curr->delim != NULL)
-			read_till_limiter(curr);
+			read_till_limiter(sh, curr);
 		curr = curr->next;
 	}
 }
