@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:49:56 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/02 13:43:13 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:35:02 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void	child_process_pipes(t_shell *sh, t_files *in)
 		tmp = ft_split(sh->cmd_table[sh->index], 1);
 		execve(sh->path_to_file_table[sh->index], tmp, sh->envp);
 	}
-	perror("execve");
+	printf("minishell: %s: command not found\n", tmp[0]);
 	terminate_struct(sh);
 	free_arr(tmp);
 	free_arr(sh->envp);
 	free(sh);
-	exit(1);
+	exit(127);
 }
 
 void	redirect_for_other_pipe(int	*fd)
