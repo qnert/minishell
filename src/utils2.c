@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:21:29 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/02 17:16:57 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/02 18:53:29 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char	*change_str_to_env(t_shell *sh, char *str)
 
 	i = 0;
 	j = 0;
+	if (ft_strchr(str, '$') == 0)
+		return (str);
 	if (str[i] == '$' && str[i + 1] == '?')
 		return (get_exit_code_string(sh, str));
 	if (ft_strlen(str) == 1 && str[i] == '$')
