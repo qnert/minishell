@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/31 15:22:35 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/02 13:48:47 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	read_till_limiter(t_files *curr)
 	char	*line;
 
 	line = get_next_line(STDIN_FILENO);
-	while (line != NULL && ft_strncmp(line, curr->delim, ft_strlen(curr->delim)) != 0)
+	while (line != NULL && ft_strncmp(line, curr->delim,
+			ft_strlen(curr->delim)) != 0)
 	{
 		ft_putstr_fd(line, curr->fd);
 		free(line);
@@ -77,8 +78,10 @@ t_lexer	*check_correct_file(t_lexer *lst)
 		return (NULL);
 	curr = lst;
 	if (curr->token > 1 && curr->token < 6 && !curr->next->next)
-		return (curr = NULL, curr);
+		return (NULL);
 	while (curr->token > 1 && curr->token < 6 && curr->next->next)
 		curr = curr->next->next;
+	if (curr->token > 1 && curr->token < 6 && !curr->next->next)
+		return (NULL);
 	return (curr);
 }
