@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/01 11:44:44 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/01 15:13:57 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	table_init(t_shell *sh)
 	int		i;
 
 	i = -1;
-	curr = get_right_start_point(sh);
+	curr = sh->token_list;
 	sh->cmd_table = malloc(sizeof(char *) * (sh->pipes + 2));
 	while (curr)
 	{
 		curr = check_correct_file(curr);
-		if (curr->token == PIPE)
-			sh->check = 0;
 		if (!curr)
 			break ;
+		if (curr->token == PIPE)
+			sh->check = 0;
 		if (check_word_token(curr->token) && sh->check == 0)
 		{
 			sh->cmd_table[++i] = ft_strdup(curr->str);

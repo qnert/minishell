@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/31 14:10:18 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/02 12:53:39 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct shell
 	int				index;
 	int				pipes;
 	int				old_stdin;
+	int				old_stdout;
 	char			*sterr;
 	char			**envp;
 	char			**cmd_table;
@@ -139,6 +140,7 @@ t_lexer	*get_right_start_point(t_shell *sh);
 char	*get_home_from_env(t_shell *sh);
 bool	ft_check_flag(char *str, int *i, int *check);
 char	*ft_charjoin_free(char *str, char c);
+t_files	*get_right_file(t_shell *sh, t_files *file);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
@@ -159,5 +161,7 @@ void	child_process_pipes(t_shell *sh, t_files *in);
 void	redirect_for_other_pipe(int	*fd);
 int		handle_child_pipes(t_shell *sh, t_files *in, t_files *out, int *fd);
 void	execute_pipes(t_shell *sh, t_files *in, t_files *out);
+
+void	print_list(t_files *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:49:56 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/31 16:55:53 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/02 13:43:13 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	which_dup_pipes(t_shell *sh, t_files *in, t_files *out, int *fd)
 {
-	if (in && in->fd && sh->index == 0)
+	if (in && in->fd && sh->index == in->pos)
 	{
 		close(fd[0]);
 		if (dup2(in->fd, STDIN_FILENO) == -1)
 			perror("dup2");
-		close(in->fd);
 	}
 	else
 		close(fd[0]);
@@ -28,7 +27,6 @@ void	which_dup_pipes(t_shell *sh, t_files *in, t_files *out, int *fd)
 		close(fd[1]);
 		if (dup2(out->fd, STDOUT_FILENO) == -1)
 			perror("dup2");
-		close(out->fd);
 	}
 	else if (sh->index != get_len_matrix(sh->cmd_table) - 1)
 	{
@@ -100,12 +98,18 @@ void	execute_pipes(t_shell *sh, t_files *in, t_files *out)
 	pid_t	pid;
 
 	sh->index = 0;
-	out = ft_lstlast_files(sh->outfiles);
-	in = ft_lstlast_files(sh->infiles);
+	in = sh->infiles;
+	out = sh->outfiles;
 	sh->old_stdin = dup(STDIN_FILENO);
 	while (sh->cmd_table[sh->index])
 	{
+		in = get_right_file(sh, in);
+		out = get_right_file(sh, out);
 		pid = handle_child_pipes(sh, in, out, fd);
+		if (in && in->fd && in->pos == sh->index)
+			in = in->next;
+		if (out && out->fd && out->pos == sh->index)
+			out = out->next;
 		sh->index++;
 	}
 	waitpid(pid, &sh->status, 0);
