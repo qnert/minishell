@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 17:13:03 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/03 17:39:30 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ void	check_exit(t_shell *sh)
 				free_arr(sh->envp);
 				free(sh);
 				exit (1);
+			}
+			if (ft_isalpha(sh->cmd_table[i][j]))
+			{
+				write(2, " numeric argument required\n", 26);
+				terminate_struct(sh);
+				free_arr(sh->envp);
+				free(sh);
+				exit (255);
 			}
 			error = ft_atoi(&sh->cmd_table[i][j]);
 			terminate_struct(sh);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/02 15:28:19 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:36:53 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	execute_cmd(t_shell *sh, t_files *infile)
 		tmp = ft_split(sh->cmd_table[0], 1);
 		execve(sh->path_to_file_table[0], tmp, sh->envp);
 	}
-	printf("minishell: %s: command not found\n", tmp[0]);
+	write(2, "minishell: command not found\n", 29);
 	terminate_struct(sh);
 	free_arr(tmp);
 	free_arr(sh->envp);
