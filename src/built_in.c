@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/27 13:52:01 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/02 18:34:19 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	check_built_in_child(char *str)
 		return (true);
 	if (ft_strncmp(str, "exit", 4) == 0 && ft_strlen(str) == 4)
 		return (true);
-	if (ft_strncmp(str, "pwd", 3) == 0 && ft_strlen(str) == 3)
+	if (ft_strncmp(str, "pwd", 3) == 0)
 		return (true);
 	if (ft_strncmp(str, "env", 3) == 0 && ft_strlen(str) == 3)
 		return (true);
