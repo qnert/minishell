@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 17:39:30 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/03 17:57:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	check_exit(t_shell *sh)
 {
 	int	i;
 	int	j;
-	int	error;
 
 	i = 0;
 	while (sh->cmd_table[i])
@@ -48,29 +47,7 @@ void	check_exit(t_shell *sh)
 		j = 0;
 		if (ft_strncmp(sh->cmd_table[i], "exit", 4) == 0)
 		{
-			while (sh->cmd_table[i][j] && sh->cmd_table[i][j++] != 1)
-			j++;
-			if (ft_strchr(&sh->cmd_table[i][j], 1) != 0)
-			{
-				write(2, " too many arguments\n", 20);
-				terminate_struct(sh);
-				free_arr(sh->envp);
-				free(sh);
-				exit (1);
-			}
-			if (ft_isalpha(sh->cmd_table[i][j]))
-			{
-				write(2, " numeric argument required\n", 26);
-				terminate_struct(sh);
-				free_arr(sh->envp);
-				free(sh);
-				exit (255);
-			}
-			error = ft_atoi(&sh->cmd_table[i][j]);
-			terminate_struct(sh);
-			free_arr(sh->envp);
-			free(sh);
-			exit (error);
+			right_exit_builtin(sh, i, j);
 		}
 		i++;
 	}

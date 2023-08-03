@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 13:24:27 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:57:51 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,34 @@ void	go_to_home(t_shell *sh)
 		free(tmp);
 		perror("cd");
 	}
+}
+
+void	right_exit_builtin(t_shell *sh, int i, int j)
+{
+	int	error;
+
+	error = 0;
+	while (sh->cmd_table[i][j] && sh->cmd_table[i][j++] != 1)
+	j++;
+	if (ft_strchr(&sh->cmd_table[i][j], 1) != 0)
+	{
+		write(2, " too many arguments\n", 20);
+		terminate_struct(sh);
+		free_arr(sh->envp);
+		free(sh);
+		exit (1);
+	}
+	if (ft_isalpha(sh->cmd_table[i][j]))
+	{
+		write(2, " numeric argument required\n", 26);
+		terminate_struct(sh);
+		free_arr(sh->envp);
+		free(sh);
+		exit (255);
+	}
+	error = ft_atoi(&sh->cmd_table[i][j]);
+	terminate_struct(sh);
+	free_arr(sh->envp);
+	free(sh);
+	exit (error);
 }
