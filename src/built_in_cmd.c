@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/26 17:29:57 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:28:43 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,14 @@ void	handle_export(t_shell *sh, char *str)
 		i++;
 	if (!str[i])
 		return ;
-	if (ft_strrchr(&str[i], ' ') != 0)
+	if (str[i] == '=')
 	{
-		printf("bad assignment\n");
+		write(2, " not a valid identifier\n", 24);
+		sh->status = 1;
 		return ;
 	}
+	if (ft_strrchr(&str[i], ' ') != 0)
+		return ;
 	if (check_existence_env(sh, &str[i]) == false)
 	{
 		sh->envp[len] = ft_strdup(&str[i]);
@@ -100,10 +103,7 @@ void	handle_cd(t_shell *sh, char *str)
 	{
 		tmp = get_home_from_env(sh);
 		if (!tmp)
-		{
-			write(2, "miniHell: cd: HOME not set\n", 27);
-			return ;
-		}
+			return ((void)write(2, "miniHell: cd: HOME not set\n", 27));
 		if (chdir(tmp) != 0)
 		{
 			free(tmp);
@@ -114,7 +114,10 @@ void	handle_cd(t_shell *sh, char *str)
 	while (str[i] && (str[i] < 9 || str[i] > 13) && str[i] != 32)
 		i++;
 	tmp = ft_substr(str, i + 1, ft_strlen(str) - i);
-	if (chdir(tmp) != 0)
-		perror("cd");
+	if (chdir(tmp) == -1)
+	{
+		sh->status = 1;
+		perror(" ");
+	}
 	free(tmp);
 }

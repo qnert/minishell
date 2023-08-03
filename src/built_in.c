@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/02 18:34:19 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/03 13:41:29 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	check_built_in_child(char *str)
 {
 	if (ft_strncmp(str, "echo", 4) == 0)
 		return (true);
-	if (ft_strncmp(str, "exit", 4) == 0 && ft_strlen(str) == 4)
+	if (ft_strncmp(str, "exit", 4) == 0)
 		return (true);
 	if (ft_strncmp(str, "pwd", 3) == 0)
 		return (true);
@@ -66,7 +66,7 @@ void	handle_built_in(t_shell *sh, char *str)
 		terminate_struct(sh);
 		free_arr(sh->envp);
 		free(sh);
-		exit (0);
+		exit (EXIT_SUCCESS);
 	}
 	if (ft_strncmp(str, "env", 3) == 0)
 		print_matrix(sh->envp);
