@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/02 17:09:06 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:30:56 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ char	*get_exit_code_string(t_shell *sh, char *str);
 
 //utils5
 char	*get_expand_here_doc(t_shell *sh, char *str);
+void	go_to_home(t_shell *sh);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);

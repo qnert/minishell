@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 13:28:43 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/03 16:06:51 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,24 +96,21 @@ void	handle_unset(t_shell *sh, char *str)
 void	handle_cd(t_shell *sh, char *str)
 {
 	int		i;
+	int		j;
 	char	*tmp;
 
 	i = 0;
+	j = 0;
 	if (ft_strlen(str) == 2)
 	{
-		tmp = get_home_from_env(sh);
-		if (!tmp)
-			return ((void)write(2, "miniHell: cd: HOME not set\n", 27));
-		if (chdir(tmp) != 0)
-		{
-			free(tmp);
-			perror("cd");
-		}
+		go_to_home(sh);
 		return ;
 	}
 	while (str[i] && (str[i] < 9 || str[i] > 13) && str[i] != 32)
 		i++;
-	tmp = ft_substr(str, i + 1, ft_strlen(str) - i);
+	while (str[i] && str[i] > 9 && str[i] < 13 && str[i] == 32)
+		j++;
+	tmp = ft_substr(str, i + 1, j + 1);
 	if (chdir(tmp) == -1)
 	{
 		sh->status = 1;

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/03 12:43:15 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/03 17:11:24 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	table_init(t_shell *sh)
 			sh->check = 1;
 		}
 		else if (check_word_token(curr->token) && sh->check == 1)
-			sh->cmd_table[i] = ft_strjoin_free(
-					ft_strjoin_free(sh->cmd_table[i], "\1"), curr->str);
+			sh->cmd_table[i] = ft_strjoin_free
+				(ft_strjoin_free(sh->cmd_table[i], "\1"), curr->str);
 		curr = curr->next;
 	}
 	sh->cmd_table[++i] = NULL;

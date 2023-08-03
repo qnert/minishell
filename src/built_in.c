@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 13:41:29 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/03 17:13:03 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,30 @@ bool	check_built_in_main(char *str)
 void	check_exit(t_shell *sh)
 {
 	int	i;
+	int	j;
+	int	error;
 
 	i = 0;
 	while (sh->cmd_table[i])
 	{
+		j = 0;
 		if (ft_strncmp(sh->cmd_table[i], "exit", 4) == 0)
 		{
+			while (sh->cmd_table[i][j] && sh->cmd_table[i][j++] != 1)
+			j++;
+			if (ft_strchr(&sh->cmd_table[i][j], 1) != 0)
+			{
+				write(2, " too many arguments\n", 20);
+				terminate_struct(sh);
+				free_arr(sh->envp);
+				free(sh);
+				exit (1);
+			}
+			error = ft_atoi(&sh->cmd_table[i][j]);
 			terminate_struct(sh);
 			free_arr(sh->envp);
 			free(sh);
-			exit (EXIT_SUCCESS);
+			exit (error);
 		}
 		i++;
 	}
