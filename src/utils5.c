@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 15:31:14 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/03 13:24:27 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ char	*get_expand_here_doc(t_shell *sh, char *str)
 		first_str = ft_strjoin_free(first_str, &str[i]);
 	free(str);
 	return (first_str);
+}
+
+void	exit_status(t_shell *sh, char **tmp, int status)
+{
+	terminate_struct(sh);
+	free_arr(tmp);
+	free_arr(sh->envp);
+	free(sh);
+	exit(status);
 }
 
 void	go_to_home(t_shell *sh)

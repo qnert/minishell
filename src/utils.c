@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 13:20:09 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/03 16:31:07 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_shell	*shell_init(char **envp)
 	sh->check = 0;
 	sh->pipes = 0;
 	sh->status = 0;
+	sh->exit_code = 0;
 	sh->infiles = NULL;
 	sh->outfiles = NULL;
 	sh->sterr = NULL;
