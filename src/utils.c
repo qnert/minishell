@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/02 15:08:14 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:20:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,16 @@ bool	check_existence_env(t_shell *sh, char *str)
 	char	*tmp;
 
 	i = 0;
-	while (str[i] != '\0' && str[i] != '=')
+	while (str[i] != '\0' && ft_isalnum(str[i]) == 1 && str[i] != '=')
 		i++;
-	if (str[i] == '\0')
-		return (printf("wrong args\n"), true);
+	if (str[i] == '\0' || (ft_isalnum(str[i]) == 0 && str[i] != '='))
+	{
+		if (ft_isalpha(str[i - 1]) && str[i] == '\0')
+			return (true);
+		write(2, " not a valid identifier\n", 24);
+		sh->status = 1;
+		return (true);
+	}
 	tmp = ft_substr(str, 0, i);
 	i = 0;
 	while (sh->envp[i] && ft_strncmp(sh->envp[i], tmp, ft_strlen(tmp)))
