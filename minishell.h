@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/02 17:09:06 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:30:53 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@
 # include <sys/stat.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <dirent.h>
 
 typedef struct shell
 {
 	int				status;
+	int				exit_code;
 	int				check;
 	int				index;
 	int				pipes;
@@ -146,6 +148,7 @@ char	*get_exit_code_string(t_shell *sh, char *str);
 
 //utils5
 char	*get_expand_here_doc(t_shell *sh, char *str);
+void	exit_status(t_shell *sh, char **tmp, int status);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
@@ -158,11 +161,11 @@ void	free_lst_files(t_files *lst);
 void	execute_main(t_shell *sh);
 void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile);
 void	which_dup(t_files *infile, t_files *outfile);
-void	execute_cmd(t_shell *sh, t_files *infile);
+void	execute_cmd(t_shell *sh, t_files *in, t_files *out);
 
 //execute_pipes
 void	which_dup_pipes(t_shell *sh, t_files *in, t_files *out, int *fd);
-void	child_process_pipes(t_shell *sh, t_files *in);
+void	child_process_pipes(t_shell *sh, t_files *in, t_files *out);
 void	redirect_for_other_pipe(int	*fd);
 int		handle_child_pipes(t_shell *sh, t_files *in, t_files *out, int *fd);
 void	execute_pipes(t_shell *sh, t_files *in, t_files *out);

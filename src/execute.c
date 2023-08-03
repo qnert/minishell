@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/02 15:28:19 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:46:11 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,49 @@ void	which_dup(t_files *infile, t_files *outfile)
 	}
 }
 
-void	execute_cmd(t_shell *sh, t_files *infile)
+void	execute_cmd(t_shell *sh, t_files *in, t_files *out)
 {
 	char	**tmp;
+	DIR		*dir;
 
 	tmp = NULL;
-	if (check_built_in_child(sh->cmd_table[0]) == true)
+	if (check_built_in_child(sh->cmd_table[0]) == true
+		&& ((in == NULL || in->fd > 0) && (out == NULL || out->fd > 0)))
 	{
 		handle_built_in(sh, sh->cmd_table[0]);
-		terminate_struct(sh);
-		free_arr(tmp);
-		free_arr(sh->envp);
-		free(sh);
-		exit(EXIT_SUCCESS);
+		exit_status(sh, tmp, 0);
 	}
-	if (infile == NULL || infile->fd > 0)
+	if ((in == NULL || in->fd > 0) && (out == NULL || out->fd > 0))
 	{
 		tmp = ft_split(sh->cmd_table[0], 1);
 		execve(sh->path_to_file_table[0], tmp, sh->envp);
 	}
-	printf("minishell: %s: command not found\n", tmp[0]);
-	terminate_struct(sh);
-	free_arr(tmp);
-	free_arr(sh->envp);
-	free(sh);
-	exit(127);
+	dir = opendir(sh->path_to_file_table[0]);
+	if (sh->exit_code == 127 || (dir != NULL
+		&& ft_strchr(sh->path_to_file_table[0], '/') == 0))
+	{
+		write(2, "minishell: command not found\n", 29);
+		exit_status(sh, tmp, 127);
+	}
+	if (access(sh->path_to_file_table[0], F_OK) == 0
+	&& access(sh->path_to_file_table[0], X_OK) == -1 && dir == NULL)
+	{
+		write(2, "minishell: command not found\n", 29);
+		exit_status(sh, tmp, 127);
+	}
+	if (access(sh->path_to_file_table[0], X_OK) == -1)
+	{
+		perror("minishell");
+		exit_status(sh, tmp, 126);
+	}
+	if (dir != NULL)
+	{
+		closedir(dir);
+		write(2, "minishell: is a directory\n", 26);
+		exit_status(sh, tmp, 126);
+	}
+	perror("minishell");
+	exit_status(sh, tmp, 1);
 }
 
 void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
@@ -63,7 +81,7 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 	if (pid2 == 0)
 	{
 		which_dup(infile, outfile);
-		execute_cmd(sh, infile);
+		execute_cmd(sh, infile, outfile);
 	}
 	waitpid(pid2, &sh->status, 0);
 }
