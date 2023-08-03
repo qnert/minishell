@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/01 15:18:27 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:22:22 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ void	print_list(t_files *lst)
 	}
 }
 
+int		check_spaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != 32)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	shell_loop(t_shell *sh)
 {
 	char	*str;
@@ -47,7 +61,7 @@ void	shell_loop(t_shell *sh)
 	str = readline("miniHell > ");
 	while (str != NULL)
 	{
-		if (str[0] != '\0')
+		if (check_spaces(str) && str[0] != '\0')
 		{
 			add_history(str);
 			if (lexer(sh, str) == false)

@@ -49,3 +49,17 @@ void	exit_status(t_shell *sh, char **tmp, int status)
 	free(sh);
 	exit(status);
 }
+
+void	go_to_home(t_shell *sh)
+{
+	char	*tmp;
+
+	tmp = get_home_from_env(sh);
+	if (!tmp)
+		return ((void)write(2, "miniHell: cd: HOME not set\n", 27));
+	if (chdir(tmp) != 0)
+	{
+		free(tmp);
+		perror("cd");
+	}
+}
