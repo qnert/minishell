@@ -70,7 +70,7 @@ int	handle_child_pipes(t_shell *sh, t_files *in, t_files *out, int *fd)
 	if (pipe(fd) == -1)
 		return (perror("pipe"), -1);
 	if (check_built_in_main(sh->cmd_table[sh->index]) == true)
-		handle_built_in(sh, sh->cmd_table[sh->index]);
+	  handle_built_in(sh, sh->cmd_table[sh->index]);
 	pid = fork();
 	if (pid == 0)
 	{

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
 /*   Updated: 2023/08/04 18:32:28 by njantsch         ###   ########.fr       */
@@ -88,4 +88,45 @@ void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 		exit_status(sh, tmp, 126);
 	}
 	exit_status(sh, tmp, 1);
+}
+
+long long	ft_atoll(const char *str)
+{
+	int			i;
+	int			sign;
+	long long	res;
+
+	i = 0;
+	sign = 1;
+	res = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res *= 10;
+		res += str[i] - '0';
+		i++;
+	}
+	return (res * sign);
+}
+
+void	right_exit_builtin(t_shell *sh, int i, int j)
+{
+	int	error;
+
+	error = 0;
+	while (sh->cmd_table[i][j] && sh->cmd_table[i][j++] != 1)
+	j++;
+	check_failing_exit(sh, i, j);
+	error = ft_atoi(&sh->cmd_table[i][j]);
+	terminate_struct(sh);
+	free_arr(sh->envp);
+	free(sh);
+	exit (error);
 }

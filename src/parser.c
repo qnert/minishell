@@ -27,14 +27,7 @@ void	table_init(t_shell *sh)
 			break ;
 		if (curr->token == PIPE)
 			sh->check = 0;
-		if (check_word_token(curr->token) && sh->check == 0)
-		{
-			sh->cmd_table[++i] = ft_strdup(curr->str);
-			sh->check = 1;
-		}
-		else if (check_word_token(curr->token) && sh->check == 1)
-			sh->cmd_table[i] = ft_strjoin_free
-				(ft_strjoin_free(sh->cmd_table[i], "\1"), curr->str);
+		concat_right(sh, curr, &i);
 		curr = curr->next;
 	}
 	sh->cmd_table[++i] = NULL;

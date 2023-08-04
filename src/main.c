@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 16:22:22 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/04 18:22:57 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	shell_loop(t_shell *sh)
 			if (lexer(sh, str) == false)
 				printf("false\n");
 			else if (parser_main(sh) == false)
-				printf("minishell: syntax error near unexpected token\n");
+				printf("");
 			else
 				execute_main(sh);
 		}
