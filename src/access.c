@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/03 17:39:22 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/04 18:28:20 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ bool	check_path(t_shell *sh, char **path, char *cmd)
 		}
 		free(cmd_path);
 		i++;
+	}
+	if (check_built_in_main(cmd) == true)
+	{
+		sh->path_to_file_table[sh->index++] = ft_strdup("");
+		return (true);
 	}
 	sh->exit_code = 127;
 	return (false);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/04 16:41:35 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/04 18:18:39 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ bool	check_built_in_child(char *str)
 
 bool	check_built_in_main(char *str)
 {
+	if (!str)
+		return (false);
 	if (ft_strncmp(str, "cd", 2) == 0)
 		return (true);
 	if (ft_strncmp(str, "export", 6) == 0)
@@ -71,7 +73,7 @@ void	handle_built_in(t_shell *sh, char *str)
 		print_matrix(sh->envp);
 	if (ft_strncmp(str, "pwd", 3) == 0)
 		handle_pwd();
-	if (ft_strncmp(str, "export", 6) == 0)
+	if (ft_strncmp(str, "export", 6) == 0 && sh->pipes == 0)
 		handle_export(sh, str);
 	if (ft_strncmp(str, "unset", 5) == 0)
 		handle_unset(sh, str);

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/04 18:20:50 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/04 18:32:28 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,32 @@ void	go_to_home(t_shell *sh)
 		free(tmp);
 		perror("cd");
 	}
+}
+
+void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
+{
+	if ((sh->exit_code == 127
+		&& check_built_in_main(sh->cmd_table[i]) == false) || (dir != NULL
+		&& ft_strchr(sh->path_to_file_table[i], '/') == 0))
+	{
+		if (dir != NULL)
+			closedir(dir);
+		write(2, "minishell: command not found\n", 29);
+		exit_status(sh, tmp, 127);
+	}
+	if (access(sh->path_to_file_table[i], X_OK) == -1
+		&& check_built_in_main(sh->cmd_table[i]) == false)
+	{
+		write(2, "minishell: non executable\n", 26);
+		exit_status(sh, tmp, 126);
+	}
+	if (dir != NULL)
+	{
+		closedir(dir);
+		write(2, "minishell: is a directory\n", 26);
+		exit_status(sh, tmp, 126);
+	}
+	exit_status(sh, tmp, 1);
 }
 
 long long	ft_atoll(const char *str)

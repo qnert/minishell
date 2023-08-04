@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/03 17:46:11 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/04 18:18:23 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,31 +42,7 @@ void	execute_cmd(t_shell *sh, t_files *in, t_files *out)
 		execve(sh->path_to_file_table[0], tmp, sh->envp);
 	}
 	dir = opendir(sh->path_to_file_table[0]);
-	if (sh->exit_code == 127 || (dir != NULL
-		&& ft_strchr(sh->path_to_file_table[0], '/') == 0))
-	{
-		write(2, "minishell: command not found\n", 29);
-		exit_status(sh, tmp, 127);
-	}
-	if (access(sh->path_to_file_table[0], F_OK) == 0
-	&& access(sh->path_to_file_table[0], X_OK) == -1 && dir == NULL)
-	{
-		write(2, "minishell: command not found\n", 29);
-		exit_status(sh, tmp, 127);
-	}
-	if (access(sh->path_to_file_table[0], X_OK) == -1)
-	{
-		perror("minishell");
-		exit_status(sh, tmp, 126);
-	}
-	if (dir != NULL)
-	{
-		closedir(dir);
-		write(2, "minishell: is a directory\n", 26);
-		exit_status(sh, tmp, 126);
-	}
-	perror("minishell");
-	exit_status(sh, tmp, 1);
+	exit_error(sh, tmp, dir, 0);
 }
 
 void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
