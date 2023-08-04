@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   access.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/04 18:28:20 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/04 19:12:19 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ bool	check_path(t_shell *sh, char **path, char *cmd)
 	char		*cmd_path;
 
 	i = 0;
+	if (ft_strlen(cmd) == 0)
+		return (false);
 	if (access(cmd, F_OK) == 0)
 	{
 		sh->path_to_file_table[sh->index++] = ft_strdup(cmd);
