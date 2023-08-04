@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:49:56 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/04 18:20:23 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/04 20:34:50 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,12 @@ int	handle_child_pipes(t_shell *sh, t_files *in, t_files *out, int *fd)
 	if (pipe(fd) == -1)
 		return (perror("pipe"), -1);
 	if (check_built_in_main(sh->cmd_table[sh->index]) == true)
-	  handle_built_in(sh, sh->cmd_table[sh->index]);
+		handle_built_in(sh, sh->cmd_table[sh->index]);
 	pid = fork();
 	if (pid == 0)
 	{
+		if (out && out->fd == -1)
+			exit_status(sh, NULL, 1);
 		which_dup_pipes(sh, in, out, fd);
 		child_process_pipes(sh, in, out);
 	}

@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:15:27 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/02 17:42:48 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/04 20:38:00 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,14 @@ t_files	*get_right_file(t_shell *sh, t_files *file)
 	t_files	*curr;
 
 	curr = file;
-	if (!curr || !curr->fd)
+	if (!curr)
 		return (NULL);
-	if (!curr->next || curr->pos != sh->index)
+	if (sh->pipes > 0 && (!curr->next || curr->pos != sh->index))
 		return (curr);
 	while (curr && curr->next)
 	{
+		if (curr->fd == -1)
+			return (curr);
 		if (curr->pos != curr->next->pos)
 			return (curr);
 		curr = curr->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/04 18:32:28 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/04 19:52:32 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char	*get_expand_here_doc(t_shell *sh, char *str)
 void	exit_status(t_shell *sh, char **tmp, int status)
 {
 	terminate_struct(sh);
-	free_arr(tmp);
+	if (tmp)
+		free_arr(tmp);
 	free_arr(sh->envp);
 	free(sh);
 	exit(status);
