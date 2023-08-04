@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:25:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/19 18:43:57 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/04 16:24:27 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	erase_env_var(t_shell *sh, int index)
 {
 	if (index == get_len_matrix(sh->envp) - 1)
 	{
-		printf("last env erase\n");
 		free(sh->envp[index]);
 		sh->envp[index] = NULL;
 		return ;

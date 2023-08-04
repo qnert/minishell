@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 17:57:51 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/04 18:20:50 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,32 @@ void	go_to_home(t_shell *sh)
 	}
 }
 
+long long	ft_atoll(const char *str)
+{
+	int			i;
+	int			sign;
+	long long	res;
+
+	i = 0;
+	sign = 1;
+	res = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res *= 10;
+		res += str[i] - '0';
+		i++;
+	}
+	return (res * sign);
+}
+
 void	right_exit_builtin(t_shell *sh, int i, int j)
 {
 	int	error;
@@ -71,22 +97,7 @@ void	right_exit_builtin(t_shell *sh, int i, int j)
 	error = 0;
 	while (sh->cmd_table[i][j] && sh->cmd_table[i][j++] != 1)
 	j++;
-	if (ft_strchr(&sh->cmd_table[i][j], 1) != 0)
-	{
-		write(2, " too many arguments\n", 20);
-		terminate_struct(sh);
-		free_arr(sh->envp);
-		free(sh);
-		exit (1);
-	}
-	if (ft_isalpha(sh->cmd_table[i][j]))
-	{
-		write(2, " numeric argument required\n", 26);
-		terminate_struct(sh);
-		free_arr(sh->envp);
-		free(sh);
-		exit (255);
-	}
+	check_failing_exit(sh, i, j);
 	error = ft_atoi(&sh->cmd_table[i][j]);
 	terminate_struct(sh);
 	free_arr(sh->envp);

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 17:56:53 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/04 18:27:45 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,10 @@ char	*get_expand_here_doc(t_shell *sh, char *str);
 void	exit_status(t_shell *sh, char **tmp, int status);
 void	go_to_home(t_shell *sh);
 void	right_exit_builtin(t_shell *sh, int i, int j);
+
+//utils6
+void	check_failing_exit(t_shell *sh, int i, int j);
+void	concat_right(t_shell *sh, t_lexer *curr, int *i);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
