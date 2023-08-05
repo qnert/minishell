@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:19:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/04 18:32:01 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/04 19:29:08 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	concat_right(t_shell *sh, t_lexer *curr, int *i)
 {
 	if (check_word_token(curr->token) && sh->check == 0)
 	{
-		sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\1");
+		if (ft_strlen(curr->str) != 0)
+			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\1");
+		else
+			sh->cmd_table[++(*i)] = ft_strdup(curr->str);
 		sh->check = 1;
 	}
 	else if ((check_word_token(curr->token)
@@ -59,11 +62,22 @@ void	concat_right(t_shell *sh, t_lexer *curr, int *i)
 	else if (((curr->token == 6 || curr->token == 7) && (curr->next
 				!= NULL && curr->next->token == 0)) && sh->check == 1)
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
-	else if (check_word_token(curr->token) && (curr->next != NULL
-			&& (curr->next->token == 4 || curr->next->token == 2)) && sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free
-			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
 	else if (check_word_token(curr->token)
 		&& (curr->next != NULL) && sh->check == 1)
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
+}
+
+void	right_exit_builtin(t_shell *sh, int i, int j)
+{
+	int	error;
+
+	error = 0;
+	while (sh->cmd_table[i][j] && sh->cmd_table[i][j++] != 1)
+	j++;
+	check_failing_exit(sh, i, j);
+	error = ft_atoi(&sh->cmd_table[i][j]);
+	terminate_struct(sh);
+	free_arr(sh->envp);
+	free(sh);
+	exit (error);
 }

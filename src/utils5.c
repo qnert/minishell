@@ -68,14 +68,16 @@ void	go_to_home(t_shell *sh)
 void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 {
 	if ((sh->exit_code == 127
-		&& check_built_in_main(sh->cmd_table[i]) == false) || (dir != NULL
-		&& ft_strchr(sh->path_to_file_table[i], '/') == 0))
+			&& check_built_in_main(sh->cmd_table[i]) == false) || (dir != NULL
+			&& ft_strchr(sh->path_to_file_table[i], '/') == 0))
 	{
 		if (dir != NULL)
 			closedir(dir);
 		write(2, "minishell: command not found\n", 29);
 		exit_status(sh, tmp, 127);
 	}
+	if (sh->path_to_file_table[0] == NULL && dir == NULL)
+		exit_status(sh, tmp, 0);
 	if (access(sh->path_to_file_table[i], X_OK) == -1
 		&& check_built_in_main(sh->cmd_table[i]) == false)
 	{
@@ -115,19 +117,4 @@ long long	ft_atoll(const char *str)
 		i++;
 	}
 	return (res * sign);
-}
-
-void	right_exit_builtin(t_shell *sh, int i, int j)
-{
-	int	error;
-
-	error = 0;
-	while (sh->cmd_table[i][j] && sh->cmd_table[i][j++] != 1)
-	j++;
-	check_failing_exit(sh, i, j);
-	error = ft_atoi(&sh->cmd_table[i][j]);
-	terminate_struct(sh);
-	free_arr(sh->envp);
-	free(sh);
-	exit (error);
 }
