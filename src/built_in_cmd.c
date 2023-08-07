@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/07 16:03:34 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/07 21:04:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	handle_export(t_shell *sh, char *str)
 	while (str[i] != '\0' && str[i] != 32)
 		i++;
 	i++;
-	if (!str[i])
+	if (str[i] == '\0')
 		return ;
-	if (str[i] == '=')
+	if (str[i] == '=' || (str[i + 1] && str[i + 1] == '=') || str[i] == 39)
 	{
 		write(2, " not a valid identifier\n", 24);
 		sh->status = 1;
@@ -76,7 +76,7 @@ void	handle_unset(t_shell *sh, char *str)
 	while (str[i] && (str[i] != 32 && str[i] != 9))
 		i++;
 	i++;
-	if (str[i] == '$')
+	if (!str[i] || ft_isalpha(str[i]) == 0)
 		return (sh->status = 1, (void)write(2, " not a valid identifier\n", 24));
 	tmp = ft_substr(str, i, ft_strlen(str) - i);
 	tmp = ft_strjoin_free(tmp, "=");

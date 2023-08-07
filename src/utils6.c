@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:19:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/07 15:24:02 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/07 21:13:23 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ void	check_failing_exit(t_shell *sh, int i, int j)
 		exit (1);
 	}
 	if (ft_isalpha(sh->cmd_table[i][j]) || ft_atoll(&sh->cmd_table[i][j])
-		>= 9223372036854775807
-		|| (ft_atoll(&sh->cmd_table[i][j]) < 0 && sh->cmd_table[i][j] != '-'))
+		>= 9223372036854775807 || (sh->cmd_table[i][j] == '+' && sh->cmd_table[i][j + 1] == '+')
+		|| (ft_atoll(&sh->cmd_table[i][j]) < 0 && sh->cmd_table[i][j] != '-')
+		|| !sh->cmd_table[i][j])
 	{
 		if (sh->cmd_table[i][ft_strlen(sh->cmd_table[i]) - 1] == '8'
 			|| ft_isalpha(sh->cmd_table[i][j])
