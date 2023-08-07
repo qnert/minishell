@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/04 19:25:26 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/07 12:57:51 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	table_init(t_shell *sh)
 		if (curr->token == PIPE)
 			sh->check = 0;
 		concat_right(sh, curr, &i);
+		if (curr->next && curr->next->token == 4 && curr->next->next && sh->check == 1)
+			sh->cmd_table[i] = ft_strjoin_free(sh->cmd_table[i], "\1");
 		curr = curr->next;
 	}
 	sh->cmd_table[++i] = NULL;

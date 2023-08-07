@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/04 19:52:32 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/07 13:40:37 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	go_to_home(t_shell *sh)
 		free(tmp);
 		perror("cd");
 	}
+	free(tmp);
 }
 
 void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)

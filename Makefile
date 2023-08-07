@@ -24,3 +24,6 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+test:
+	@cd tests && bash tester.sh a

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 16:31:07 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/07 15:49:08 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ bool	check_existence_env(t_shell *sh, char *str)
 	char	*tmp;
 
 	i = 0;
-	while (str[i] != '\0' && ft_isalnum(str[i]) == 1 && str[i] != '=')
+	while (str[i] != '\0' && str[i] != '=')
 		i++;
-	if (str[i] == '\0' || (ft_isalnum(str[i]) == 0 && str[i] != '='))
+	if ((str[i] == '\0' && str[i] != '=') || str[i - 1] == '?')
 	{
 		if (ft_isalpha(str[i - 1]) && str[i] == '\0')
 			return (true);

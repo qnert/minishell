@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/03 16:06:51 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/07 16:03:34 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	handle_echo(char *str)
 	check = 0;
 	while (str[i] && str[i] != ' ' && str[i] != 9)
 		i++;
-	while (str[i] && (str[i] == ' ' || str[i] == 9))
-		i++;
+	i++;
 	if (ft_check_flag(str, &i, &check) == false)
 		printf("%s\n", &str[i]);
 	else if (check == 0)
@@ -46,10 +45,9 @@ void	handle_export(t_shell *sh, char *str)
 
 	i = 0;
 	len = get_len_matrix(sh->envp);
-	while (str[i] != '\0' && str[i] != 32 && str[i] != 9)
+	while (str[i] != '\0' && str[i] != 32)
 		i++;
-	while (str[i] && (str[i] == 32 || str[i] == 9))
-		i++;
+	i++;
 	if (!str[i])
 		return ;
 	if (str[i] == '=')
@@ -77,8 +75,9 @@ void	handle_unset(t_shell *sh, char *str)
 		return ;
 	while (str[i] && (str[i] != 32 && str[i] != 9))
 		i++;
-	while (str[i] && (str[i] == 32 || str[i] == 9))
-		i++;
+	i++;
+	if (str[i] == '$')
+		return (sh->status = 1, (void)write(2, " not a valid identifier\n", 24));
 	tmp = ft_substr(str, i, ft_strlen(str) - i);
 	tmp = ft_strjoin_free(tmp, "=");
 	i = 0;
@@ -96,25 +95,21 @@ void	handle_unset(t_shell *sh, char *str)
 void	handle_cd(t_shell *sh, char *str)
 {
 	int		i;
-	int		j;
 	char	*tmp;
 
 	i = 0;
-	j = 0;
 	if (ft_strlen(str) == 2)
 	{
 		go_to_home(sh);
 		return ;
 	}
-	while (str[i] && (str[i] < 9 || str[i] > 13) && str[i] != 32)
+	while (str[i] && str[i] != ' ')
 		i++;
-	while (str[i] && str[i] > 9 && str[i] < 13 && str[i] == 32)
-		j++;
-	tmp = ft_substr(str, i + 1, j + 1);
+	tmp = ft_substr(str, i + 1, ft_strlen(str));
 	if (chdir(tmp) == -1)
 	{
 		sh->status = 1;
-		perror(" ");
+		perror("chdir");
 	}
 	free(tmp);
 }

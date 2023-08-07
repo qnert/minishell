@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/04 19:21:05 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/07 15:15:22 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ void	free_arr(char **arr)
 	free(arr);
 }
 
-void	print_list(t_files *lst)
+void	print_list(t_lexer *lst)
 {
-	t_files	*curr;
+	t_lexer	*curr;
 
 	curr = lst;
 	while (curr)
 	{
-		if (curr->file_name)
-			printf("%s %d\n", curr->file_name, curr->pos);
+		if (curr->str)
+			printf("%s %d\n", curr->str, curr->token);
 		curr = curr->next;
 	}
 }
@@ -58,7 +58,14 @@ void	shell_loop(t_shell *sh)
 
 	if (sh == NULL)
 		return ;
-	str = readline("miniHell > ");
+	if (!isatty(0))
+	{
+		str = get_next_line(0);
+		if (str)
+			str = ft_strtrim(str, "\n");
+	}
+	else
+		str = readline("miniHell > ");
 	while (str != NULL)
 	{
 		if (check_spaces(str) && str[0] != '\0')
@@ -85,10 +92,17 @@ void	shell_loop(t_shell *sh)
 		// if (sh->token_list != NULL && sh->token_list->str != NULL)
 		// {
 		// 	print_list(sh->token_list);
-		// 	terminate_struct(sh);
 		// }
 		terminate_struct(sh);
-		str = readline("miniHell > ");
+		if (!isatty(0))
+		{
+			free(str);
+			str = get_next_line(0);
+			if (str)
+				str = ft_strtrim(str, "\n");
+		}
+		else
+			str = readline("miniHell > ");
 	}
 	terminate_struct(sh);
 	free(sh->envp);

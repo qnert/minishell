@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/04 18:42:22 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/07 13:10:55 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,6 @@ void	child_process_pipes(t_shell *sh, t_files *in, t_files *out);
 void	redirect_for_other_pipe(int	*fd);
 int		handle_child_pipes(t_shell *sh, t_files *in, t_files *out, int *fd);
 void	execute_pipes(t_shell *sh, t_files *in, t_files *out);
-void	print_list(t_files *lst);
+void	print_list(t_lexer *lst);
 
 #endif
