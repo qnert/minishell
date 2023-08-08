@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:19:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/07 21:13:23 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/08 12:14:41 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ long long	ft_atoll(const char *str);
 
 void	check_failing_exit(t_shell *sh, int i, int j)
 {
-	if (ft_strchr(&sh->cmd_table[i][j], 1) != 0)
+	if (ft_strchr(&sh->cmd_table[i][j], 1) != 0
+		&& !ft_isalpha(sh->cmd_table[i][j]))
 	{
 		write(2, " too many arguments\n", 20);
 		terminate_struct(sh);
@@ -26,6 +27,7 @@ void	check_failing_exit(t_shell *sh, int i, int j)
 	}
 	if (ft_isalpha(sh->cmd_table[i][j]) || ft_atoll(&sh->cmd_table[i][j])
 		>= 9223372036854775807 || (sh->cmd_table[i][j] == '+' && sh->cmd_table[i][j + 1] == '+')
+		|| (sh->cmd_table[i][j] == '-' && sh->cmd_table[i][j + 1] == '-')
 		|| (ft_atoll(&sh->cmd_table[i][j]) < 0 && sh->cmd_table[i][j] != '-')
 		|| !sh->cmd_table[i][j])
 	{

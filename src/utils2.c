@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:21:29 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/07 15:42:49 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/08 08:44:53 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	*change_str_to_env(t_shell *sh, char *str)
 		return (str);
 	if (ft_strlen(str) == 1 && !ft_isalnum(str[i]))
 		return (str);
+	str = ft_strjoin_free(str, "=");
 	while (sh->envp && sh->envp[i]
 		&& ft_strncmp(sh->envp[i], str + 1, ft_strlen(str) - 1) != 0)
 		i++;
