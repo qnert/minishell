@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/07 16:03:16 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/09 16:32:37 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	expander(t_shell *sh)
 	{
 		if (ft_strncmp(curr->str, "unset", 5) == 0)
 		{
-			curr = curr->next->next;
+			if (curr->next)
+				curr = curr->next->next;
 			if (curr == NULL)
 				return ;
 		}

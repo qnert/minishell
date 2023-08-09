@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:19:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/08 12:14:41 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/09 16:43:56 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,13 @@ void	right_exit_builtin(t_shell *sh, int i, int j)
 	free_arr(sh->envp);
 	free(sh);
 	exit (error);
+}
+
+bool	check_file_token(int token)
+{
+	if (token == 2 || token == 3)
+		return (true);
+	if (token == 4 || token == 5)
+		return (true);
+	return (false);
 }
