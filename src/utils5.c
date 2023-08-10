@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/07 13:40:37 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/10 16:34:36 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,13 @@ void	go_to_home(t_shell *sh)
 	char	*tmp;
 
 	tmp = get_home_from_env(sh);
-	if (!tmp)
+	if (tmp == NULL)
 		return ((void)write(2, "miniHell: cd: HOME not set\n", 27));
 	if (chdir(tmp) != 0)
 	{
 		free(tmp);
 		perror("cd");
+		return ;
 	}
 	free(tmp);
 }

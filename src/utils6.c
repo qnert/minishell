@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:19:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/09 16:43:56 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/10 16:35:31 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ void	check_failing_exit(t_shell *sh, int i, int j)
 		|| (ft_atoll(&sh->cmd_table[i][j]) < 0 && sh->cmd_table[i][j] != '-')
 		|| !sh->cmd_table[i][j])
 	{
-		if (sh->cmd_table[i][ft_strlen(sh->cmd_table[i]) - 1] == '8'
-			|| ft_isalpha(sh->cmd_table[i][j])
-			|| sh->cmd_table[i][ft_strlen(sh->cmd_table[i]) - 1] == '9')
-			write(2, " numeric argument required\n", 26);
+		write(2, " numeric argument required\n", 26);
 		terminate_struct(sh);
 		free_arr(sh->envp);
 		free(sh);
