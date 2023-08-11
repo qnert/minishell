@@ -26,4 +26,4 @@ fclean: clean
 re: fclean all
 
 test:
-	@cd tests && bash tester.sh a
+	@cd tests && bash tester.sh m

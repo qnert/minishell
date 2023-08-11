@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/09 16:32:37 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/11 07:19:15 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,17 @@ void	read_till_limiter(t_shell *sh, t_files *curr)
 	char	*line;
 
 	line = get_next_line(STDIN_FILENO);
-	while (line != NULL && ft_strncmp(line, curr->delim,
-			ft_strlen(curr->delim)) != 0)
+	while (line != NULL)
 	{
+		if (ft_strncmp(line, curr->delim,ft_strlen(curr->delim)) == 0
+			&& (ft_strlen(line) - 1) == ft_strlen(curr->delim))
+			break ;
 		line = get_expand_here_doc(sh, line);
+		if (ft_strlen(line) == 0)
+		{
+			free(line);
+			line = ft_strdup("\n");
+		}
 		ft_putstr_fd(line, curr->fd);
 		free(line);
 		line = get_next_line(STDIN_FILENO);

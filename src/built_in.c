@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/09 16:27:10 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/10 21:34:11 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,9 @@ void	handle_built_in(t_shell *sh, char *str)
 	if (ft_strncmp(str, "export", 6) == 0 && sh->pipes == 0)
 		handle_export(sh, str);
 	if (ft_strncmp(str, "unset", 5) == 0)
+	{
+		if (ft_strlen(str) == 5)
+			return ;
 		handle_unset(sh, str);
+	}
 }

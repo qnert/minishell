@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:19:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/10 16:35:31 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/11 07:24:30 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ void	concat_right(t_shell *sh, t_lexer *curr, int *i)
 			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
 	else if ((curr->token == 0 && (curr->next != NULL && (curr->next->token
 					== 6 || curr->next->token == 7))) && sh->check == 1)
+		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
+	else if ((((curr->token == 6 || curr->token == 7) && curr->str[0] == '/') && (curr->next
+				!= NULL && curr->next->token == 0)) && sh->check == 1)
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
 	else if (((curr->token == 6 || curr->token == 7) && (curr->next
 				!= NULL && curr->next->token == 0)) && sh->check == 1)

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/10 16:28:07 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/10 21:50:03 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,19 @@ void	shell_loop(t_shell *sh)
 		{
 			add_history(str);
 			if (lexer(sh, str) == false)
-				printf("false\n");
+			{
+				write(2, "zsh: parse error\n", 17);
+				exit_status(sh, NULL, 2);
+			}
 			else if (parser_main(sh) == false)
-				printf("");
+			{
+				write(2, "zsh: parse error\n", 17);
+				exit_status(sh, NULL, 2);
+			}
 			else
 				execute_main(sh);
 		}
 		// printf("amount of pipes: %d\n", sh->pipes);
-		// print_matrix(sh->cmd_table);
 		// if (sh->outfiles != NULL)
 		// {
 		// 	printf("outfile: %s\n", sh->outfiles->file_name);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:49:56 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/04 20:34:50 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/11 07:25:53 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	child_process_pipes(t_shell *sh, t_files *in, t_files *out)
 
 	tmp = NULL;
 	if (check_built_in_child(sh->cmd_table[sh->index]) == true
-	&& ((in == NULL || in->fd > 0) && (out == NULL || out->fd > 0)))
+		&& ((in == NULL || in->fd > 0) && (out == NULL || out->fd > 0)))
 	{
 		handle_built_in(sh, sh->cmd_table[sh->index]);
 		exit_status(sh, tmp, 0);
