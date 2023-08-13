@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:19:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/11 07:24:30 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/13 13:20:08 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,39 +43,28 @@ void	concat_right(t_shell *sh, t_lexer *curr, int *i)
 {
 	if (check_word_token(curr->token) && sh->check == 0)
 	{
-		if (ft_strlen(curr->str) != 0 && curr->next && curr->next->token == 7 && ft_strlen(curr->next->str) <= 1 && ft_isalpha(curr->next->str[0]))
-			sh->cmd_table[++(*i)] = ft_strdup(curr->str);
-		else if (ft_strlen(curr->str) != 0 && curr->next && curr->next->token != 4)
+		if (curr->token == 0 && curr->next && curr->next->token == 0)
+			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\1");
+		else if ((curr->token == 6 || curr->token == 7) && curr->b_space == 1)
 			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\1");
 		else
 			sh->cmd_table[++(*i)] = ft_strdup(curr->str);
 		sh->check = 1;
 	}
+	else if ((curr->token == 6 || curr->token == 7) && curr->f_space == 1 && curr->b_space == 0)
+			sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], "\1"), curr->str);
 	else if ((check_word_token(curr->token)
 			&& curr->next == NULL) && sh->check == 1)
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
-	else if ((curr->token == 0 && (curr->next != NULL
-				&& curr->next->token == 0)) && sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free
-			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
-	else if ((curr->token == 0 && (curr->next != NULL && ft_strlen(curr->next->str) > 1 && (curr->next->token
-					== 6 || curr->next->token == 7))) && sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free
-			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
-	else if ((curr->token == 0 && (curr->next != NULL && (curr->next->token
-					== 6 || curr->next->token == 7))) && sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
-	else if ((((curr->token == 6 || curr->token == 7) && curr->str[0] == '/') && (curr->next
-				!= NULL && curr->next->token == 0)) && sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
-	else if (((curr->token == 6 || curr->token == 7) && (curr->next
-				!= NULL && curr->next->token == 0)) && sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free
-			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
-	else if (((curr->token == 6 || curr->token == 7) && (curr->next
-				!= NULL && (curr->next->token == 6 || curr->next->token == 7))) && sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free
-			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
+	else if (curr->token == 0 && curr->next && curr->next->token == 0
+			&& ft_strlen(curr->str) != 0)
+		sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
+	else if ((curr->token == 6 || curr->token == 7) && curr->next != NULL
+			&& curr->b_space == 1 && curr->f_space == 0 && ft_strlen(curr->str) != 0)
+			sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
+	else if ((curr->token == 6 || curr->token == 7) && curr->next != NULL
+			&& curr->b_space == 1 && curr->f_space == 1 && ft_strlen(curr->str) != 0)
+			sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], "\1"), curr->str), "\1");
 	else if (check_word_token(curr->token)
 		&& (curr->next != NULL) && sh->check == 1)
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
@@ -103,4 +92,17 @@ bool	check_file_token(int token)
 	if (token == 4 || token == 5)
 		return (true);
 	return (false);
+}
+
+void	change_f_b_spaces(t_lexer *lst, char *str, int i, int start)
+{
+	t_lexer	*curr;
+
+	curr = lst;
+	while(curr->next)
+		curr = curr->next;
+	if (str[start - 2] && str[start - 2] == ' ')
+		curr->f_space = 1;
+	if (str[i + 1] && str[i + 1] == ' ')
+		curr->b_space = 1;
 }

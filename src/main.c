@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/10 21:50:03 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/13 13:12:53 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	print_list(t_lexer *lst)
 	while (curr)
 	{
 		if (curr->str)
-			printf("%s %d\n", curr->str, curr->token);
+			printf("%s %d %d %d\n", curr->str, curr->token, curr->f_space, curr->b_space);
 		curr = curr->next;
 	}
 }
@@ -85,6 +85,7 @@ void	shell_loop(t_shell *sh)
 				execute_main(sh);
 		}
 		// printf("amount of pipes: %d\n", sh->pipes);
+		// printf("%d\n", sh->cmd_table[0][4]);
 		// if (sh->outfiles != NULL)
 		// {
 		// 	printf("outfile: %s\n", sh->outfiles->file_name);

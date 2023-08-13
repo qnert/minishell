@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/11 07:19:15 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/13 12:51:03 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	expander(t_shell *sh)
 		if ((curr->token == 0 || curr->token == 7)
 			&& ft_strchr(curr->str, '$') != 0)
 		{
-			if (curr->str[0] == '$' && curr->str[1] == '\0'
-				&& (curr->next && curr->next->token == 7))
+			if (curr->token == 0 && curr->str[0] == '$' && curr->str[1] == '\0'
+				&& (curr->next && (curr->next->token == 7
+				|| curr->next->token == 6)))
 			{
 				free(curr->str);
 				curr->str = ft_strdup("");

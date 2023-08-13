@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:55:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/09 16:28:53 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/12 20:22:14 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	check_pipe(t_shell *sh, char *str, int i)
 			sh->token_list = malloc(sizeof(t_lexer));
 			sh->token_list->str = ft_strdup("|");
 			sh->token_list->token = PIPE;
+			sh->token_list->f_space = 0;
+			sh->token_list->b_space = 0;
 			sh->token_list->next = NULL;
 		}
 		else
@@ -44,6 +46,8 @@ void	check_redirect_plus(t_shell *sh, char *str, int i)
 			sh->token_list = malloc(sizeof(t_lexer));
 			sh->token_list->str = ft_strdup("<<");
 			sh->token_list->token = LESS_LESS;
+			sh->token_list->f_space = 0;
+			sh->token_list->b_space = 0;
 			sh->token_list->next = NULL;
 		}
 		else
@@ -56,6 +60,8 @@ void	check_redirect_plus(t_shell *sh, char *str, int i)
 			sh->token_list = malloc(sizeof(t_lexer));
 			sh->token_list->str = ft_strdup(">>");
 			sh->token_list->token = GREAT_GREAT;
+			sh->token_list->f_space = 0;
+			sh->token_list->b_space = 0;
 			sh->token_list->next = NULL;
 		}
 		else
@@ -72,6 +78,8 @@ void	check_redirect(t_shell *sh, char *str, int i)
 			sh->token_list = malloc(sizeof(t_lexer));
 			sh->token_list->str = ft_strdup("<");
 			sh->token_list->token = LESS;
+			sh->token_list->f_space = 0;
+			sh->token_list->b_space = 0;
 			sh->token_list->next = NULL;
 		}
 		else
@@ -84,6 +92,8 @@ void	check_redirect(t_shell *sh, char *str, int i)
 			sh->token_list = malloc(sizeof(t_lexer));
 			sh->token_list->str = ft_strdup(">");
 			sh->token_list->token = GREAT;
+			sh->token_list->f_space = 0;
+			sh->token_list->b_space = 0;
 			sh->token_list->next = NULL;
 		}
 		else

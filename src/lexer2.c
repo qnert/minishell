@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:19:26 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/26 14:01:08 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/12 20:27:24 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	check_words(t_shell *sh, char *str, int i)
 		sh->token_list = malloc(sizeof(t_lexer));
 		sh->token_list->str = ft_substr(str, start, i - start + 1);
 		sh->token_list->token = 0;
+		sh->token_list->f_space = 0;
+		sh->token_list->b_space = 0;
 		sh->token_list->next = NULL;
 	}
 	else
@@ -51,10 +53,13 @@ int	check_single_quotes(t_shell *sh, char *str, int i)
 		sh->token_list = malloc(sizeof(t_lexer));
 		sh->token_list->str = ft_substr(str, start, i - start);
 		sh->token_list->token = SINGLE;
+		sh->token_list->f_space = 0;
+		sh->token_list->b_space = 0;
 		sh->token_list->next = NULL;
 	}
 	else
 		lst_add_new(sh->token_list, ft_substr(str, start, i - start), SINGLE);
+	change_f_b_spaces(sh->token_list, str, i, start);
 	return (i);
 }
 
@@ -75,10 +80,13 @@ int	check_double_quotes(t_shell *sh, char *str, int i)
 		sh->token_list = malloc(sizeof(t_lexer));
 		sh->token_list->str = ft_substr(str, start, i - start);
 		sh->token_list->token = DOUBLE;
+		sh->token_list->f_space = 0;
+		sh->token_list->b_space = 0;
 		sh->token_list->next = NULL;
 	}
 	else
 		lst_add_new(sh->token_list, ft_substr(str, start, i - start), DOUBLE);
+	change_f_b_spaces(sh->token_list, str, i, start);
 	return (i);
 }
 
