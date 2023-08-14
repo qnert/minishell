@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/04 20:33:02 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/13 16:26:56 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	execute_cmd(t_shell *sh, t_files *in, t_files *out)
 	if ((in == NULL || in->fd > 0) && (out == NULL || out->fd > 0))
 	{
 		tmp = ft_split(sh->cmd_table[0], 1);
-		execve(sh->path_to_file_table[0], tmp, sh->envp);
+		if (ft_strnstr(sh->cmd_table[0], "./", 2) == NULL)
+			execve(sh->path_to_file_table[0], tmp, sh->envp);
 	}
 	dir = opendir(sh->path_to_file_table[0]);
 	exit_error(sh, tmp, dir, 0);

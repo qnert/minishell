@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/11 07:25:36 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/13 17:33:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 	if ((sh->exit_code == 127
 			&& check_built_in_main(sh->cmd_table[i]) == false) || (dir != NULL
 			&& ft_strchr(sh->path_to_file_table[i], '/') == 0)
-		|| ft_strlen(sh->cmd_table[i]) == 0)
+		|| ft_strlen(sh->cmd_table[i]) == 0 || ft_strnstr(sh->cmd_table[0], "./", 2) != NULL)
 	{
 		if (dir != NULL)
 			closedir(dir);

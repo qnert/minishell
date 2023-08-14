@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/10 21:58:02 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/13 16:09:38 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,12 @@ void	handle_export(t_shell *sh, char *str)
 	i++;
 	if (str[i] == '\0')
 		return ;
-	if (str[i] == '=' || (str[i + 1] && str[i + 1] == '=') || str[i] == 39)
+	if (str[i] == '=' || str[i] == 39)
 	{
 		write(2, " not a valid identifier\n", 24);
 		sh->status = 1;
 		return ;
 	}
-	if (ft_strrchr(&str[i], ' ') != 0)
-		return ;
 	if (check_existence_env(sh, &str[i]) == false)
 	{
 		sh->envp[len] = ft_strdup(&str[i]);

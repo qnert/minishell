@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:19:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/13 13:20:08 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/13 16:33:15 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ void	concat_right(t_shell *sh, t_lexer *curr, int *i)
 	else if ((curr->token == 6 || curr->token == 7) && curr->next != NULL
 			&& curr->b_space == 1 && curr->f_space == 0 && ft_strlen(curr->str) != 0)
 			sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
+	else if ((curr->token == 6 || curr->token == 7) && curr->next != NULL
+			&& curr->b_space == 1 && curr->f_space == 1 && ft_strlen(curr->str) != 0
+			&& curr->next->f_space == 1)
+			sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], "\1"), curr->str);
 	else if ((curr->token == 6 || curr->token == 7) && curr->next != NULL
 			&& curr->b_space == 1 && curr->f_space == 1 && ft_strlen(curr->str) != 0)
 			sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], "\1"), curr->str), "\1");
