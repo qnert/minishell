@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/14 14:56:30 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 14:58:46 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ void	execute_main(t_shell *sh)
 	check_cmd(sh);
 	if (sh->pipes == 0)
 	{
-		execute_no_pipes(sh, infile, outfile);
 		check_exit(sh);
+		execute_no_pipes(sh, infile, outfile);
 	}
 	else
 	{
-		execute_pipes(sh, infile, outfile);
 		check_exit(sh);
+		execute_pipes(sh, infile, outfile);
 	}
 }
