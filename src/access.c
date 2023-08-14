@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/04 19:12:19 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 17:48:10 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	check_path(t_shell *sh, char **path, char *cmd)
 		sh->path_to_file_table[sh->index++] = ft_strdup(cmd);
 		return (true);
 	}
-	while (path && path[i])
+	while (path && path[i] && ft_strchr(cmd, '/') == 0)
 	{
 		cmd_path = ft_strjoin(path[i], "/");
 		cmd_path = ft_strjoin_free(cmd_path, cmd);
