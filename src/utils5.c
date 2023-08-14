@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/14 13:48:16 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 17:53:19 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	go_to_home(t_shell *sh)
 
 void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 {
+	if (sh->infiles != NULL && sh->infiles->fd == -1)
+		exit_status(sh, tmp, 1);
 	if ((sh->exit_code == 127
 			&& check_built_in_main(sh->cmd_table[i]) == false) || (dir != NULL
 			&& ft_strchr(sh->path_to_file_table[i], '/') == 0)
