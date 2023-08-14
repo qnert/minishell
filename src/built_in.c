@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/10 21:34:11 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 13:46:25 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	check_exit(t_shell *sh)
 		if (ft_strncmp(sh->cmd_table[i], "exit", 4) == 0)
 		{
 			if (ft_strlen(sh->cmd_table[i]) == 4)
-				exit_status(sh, NULL, 0);
+				exit_status(sh, NULL, sh->status);
 			right_exit_builtin(sh, i, j);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/14 12:04:32 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 13:44:30 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ int		check_spaces(char *str)
 	return (0);
 }
 
-void	shell_loop(t_shell *sh)
+int	shell_loop(t_shell *sh)
 {
+	int		tmp;
 	char	*str;
 
 	if (sh == NULL)
-		return ;
+		return (0);
 	if (!isatty(0))
 	{
 		str = get_next_line(0);
@@ -73,13 +74,13 @@ void	shell_loop(t_shell *sh)
 			add_history(str);
 			if (lexer(sh, str) == false)
 			{
-				write(2, "zsh: parse error\n", 17);
-				exit_status(sh, NULL, 2);
+				write(2, "minishell: parse error\n", 23);
+				sh->status = 2;
 			}
 			else if (parser_main(sh) == false)
 			{
-				write(2, "zsh: parse error\n", 17);
-				exit_status(sh, NULL, 2);
+				write(2, "minishell: parse error\n", 23);
+				sh->status = 2;
 			}
 			else
 				execute_main(sh);
@@ -112,16 +113,18 @@ void	shell_loop(t_shell *sh)
 		else
 			str = readline("miniHell > ");
 	}
+	tmp = sh->status;
 	terminate_struct(sh);
 	free(sh->envp);
 	free(sh);
 	rl_clear_history();
 	free(str);
-	return ;
+	return (tmp);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	int		tmp;
 	t_shell	*sh;
 
 	sh = NULL;
@@ -134,7 +137,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		set_signals();
 		sh = shell_init(envp);
-		shell_loop(sh);
+		tmp = shell_loop(sh);
 	}
-	return (0);
+	return (tmp);
 }
