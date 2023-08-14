@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/09 16:44:42 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:28:28 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,6 @@ bool	check_list(t_shell *sh)
 			return (false);
 		if (curr->next && curr->token > 0 && curr->token < 6
 			&& curr->token == curr->next->token)
-			return (false);
-		if (curr->next && curr->token > 3 && curr->token < 6
-			&& (curr->token - 1 == curr->next->token
-				|| curr->token == curr->next->token - 1))
 			return (false);
 		if (curr->next && curr->token > 1 && curr->token < 4
 			&& (curr->token - 1 == curr->next->token

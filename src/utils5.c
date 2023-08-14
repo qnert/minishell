@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/14 13:48:16 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 17:49:41 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 		write(2, "minishell: command not found\n", 29);
 		exit_status(sh, tmp, 127);
 	}
+	if (sh->exit_code == 1)
+		exit_status(sh, tmp, 1);
 	if (sh->path_to_file_table[0] == NULL && dir == NULL)
 		exit_status(sh, tmp, 0);
 	if (access(sh->path_to_file_table[i], X_OK) == -1
