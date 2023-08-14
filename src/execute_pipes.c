@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:49:56 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/11 07:25:53 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 14:53:23 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	execute_pipes(t_shell *sh, t_files *in, t_files *out)
 		sh->index++;
 	}
 	waitpid(pid, &sh->status, 0);
+	sh->status = get_exit_code(sh);
 	dup2(sh->old_stdin, STDIN_FILENO);
 	close(sh->old_stdin);
 }

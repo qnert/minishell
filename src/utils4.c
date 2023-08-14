@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:15:27 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/07 13:25:58 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 14:52:42 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,18 @@ t_files	*get_right_file(t_shell *sh, t_files *file)
 char	*get_exit_code_string(t_shell *sh, char *str)
 {
 	int		i;
+	char	*tmp;
 	char	*status;
 	char	*res;
 
 	i = 2;
-	if (WIFEXITED(sh->status))
-		status = ft_itoa(WEXITSTATUS(sh->status));
-	if (WIFSIGNALED(sh->status))
-		status = ft_itoa(WTERMSIG(sh->status));
+	status = ft_itoa(sh->status);
 	if (!str[i])
 		return (status);
 	while (str[i] && str[i] != '$')
 		i++;
-	res = ft_strjoin_free(status, ft_substr(str, 2, i - 2));
+	tmp = ft_substr(str, 2, i - 2);
+	res = ft_strjoin_free(status, tmp);
+	free(tmp);
 	return (res);
 }

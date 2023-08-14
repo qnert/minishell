@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/12 20:24:37 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 14:19:02 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,9 @@ void	concat_right(t_shell *sh, t_lexer *curr, int *i);
 void	right_exit_builtin(t_shell *sh, int i, int j);
 bool	check_file_token(int token);
 void	change_f_b_spaces(t_lexer *lst, char *str, int i, int start);
+
+//utils7
+int		get_exit_code(t_shell *sh);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
