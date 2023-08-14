@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 14:15:27 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/07 13:25:58 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 14:53:55 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,7 @@ char	*get_exit_code_string(t_shell *sh, char *str)
 	char	*res;
 
 	i = 2;
-	if (WIFEXITED(sh->status))
-		status = ft_itoa(WEXITSTATUS(sh->status));
-	if (WIFSIGNALED(sh->status))
-		status = ft_itoa(WTERMSIG(sh->status));
+	status = ft_itoa(sh->status);
 	if (!str[i])
 		return (status);
 	while (str[i] && str[i] != '$')

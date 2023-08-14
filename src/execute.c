@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/14 13:53:41 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 14:56:30 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 		execute_cmd(sh, infile, outfile);
 	}
 	waitpid(pid2, &sh->status, 0);
+	sh->status = get_exit_code(sh);
 }
 
 void	execute_main(t_shell *sh)

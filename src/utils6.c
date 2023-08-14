@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:19:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/14 13:36:57 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 14:05:28 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ void	concat_right(t_shell *sh, t_lexer *curr, int *i)
 			sh->cmd_table[++(*i)] = ft_strdup(curr->str);
 		sh->check = 1;
 	}
+	else if (curr->token == 0 && curr->next && (curr->next->token == 6 || curr->next->token == 7)
+			&& curr->next->f_space == 1 && (curr->next == NULL || curr->b_space == 0))
+		sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
 	else if ((curr->token == 6 || curr->token == 7) && curr->f_space == 1 && (curr->next == NULL || curr->b_space == 0))
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
-	else if ((curr->token == 6 || curr->token == 7) && curr->f_space == 1 && curr->next == NULL)
-		sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], "\1"), curr->str);
 	else if ((check_word_token(curr->token)
 			&& curr->next == NULL) && sh->check == 1)
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
