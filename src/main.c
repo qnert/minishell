@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/13 17:44:37 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 12:04:32 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	shell_loop(t_shell *sh)
 		}
 		// printf("amount of pipes: %d\n", sh->pipes);
 		// replace_split_char(sh->cmd_table[0]);
+		// printf("%zu\n", ft_strlen(sh->cmd_table[0]));
 		// print_matrix(sh->cmd_table);
 		// if (sh->outfiles != NULL)
 		// {
