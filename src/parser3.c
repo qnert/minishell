@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/13 16:02:28 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:34:42 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	read_till_limiter(t_shell *sh, t_files *curr)
 		if (ft_strncmp(line, curr->delim,ft_strlen(curr->delim)) == 0
 			&& (ft_strlen(line) - 1) == ft_strlen(curr->delim))
 			break ;
-		line = get_expand_here_doc(sh, line);
+		if (ft_strlen(curr->file_name) == 8)
+			line = get_expand_here_doc(sh, line);
 		if (ft_strlen(line) == 0)
 		{
 			free(line);
@@ -66,7 +67,7 @@ void	read_till_limiter(t_shell *sh, t_files *curr)
 	free(line);
 	close(curr->fd);
 	curr->fd = open(curr->file_name, O_RDONLY);
-	unlink("here_doc");
+	unlink(curr->file_name);
 }
 
 void	check_and_write_here_doc(t_shell *sh, t_files *infiles)

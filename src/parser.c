@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/14 16:28:28 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:46:03 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void	table_init(t_shell *sh)
 	sh->cmd_table = malloc(sizeof(char *) * (sh->pipes + 2));
 	while (curr)
 	{
+		if (curr->token == LESS_LESS && curr->next && curr->next->token == SINGLE
+			&& ft_strlen(curr->next->str) == 0 && curr->next->next
+			&& curr->next->next->token == 0)
+			curr = curr->next->next->next;
+		if (!curr)
+			break ;
 		curr = check_correct_file(curr);
 		if (!curr)
 			break ;
@@ -31,6 +37,8 @@ void	table_init(t_shell *sh)
 		if (curr->next && check_file_token(curr->next->token)
 			&& curr->next->next && sh->check == 1)
 			sh->cmd_table[i] = ft_strjoin_free(sh->cmd_table[i], "\1");
+		if (sh->check == 0 && curr->next && (curr->next->token == 2 || curr->next->token == 3) && curr->next->next && !curr->next->next->next)
+			sh->cmd_table[++i] = ft_strdup("\1");
 		curr = curr->next;
 	}
 	sh->cmd_table[++i] = NULL;
@@ -105,8 +113,14 @@ void	get_here_doc(t_shell *sh)
 			if (sh->infiles == NULL)
 			{
 				sh->infiles = malloc(sizeof(t_files));
-				sh->infiles->file_name = ft_strdup("here_doc");
-				sh->infiles->delim = ft_strdup(curr->next->str);
+				if (curr->next->token == SINGLE || (curr->next->next && curr->next->next->token == SINGLE && ft_strlen(curr->next->next->str) == 0))
+					sh->infiles->file_name = ft_strdup("here_docc");
+				else
+					sh->infiles->file_name = ft_strdup("here_doc");
+				if (curr->next->token == SINGLE && ft_strlen(curr->next->str) == 0 && curr->next->next)
+					sh->infiles->delim = ft_strdup(curr->next->next->str);
+				else
+					sh->infiles->delim = ft_strdup(curr->next->str);
 				sh->infiles->fd = ft_outfile_check(sh->infiles->file_name);
 				sh->infiles->pos = pipe;
 				sh->infiles->next = NULL;

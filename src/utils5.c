@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/14 17:49:41 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:07:22 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,17 @@ void	go_to_home(t_shell *sh)
 
 void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 {
-	if ((sh->exit_code == 127
-			&& check_built_in_main(sh->cmd_table[i]) == false) || (dir != NULL
-			&& ft_strchr(sh->path_to_file_table[i], '/') == 0)
-		|| ft_strlen(sh->cmd_table[i]) == 0 || ft_strnstr(sh->cmd_table[0], "./", 2) != NULL)
+	if (sh->infiles != NULL && sh->infiles->fd == -1)
+		exit_status(sh, tmp, 1);
+	if (((sh->exit_code == 127
+		|| (dir != NULL && ft_strchr(sh->path_to_file_table[i], '/') == 0)
+		|| ft_strlen(sh->cmd_table[i]) == 0
+		|| (ft_strnstr(sh->cmd_table[0], "./", 2) == NULL && dir == NULL)) && check_built_in_main(sh->cmd_table[i]) == false))
 	{
 		if (dir != NULL)
 			closedir(dir);
+		if (sh->cmd_table[i][0] == 1 && ft_strlen(sh->cmd_table[i]) == 1)
+			exit_status(sh, tmp, 0);
 		write(2, "minishell: command not found\n", 29);
 		exit_status(sh, tmp, 127);
 	}
