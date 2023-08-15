@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/14 17:05:30 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/15 15:46:03 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	table_init(t_shell *sh)
 		if (curr->next && check_file_token(curr->next->token)
 			&& curr->next->next && sh->check == 1)
 			sh->cmd_table[i] = ft_strjoin_free(sh->cmd_table[i], "\1");
+		if (sh->check == 0 && curr->next && (curr->next->token == 2 || curr->next->token == 3) && curr->next->next && !curr->next->next->next)
+			sh->cmd_table[++i] = ft_strdup("\1");
 		curr = curr->next;
 	}
 	sh->cmd_table[++i] = NULL;
