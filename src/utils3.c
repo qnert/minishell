@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:49:35 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/01 11:51:29 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/15 12:19:58 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	list_len(t_files *files)
+int	list_len(t_lexer *files)
 {
 	int		i;
-	t_files	*curr;
+	t_lexer	*curr;
 
 	i = 0;
 	curr = files;
