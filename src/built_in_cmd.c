@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/13 16:09:38 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/15 12:04:06 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ void	handle_echo(char *str)
 
 	i = 0;
 	check = 0;
-	while (str[i] && str[i] != ' ' && str[i] != 9)
+	while (str[i] && str[i] != ' ' && str[i] != 9 && str[i] != 2)
 		i++;
+	if (str[i] == 2)
+		check = 1;
 	i++;
-	if (ft_check_flag(str, &i, &check) == false)
+	if (check == 1 || ft_check_flag(str, &i, &check) == false)
 		printf("%s\n", &str[i]);
 	else if (check == 0)
 		printf("%s", &str[i]);
@@ -109,5 +111,6 @@ void	handle_cd(t_shell *sh, char *str)
 		sh->status = 1;
 		perror("chdir");
 	}
+	change_pwd(sh);
 	free(tmp);
 }

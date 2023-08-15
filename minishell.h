@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/14 14:47:19 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/15 12:35:01 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	get_expand(t_shell *sh, t_lexer *curr);
 char	*change_str_to_env(t_shell *sh, char *str);
 
 //utils3.c
-int		list_len(t_files *files);
+int		list_len(t_lexer *files);
 bool	check_word_token(int token);
 t_files	*ft_lstlast_files(t_files *lst);
 void	replace_split_char(char *str);
@@ -163,6 +163,8 @@ void	change_f_b_spaces(t_lexer *lst, char *str, int i, int start);
 
 //utils7
 int		get_exit_code(t_shell *sh);
+void	change_pwd(t_shell *sh);
+void	replace_space_char(char *str);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);
