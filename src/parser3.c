@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/14 16:34:42 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/15 12:35:10 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ void	expander(t_shell *sh)
 				curr->str = ft_strdup("");
 			}
 			else
+			{
 				get_expand(sh, curr);
+				if (!ft_strchr(curr->str, '$'))
+					replace_space_char(curr->str);
+			}
 		}
 		curr = curr->next;
 	}

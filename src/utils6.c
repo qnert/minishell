@@ -45,6 +45,10 @@ void	concat_right(t_shell *sh, t_lexer *curr, int *i)
 	{
 		if (curr->token == 0 && curr->next && curr->next->token == 0)
 			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\1");
+		else if (check_word_token(curr->token) && !ft_strncmp(curr->str, "echo", 4)
+				&& curr->next && (curr->next->token == 6 || curr->next->token == 7)
+				&& !ft_strncmp(curr->next->str, "-n", 2))
+			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\2");
 		else if ((curr->token == 6 || curr->token == 7) && curr->b_space == 1)
 			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\1");
 		else if (curr->token == 0 && curr->next && curr->next->f_space == 1 && curr->str[0] != 32)

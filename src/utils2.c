@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:21:29 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/13 17:37:20 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/15 13:44:23 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ void	get_expand(t_shell *sh, t_lexer *curr)
 		start = i++;
 		while (curr->str[i] && curr->str[i] != ' ' && curr->str[i] != '$')
 			i++;
+		if (curr->str[i - 1] == '?' && curr->str[i - 2] != '$')
+			i--;
 		env_var = change_str_to_env(sh, ft_substr(curr->str, start, i - start));
 		first_str = ft_strjoin_free(first_str, env_var);
 		free(env_var);
