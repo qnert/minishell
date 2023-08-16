@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:19:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 10:39:17 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 12:50:14 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	lst_add_new(t_lexer *lst, char *str, int token)
 		return (-1);
 	new_node->str = str;
 	new_node->token = token;
+	new_node->f_space = 0;
+	new_node->b_space = 0;
 	new_node->next = NULL;
 	while (curr->next != NULL)
 		curr = curr->next;
