@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 17:05:49 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 17:11:38 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 17:44:23 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,39 @@ void	get_expand_helper(char *first_str, t_lexer *curr, int i)
 		first_str = ft_strjoin_free(first_str, &curr->str[i]);
 	free(curr->str);
 	curr->str = first_str;
+}
+
+void	table_init_helper(t_shell *sh, t_lexer *curr, int *i)
+{
+	if (curr->next && check_file_token(curr->next->token)
+		&& curr->next->next && sh->check == 1 && curr->next->next->next)
+		sh->cmd_table[*i] = ft_strjoin_free(sh->cmd_table[*i], "\1");
+	if (sh->check == 0 && curr->next
+		&& (curr->next->token == 2 || curr->next->token == 3)
+		&& curr->next->next && !curr->next->next->next)
+		sh->cmd_table[++(*i)] = ft_strdup("\1");
+}
+
+void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe)
+{
+	if (sh->infiles == NULL)
+	{
+		sh->infiles = malloc(sizeof(t_files));
+		if (curr->next->token == SINGLE
+			|| (curr->next->next && curr->next->next->token == SINGLE
+				&& ft_strlen(curr->next->next->str) == 0))
+			sh->infiles->file_name = ft_strdup("here_docc");
+		else
+			sh->infiles->file_name = ft_strdup("here_doc");
+		if (curr->next->token == SINGLE
+			&& ft_strlen(curr->next->str) == 0 && curr->next->next)
+			sh->infiles->delim = ft_strdup(curr->next->next->str);
+		else
+			sh->infiles->delim = ft_strdup(curr->next->str);
+		sh->infiles->fd = ft_outfile_check(sh->infiles->file_name);
+		sh->infiles->pos = pipe;
+		sh->infiles->next = NULL;
+	}
+	else
+		lst_add_new_infile(sh->infiles, NULL, curr->next->str, pipe);
 }
