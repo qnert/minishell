@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 13:09:14 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 19:36:04 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 	if (pid2 == 0)
 	{
 		if (outfile && outfile->fd == -1)
+		{
+			write(2, "minishell: no such file or directory\n", 35);
 			exit_status(sh, NULL, 1);
+		}
 		which_dup(infile, outfile);
 		execute_cmd(sh, infile, outfile);
 	}

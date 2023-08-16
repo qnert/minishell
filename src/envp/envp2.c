@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:42:55 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 10:55:02 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:30:59 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ bool	check_existence_env(t_shell *sh, char *str)
 	while (sh->envp[i] && ft_strncmp(sh->envp[i], tmp, ft_strlen(tmp)))
 		i++;
 	if (sh->envp[i] == NULL)
-		return (false);
+		return (free(tmp), false);
 	free(sh->envp[i]);
 	sh->envp[i] = ft_strdup(str);
-	return (true);
+	return (free(tmp), true);
 }
 
 char	*get_home_from_env(t_shell *sh)
