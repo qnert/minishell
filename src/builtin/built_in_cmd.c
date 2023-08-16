@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 15:50:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 19:23:48 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,9 @@ void	handle_unset(t_shell *sh, char *str)
 	while (sh->envp && sh->envp[i]
 		&& ft_strncmp(sh->envp[i], tmp, ft_strlen(tmp)))
 		i++;
+	free(tmp);
 	if (!sh->envp || sh->envp[i] == NULL)
-	{
-		free(tmp);
 		return ;
-	}
 	unset_helper(sh, i, new, str);
 }
 
