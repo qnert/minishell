@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:55:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 10:18:44 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:56:21 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,7 @@ void	check_redirect_plus(t_shell *sh, char *str, int i)
 		else
 			lst_add_new(sh->token_list, ft_strdup("<<"), LESS_LESS);
 	}
-	if (str[i] == '>' && str[i + 1] == '>')
-	{
-		if (sh->token_list == NULL)
-		{
-			sh->token_list = malloc(sizeof(t_lexer));
-			sh->token_list->str = ft_strdup(">>");
-			sh->token_list->token = GREAT_GREAT;
-			sh->token_list->f_space = 0;
-			sh->token_list->b_space = 0;
-			sh->token_list->next = NULL;
-		}
-		else
-			lst_add_new(sh->token_list, ft_strdup(">>"), GREAT_GREAT);
-	}
+	check_redirect_plus_helper(sh, str, i);
 }
 
 void	check_redirect(t_shell *sh, char *str, int i)
@@ -85,20 +72,7 @@ void	check_redirect(t_shell *sh, char *str, int i)
 		else
 			lst_add_new(sh->token_list, ft_strdup("<"), LESS);
 	}
-	if (str[i] == '>' && str[i + 1] != '>' && str[i - 1] != '>')
-	{
-		if (sh->token_list == NULL)
-		{
-			sh->token_list = malloc(sizeof(t_lexer));
-			sh->token_list->str = ft_strdup(">");
-			sh->token_list->token = GREAT;
-			sh->token_list->f_space = 0;
-			sh->token_list->b_space = 0;
-			sh->token_list->next = NULL;
-		}
-		else
-			lst_add_new(sh->token_list, ft_strdup(">"), GREAT);
-	}
+	check_redirect_helper(sh, str, i);
 	check_redirect_plus(sh, str, i);
 }
 
