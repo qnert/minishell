@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 16:56:43 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 17:11:41 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,10 @@ void	free_lst_files(t_files *lst);
 int		list_len(t_lexer *files);
 t_files	*ft_lstlast_files(t_files *lst);
 t_files	*get_right_file(t_shell *sh, t_files *file);
+
+// parser_utils.c
+void	expander_helper(t_shell *sh, t_lexer *curr);
+void	get_expand_helper(char *first_str, t_lexer *curr, int i);
 
 // utils.c
 t_shell	*shell_init(char **envp);

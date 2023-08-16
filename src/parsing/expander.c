@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:21:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 15:53:13 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 17:11:50 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ int	count_spaces(char *str)
 
 void	expander(t_shell *sh)
 {
-	int		tmp;
 	t_lexer	*curr;
 
-	tmp = 0;
 	curr = sh->token_list;
 	while (curr)
 	{
@@ -46,22 +44,7 @@ void	expander(t_shell *sh)
 		}
 		if ((curr->token == 0 || curr->token == 7)
 			&& ft_strchr(curr->str, '$') != 0)
-		{
-			if (curr->token == 0 && curr->str[0] == '$' && curr->str[1] == '\0'
-				&& (curr->next && (curr->next->token == 7
-					|| curr->next->token == 6)))
-			{
-				free(curr->str);
-				curr->str = ft_strdup("");
-			}
-			else
-			{
-				tmp = count_spaces(curr->str);
-				get_expand(sh, curr);
-				if (!ft_strchr(curr->str, '$'))
-					replace_space_char(curr->str, tmp);
-			}
-		}
+			expander_helper(sh, curr);
 		curr = curr->next;
 	}
 }
@@ -91,10 +74,7 @@ void	get_expand(t_shell *sh, t_lexer *curr)
 		first_str = ft_strjoin_free(first_str, env_var);
 		free(env_var);
 	}
-	if (curr->str[i] != '\0')
-		first_str = ft_strjoin_free(first_str, &curr->str[i]);
-	free(curr->str);
-	curr->str = first_str;
+	get_expand_helper(first_str, curr, i);
 }
 
 char	*get_expand_here_doc(t_shell *sh, char *str)
