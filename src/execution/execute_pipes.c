@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:49:56 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 19:44:29 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 19:49:38 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,19 @@ void	child_process_pipes(t_shell *sh, t_files *in, t_files *out)
 
 	tmp = NULL;
 	if (check_built_in_child(sh->cmd_table[sh->index]) == true
-		&& ((in == NULL || in->fd > 0 || (in->fd < 0 && sh->index > in->pos))
-		&& (out == NULL || out->fd > 0 || (out->fd < 0 && sh->index > out->pos))))
+		&& ((in == NULL || in->fd > 0
+				|| (in->fd < 0 && sh->index > in->pos))
+			&& (out == NULL || out->fd > 0
+				|| (out->fd < 0
+					&& sh->index > out->pos))))
 	{
 		handle_built_in(sh, sh->cmd_table[sh->index]);
 		exit_status(sh, tmp, 0);
 	}
 	if ((in == NULL || in->fd > 0 || (in->fd < 0 && sh->index > in->pos))
-		&& (out == NULL || out->fd > 0 || (out->fd < 0 && sh->index > out->pos)))
+		&& (out == NULL || out->fd > 0
+			|| (out->fd < 0
+				&& sh->index > out->pos)))
 	{
 		tmp = ft_split(sh->cmd_table[sh->index], 1);
 		execve(sh->path_to_file_table[sh->index], tmp, sh->envp);
