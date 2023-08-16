@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:49:35 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 11:02:05 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 12:39:15 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	change_f_b_spaces(t_lexer *lst, char *str, int i, int start)
 	t_lexer	*curr;
 
 	curr = lst;
-	while(curr->next)
+	while (curr->next)
 		curr = curr->next;
 	if (str[start - 2] && str[start - 2] == ' ')
 		curr->f_space = 1;

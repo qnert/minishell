@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   access.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 10:18:08 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 12:40:04 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ bool	check_path(t_shell *sh, char **path, char *cmd)
 	if (ft_strlen(cmd) == 0)
 		return (false);
 	if (access(cmd, F_OK) == 0)
-	{
-		sh->path_to_file_table[sh->index++] = ft_strdup(cmd);
-		return (true);
-	}
+		return (sh->path_to_file_table[sh->index++] = ft_strdup(cmd), true);
 	while (path && path[i] && ft_strchr(cmd, '/') == 0)
 	{
 		cmd_path = ft_strjoin(path[i], "/");
@@ -60,12 +57,8 @@ bool	check_path(t_shell *sh, char **path, char *cmd)
 		i++;
 	}
 	if (check_built_in_main(cmd) == true)
-	{
-		sh->path_to_file_table[sh->index++] = ft_strdup("");
-		return (true);
-	}
-	sh->exit_code = 127;
-	return (false);
+		return (sh->path_to_file_table[sh->index++] = ft_strdup(""), true);
+	return (sh->exit_code = 127, false);
 }
 
 bool	check_cmd(t_shell *sh)
