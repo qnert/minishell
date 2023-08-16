@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 10:18:13 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:30:17 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	handle_export(t_shell *sh, char *str)
 void	handle_unset(t_shell *sh, char *str)
 {
 	int		i;
+	int		new;
 	char	*tmp;
 
 	i = 0;
@@ -76,9 +77,10 @@ void	handle_unset(t_shell *sh, char *str)
 	while (str[i] && (str[i] != 32 && str[i] != 9))
 		i++;
 	i++;
+	new = i;
 	if (!str[i] || ft_isalpha(str[i]) == 0)
 		return (sh->status = 1, (void)write(2, " not a valid identifier\n", 24));
-	tmp = ft_substr(str, i, ft_strlen(str) - i);
+	tmp = ft_substr(str, i, count_until_space(&str[i]));
 	tmp = ft_strjoin_free(tmp, "=");
 	i = 0;
 	while (sh->envp && sh->envp[i]
@@ -90,6 +92,9 @@ void	handle_unset(t_shell *sh, char *str)
 		return ;
 	}
 	erase_env_var(sh, i);
+	tmp = &str[new + count_until_space(&str[new])];
+	if (ft_strchr(tmp, ' ') && ft_strlen(tmp) != 6)
+		handle_unset(sh, ft_strjoin("unset", tmp));
 }
 
 void	handle_cd(t_shell *sh, char *str)

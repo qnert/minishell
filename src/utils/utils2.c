@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:49:35 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 12:39:15 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 15:09:43 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,22 @@ void	change_f_b_spaces(t_lexer *lst, char *str, int i, int start)
 		curr->b_space = 1;
 }
 
-void	replace_space_char(char *str)
+void	replace_space_char(char *str, int tmp)
 {
 	int	i;
+	int	counter;
 
 	i = 0;
-	while (str[i])
+	counter = count_spaces(str);
+	if (counter == tmp)
+		return ;
+	while (str[i] && counter > tmp)
 	{
 		if (str[i] == 32)
+		{
+			counter--;
 			str[i] = 1;
+		}
 		i++;
 	}
 }

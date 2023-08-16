@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/14 16:15:48 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:22:32 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,9 @@ void	change_f_b_spaces(t_lexer *lst, char *str, int i, int start);
 //utils7
 int		get_exit_code(t_shell *sh);
 void	change_pwd(t_shell *sh);
-void	replace_space_char(char *str);
+void	replace_space_char(char *str, int tmp);
+int		count_spaces(char *str);
+int		count_until_space(char *str);
 
 //lst_utils
 int		lst_add_new(t_lexer *lst, char *str, int token);

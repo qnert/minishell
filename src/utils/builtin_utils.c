@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:55:43 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 10:57:47 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:22:01 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,14 @@ void	change_pwd(t_shell *sh)
 		return ;
 	free(sh->envp[i]);
 	sh->envp[i] = ft_strjoin("PWD=", cwd);
+}
+
+int	count_until_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != 32)
+		i++;
+	return (i);
 }

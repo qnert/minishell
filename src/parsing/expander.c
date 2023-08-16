@@ -3,19 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:21:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 11:02:32 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:19:55 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+int		count_spaces(char *str)
+{
+	int	i;
+	int	counter;
+
+	i = 0;
+	counter = 0;
+	while (str[i])
+	{
+		if (str[i] == 32)
+			counter++;
+		i++;
+	}
+	return (counter);
+}
+
 void	expander(t_shell *sh)
 {
+	int		tmp;
 	t_lexer	*curr;
 
+	tmp = 0;
 	curr = sh->token_list;
 	while (curr)
 	{
@@ -38,9 +56,10 @@ void	expander(t_shell *sh)
 			}
 			else
 			{
+				tmp = count_spaces(curr->str);
 				get_expand(sh, curr);
 				if (!ft_strchr(curr->str, '$'))
-					replace_space_char(curr->str);
+					replace_space_char(curr->str, tmp);
 			}
 		}
 		curr = curr->next;
