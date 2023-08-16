@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:26:08 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 10:45:58 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:42:13 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	check_failing_exit(t_shell *sh, int i, int j)
 		exit (1);
 	}
 	if (ft_isalpha(sh->cmd_table[i][j]) || ft_atoll(&sh->cmd_table[i][j])
-		>= 9223372036854775807 || (sh->cmd_table[i][j] == '+' && sh->cmd_table[i][j + 1] == '+')
+		>= 9223372036854775807 || (sh->cmd_table[i][j] == '+'
+		&& sh->cmd_table[i][j + 1] == '+')
 		|| (sh->cmd_table[i][j] == '-' && sh->cmd_table[i][j + 1] == '-')
 		|| (ft_atoll(&sh->cmd_table[i][j]) < 0 && sh->cmd_table[i][j] != '-')
 		|| !sh->cmd_table[i][j])
@@ -71,9 +72,12 @@ void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 	if (sh->infiles != NULL && sh->infiles->fd == -1)
 		exit_status(sh, tmp, 1);
 	if (((sh->exit_code == 127
-		|| (dir != NULL && ft_strchr(sh->path_to_file_table[i], '/') == 0)
-		|| ft_strlen(sh->cmd_table[i]) == 0
-		|| (ft_strnstr(sh->cmd_table[0], "./", 2) == NULL && dir == NULL)) && check_built_in_main(sh->cmd_table[i]) == false))
+				|| (dir != NULL
+					&& ft_strchr(sh->path_to_file_table[i], '/') == 0)
+				|| ft_strlen(sh->cmd_table[i]) == 0
+				|| (ft_strnstr(sh->cmd_table[0], "./", 2) == NULL
+					&& dir == NULL))
+			&& check_built_in_main(sh->cmd_table[i]) == false))
 	{
 		if (dir != NULL)
 			closedir(dir);
@@ -82,23 +86,7 @@ void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 		write(2, "minishell: command not found\n", 29);
 		exit_status(sh, tmp, 127);
 	}
-	if (sh->exit_code == 1)
-		exit_status(sh, tmp, 1);
-	if (sh->path_to_file_table[0] == NULL && dir == NULL)
-		exit_status(sh, tmp, 0);
-	if (access(sh->path_to_file_table[i], X_OK) == -1
-		&& check_built_in_main(sh->cmd_table[i]) == false)
-	{
-		write(2, "minishell: non executable\n", 26);
-		exit_status(sh, tmp, 126);
-	}
-	if (dir != NULL)
-	{
-		closedir(dir);
-		write(2, "minishell: is a directory\n", 26);
-		exit_status(sh, tmp, 126);
-	}
-	exit_status(sh, tmp, 1);
+	exit_status_helper(sh, tmp, dir, i);
 }
 
 void	exit_status(t_shell *sh, char **tmp, int status)
