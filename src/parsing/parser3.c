@@ -1,42 +1,82 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils6.c                                           :+:      :+:    :+:   */
+/*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 18:19:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/15 15:01:21 by njantsch         ###   ########.fr       */
+/*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
+/*   Updated: 2023/08/16 10:58:49 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-long long	ft_atoll(const char *str);
-
-void	check_failing_exit(t_shell *sh, int i, int j)
+void	read_till_limiter(t_shell *sh, t_files *curr)
 {
-	if (ft_strchr(&sh->cmd_table[i][j], 1) != 0
-		&& !ft_isalpha(sh->cmd_table[i][j]))
+	char	*line;
+
+	line = get_next_line(STDIN_FILENO);
+	while (line != NULL)
 	{
-		write(2, " too many arguments\n", 20);
-		terminate_struct(sh);
-		free_arr(sh->envp);
-		free(sh);
-		exit (1);
+		if (ft_strncmp(line, curr->delim,ft_strlen(curr->delim)) == 0
+			&& (ft_strlen(line) - 1) == ft_strlen(curr->delim))
+			break ;
+		if (ft_strlen(curr->file_name) == 8)
+			line = get_expand_here_doc(sh, line);
+		if (ft_strlen(line) == 0)
+		{
+			free(line);
+			line = ft_strdup("\n");
+		}
+		ft_putstr_fd(line, curr->fd);
+		free(line);
+		line = get_next_line(STDIN_FILENO);
 	}
-	if (ft_isalpha(sh->cmd_table[i][j]) || ft_atoll(&sh->cmd_table[i][j])
-		>= 9223372036854775807 || (sh->cmd_table[i][j] == '+' && sh->cmd_table[i][j + 1] == '+')
-		|| (sh->cmd_table[i][j] == '-' && sh->cmd_table[i][j + 1] == '-')
-		|| (ft_atoll(&sh->cmd_table[i][j]) < 0 && sh->cmd_table[i][j] != '-')
-		|| !sh->cmd_table[i][j])
+	free(line);
+	close(curr->fd);
+	curr->fd = open(curr->file_name, O_RDONLY);
+	unlink(curr->file_name);
+}
+
+void	check_and_write_here_doc(t_shell *sh, t_files *infiles)
+{
+	t_files	*curr;
+
+	curr = infiles;
+	while (curr)
 	{
-		write(2, " numeric argument required\n", 26);
-		terminate_struct(sh);
-		free_arr(sh->envp);
-		free(sh);
-		exit (255);
+		if (curr->delim != NULL)
+			read_till_limiter(sh, curr);
+		curr = curr->next;
 	}
+}
+
+t_lexer	*get_right_start_point(t_shell *sh)
+{
+	t_lexer	*curr;
+	t_lexer	*tmp;
+
+	curr = sh->token_list;
+	if (!sh->infiles || !sh->infiles->next || sh->pipes == 0)
+		return (curr);
+	if (sh->outfiles->pos == sh->outfiles->next->pos)
+		return (curr);
+	while (curr)
+	{
+		if (curr->token > 3 && curr->token < 6)
+			tmp = curr;
+		curr = curr->next;
+	}
+	curr = tmp;
+	sh->pipes = 0;
+	while (curr)
+	{
+		if (curr->token == PIPE)
+			sh->pipes++;
+		curr = curr->next;
+	}
+	return (tmp);
 }
 
 void	concat_right(t_shell *sh, t_lexer *curr, int *i)
@@ -80,41 +120,4 @@ void	concat_right(t_shell *sh, t_lexer *curr, int *i)
 	else if (check_word_token(curr->token)
 		&& (curr->next != NULL) && sh->check == 1)
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
-}
-
-void	right_exit_builtin(t_shell *sh, int i, int j)
-{
-	int	error;
-
-	error = 0;
-	while (sh->cmd_table[i][j] && sh->cmd_table[i][j++] != 1)
-	j++;
-	check_failing_exit(sh, i, j);
-	error = ft_atoi(&sh->cmd_table[i][j]);
-	terminate_struct(sh);
-	free_arr(sh->envp);
-	free(sh);
-	exit (error);
-}
-
-bool	check_file_token(int token)
-{
-	if (token == 2 || token == 3)
-		return (true);
-	if (token == 4 || token == 5)
-		return (true);
-	return (false);
-}
-
-void	change_f_b_spaces(t_lexer *lst, char *str, int i, int start)
-{
-	t_lexer	*curr;
-
-	curr = lst;
-	while(curr->next)
-		curr = curr->next;
-	if (str[start - 2] && str[start - 2] == ' ')
-		curr->f_space = 1;
-	if (str[i + 1] && str[i + 1] == ' ')
-		curr->b_space = 1;
 }

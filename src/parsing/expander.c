@@ -1,0 +1,108 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/16 10:21:03 by njantsch          #+#    #+#             */
+/*   Updated: 2023/08/16 11:02:32 by njantsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../minishell.h"
+
+void	expander(t_shell *sh)
+{
+	t_lexer	*curr;
+
+	curr = sh->token_list;
+	while (curr)
+	{
+		if (ft_strncmp(curr->str, "unset", 5) == 0)
+		{
+			if (curr->next)
+				curr = curr->next->next;
+			if (curr == NULL)
+				return ;
+		}
+		if ((curr->token == 0 || curr->token == 7)
+			&& ft_strchr(curr->str, '$') != 0)
+		{
+			if (curr->token == 0 && curr->str[0] == '$' && curr->str[1] == '\0'
+				&& (curr->next && (curr->next->token == 7
+				|| curr->next->token == 6)))
+			{
+				free(curr->str);
+				curr->str = ft_strdup("");
+			}
+			else
+			{
+				get_expand(sh, curr);
+				if (!ft_strchr(curr->str, '$'))
+					replace_space_char(curr->str);
+			}
+		}
+		curr = curr->next;
+	}
+}
+
+void	get_expand(t_shell *sh, t_lexer *curr)
+{
+	int		i;
+	int		start;
+	char	*first_str;
+	char	*env_var;
+
+	i = 0;
+	while (curr->str[i] && curr->str[i] != '$')
+		i++;
+	if (i > 0)
+		first_str = ft_substr(curr->str, 0, i);
+	else
+		first_str = ft_strdup("");
+	while (curr->str[i] && ft_strchr(curr->str + i, '$') != 0)
+	{
+		start = i++;
+		while (curr->str[i] && curr->str[i] != ' ' && curr->str[i] != '$')
+			i++;
+		if (curr->str[i - 1] == '?' && curr->str[i - 2] != '$')
+			i--;
+		env_var = change_str_to_env(sh, ft_substr(curr->str, start, i - start));
+		first_str = ft_strjoin_free(first_str, env_var);
+		free(env_var);
+	}
+	if (curr->str[i] != '\0')
+		first_str = ft_strjoin_free(first_str, &curr->str[i]);
+	free(curr->str);
+	curr->str = first_str;
+}
+
+char	*get_expand_here_doc(t_shell *sh, char *str)
+{
+	int		i;
+	int		start;
+	char	*first_str;
+	char	*env_var;
+
+	i = 0;
+	while (str[i] && str[i] != '$')
+		i++;
+	if (i > 0)
+		first_str = ft_substr(str, 0, i);
+	else
+		first_str = ft_strdup("");
+	while (str[i] && ft_strchr(str + i, '$') != 0)
+	{
+		start = i;
+		while (str[++i] && ft_isalnum(str[i]))
+			i++;
+		env_var = change_str_to_env(sh, ft_substr(str, start, i - start));
+		first_str = ft_strjoin_free(first_str, env_var);
+		free(env_var);
+	}
+	if (str[i] != '\0')
+		first_str = ft_strjoin_free(first_str, &str[i]);
+	free(str);
+	return (first_str);
+}

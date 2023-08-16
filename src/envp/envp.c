@@ -6,11 +6,11 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:25:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/04 16:24:40 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 11:02:52 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	*get_envp_name(char *str)
 {
@@ -67,4 +67,31 @@ void	erase_env_var(t_shell *sh, int index)
 		return ;
 	}
 	change_env_vars(sh, index);
+}
+
+char	*change_str_to_env(t_shell *sh, char *str)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (ft_strchr(str, '$') == 0)
+		return (str);
+	if (str[i] == '$' && str[i + 1] == '?')
+		return (get_exit_code_string(sh, str));
+	if (ft_strlen(str) == 1 && str[i] == '$')
+		return (str);
+	if (ft_strlen(str) == 1 && !ft_isalnum(str[i]))
+		return (str);
+	str = ft_strjoin_free(str, "=");
+	while (sh->envp && sh->envp[i]
+		&& ft_strncmp(sh->envp[i], str + 1, ft_strlen(str) - 1) != 0)
+		i++;
+	if (!sh->envp || !sh->envp[i])
+		return (free(str), ft_strdup(""));
+	while (sh->envp[i][j] != '=')
+		j++;
+	free(str);
+	return (ft_substr(sh->envp[i], j + 1, ft_strlen(sh->envp[i]) - j + 1));
 }
