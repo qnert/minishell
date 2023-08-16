@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:55:43 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 15:22:01 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 15:52:21 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,14 @@ int	count_until_space(char *str)
 	while (str[i] && str[i] != 32)
 		i++;
 	return (i);
+}
+
+void	unset_helper(t_shell *sh, int i, int new, char *str)
+{
+	char	*tmp;
+
+	erase_env_var(sh, i);
+	tmp = &str[new + count_until_space(&str[new])];
+	if (ft_strchr(tmp, ' ') && ft_strlen(tmp) != 6)
+		handle_unset(sh, ft_strjoin("unset", tmp));
 }

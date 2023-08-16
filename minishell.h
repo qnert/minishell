@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 15:22:32 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 15:51:26 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	erase_env_var(t_shell *sh, int index);
 bool	check_built_in_child(char *str);
 bool	check_built_in_main(char *str);
 void	handle_built_in(t_shell *sh, char *str);
+void	unset_helper(t_shell *sh, int i, int new, char *str);
 
 //built_in_cmds
 void	handle_echo(char *str);

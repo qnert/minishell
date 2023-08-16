@@ -6,13 +6,13 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:21:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 15:19:55 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 15:53:13 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int		count_spaces(char *str)
+int	count_spaces(char *str)
 {
 	int	i;
 	int	counter;
@@ -49,7 +49,7 @@ void	expander(t_shell *sh)
 		{
 			if (curr->token == 0 && curr->str[0] == '$' && curr->str[1] == '\0'
 				&& (curr->next && (curr->next->token == 7
-				|| curr->next->token == 6)))
+					|| curr->next->token == 6)))
 			{
 				free(curr->str);
 				curr->str = ft_strdup("");
