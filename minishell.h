@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 17:44:35 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 18:42:21 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void	exit_status(t_shell *sh, char **tmp, int status);
 
 // exit2.c
 char	*get_exit_code_string(t_shell *sh, char *str);
+void	exit_status_helper(t_shell *sh, char **tmp, DIR *dir, int i);
 
 // directory lexing
 // lexer.c
