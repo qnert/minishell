@@ -6,11 +6,11 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/15 12:06:11 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 10:18:08 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 bool	access_check(t_shell *sh, char *arg)
 {

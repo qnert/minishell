@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils7.c                                           :+:      :+:    :+:   */
+/*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 14:44:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/14 15:01:55 by njantsch         ###   ########.fr       */
+/*   Created: 2023/08/16 10:55:43 by njantsch          #+#    #+#             */
+/*   Updated: 2023/08/16 10:57:47 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-int	get_exit_code(t_shell *sh)
+void	go_to_home(t_shell *sh)
 {
-	int	status;
+	char	*tmp;
 
-	status = 0;
-	if (WIFEXITED(sh->status))
-		status = WEXITSTATUS(sh->status);
-	if (WIFSIGNALED(sh->status))
-		status = WTERMSIG(sh->status);
-	return (status);
+	tmp = get_home_from_env(sh);
+	if (tmp == NULL)
+		return ((void)write(2, "miniHell: cd: HOME not set\n", 27));
+	if (chdir(tmp) != 0)
+	{
+		free(tmp);
+		perror("cd");
+		return ;
+	}
+	free(tmp);
 }
 
 void	change_pwd(t_shell *sh)
@@ -41,17 +45,4 @@ void	change_pwd(t_shell *sh)
 		return ;
 	free(sh->envp[i]);
 	sh->envp[i] = ft_strjoin("PWD=", cwd);
-}
-
-void	replace_space_char(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == 32)
-			str[i] = 1;
-		i++;
-	}
 }

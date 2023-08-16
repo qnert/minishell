@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:19:26 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/12 20:27:24 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 10:18:48 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	check_words(t_shell *sh, char *str, int i)
 {

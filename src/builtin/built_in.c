@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/14 13:46:25 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 10:18:20 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 bool	check_built_in_child(char *str)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 17:27:51 by njantsch          #+#    #+#             */
-/*   Updated: 2023/07/25 12:28:20 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/16 10:18:59 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	set_outfile_vars(t_shell *sh, int pipes)
 {

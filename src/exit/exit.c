@@ -1,70 +1,69 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils5.c                                           :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/02 14:12:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/15 15:07:22 by njantsch         ###   ########.fr       */
+/*   Created: 2023/08/16 10:26:08 by njantsch          #+#    #+#             */
+/*   Updated: 2023/08/16 10:45:58 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-char	*get_expand_here_doc(t_shell *sh, char *str)
+long long	ft_atoll(const char *str);
+
+void	check_failing_exit(t_shell *sh, int i, int j)
 {
-	int		i;
-	int		start;
-	char	*first_str;
-	char	*env_var;
-
-	i = 0;
-	while (str[i] && str[i] != '$')
-		i++;
-	if (i > 0)
-		first_str = ft_substr(str, 0, i);
-	else
-		first_str = ft_strdup("");
-	while (str[i] && ft_strchr(str + i, '$') != 0)
+	if (ft_strchr(&sh->cmd_table[i][j], 1) != 0
+		&& !ft_isalpha(sh->cmd_table[i][j]))
 	{
-		start = i;
-		while (str[++i] && ft_isalnum(str[i]))
-			i++;
-		env_var = change_str_to_env(sh, ft_substr(str, start, i - start));
-		first_str = ft_strjoin_free(first_str, env_var);
-		free(env_var);
+		write(2, " too many arguments\n", 20);
+		terminate_struct(sh);
+		free_arr(sh->envp);
+		free(sh);
+		exit (1);
 	}
-	if (str[i] != '\0')
-		first_str = ft_strjoin_free(first_str, &str[i]);
-	free(str);
-	return (first_str);
+	if (ft_isalpha(sh->cmd_table[i][j]) || ft_atoll(&sh->cmd_table[i][j])
+		>= 9223372036854775807 || (sh->cmd_table[i][j] == '+' && sh->cmd_table[i][j + 1] == '+')
+		|| (sh->cmd_table[i][j] == '-' && sh->cmd_table[i][j + 1] == '-')
+		|| (ft_atoll(&sh->cmd_table[i][j]) < 0 && sh->cmd_table[i][j] != '-')
+		|| !sh->cmd_table[i][j])
+	{
+		write(2, " numeric argument required\n", 26);
+		terminate_struct(sh);
+		free_arr(sh->envp);
+		free(sh);
+		exit (255);
+	}
 }
 
-void	exit_status(t_shell *sh, char **tmp, int status)
+int	get_exit_code(t_shell *sh)
 {
+	int	status;
+
+	status = 0;
+	if (WIFEXITED(sh->status))
+		status = WEXITSTATUS(sh->status);
+	if (WIFSIGNALED(sh->status))
+		status = WTERMSIG(sh->status);
+	return (status);
+}
+
+void	right_exit_builtin(t_shell *sh, int i, int j)
+{
+	int	error;
+
+	error = 0;
+	while (sh->cmd_table[i][j] && sh->cmd_table[i][j++] != 1)
+	j++;
+	check_failing_exit(sh, i, j);
+	error = ft_atoi(&sh->cmd_table[i][j]);
 	terminate_struct(sh);
-	if (tmp)
-		free_arr(tmp);
 	free_arr(sh->envp);
 	free(sh);
-	exit(status);
-}
-
-void	go_to_home(t_shell *sh)
-{
-	char	*tmp;
-
-	tmp = get_home_from_env(sh);
-	if (tmp == NULL)
-		return ((void)write(2, "miniHell: cd: HOME not set\n", 27));
-	if (chdir(tmp) != 0)
-	{
-		free(tmp);
-		perror("cd");
-		return ;
-	}
-	free(tmp);
+	exit (error);
 }
 
 void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
@@ -102,28 +101,12 @@ void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 	exit_status(sh, tmp, 1);
 }
 
-long long	ft_atoll(const char *str)
+void	exit_status(t_shell *sh, char **tmp, int status)
 {
-	int			i;
-	int			sign;
-	long long	res;
-
-	i = 0;
-	sign = 1;
-	res = 0;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res *= 10;
-		res += str[i] - '0';
-		i++;
-	}
-	return (res * sign);
+	terminate_struct(sh);
+	if (tmp)
+		free_arr(tmp);
+	free_arr(sh->envp);
+	free(sh);
+	exit(status);
 }

@@ -6,11 +6,11 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/14 17:56:12 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/16 10:18:35 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	which_dup(t_files *infile, t_files *outfile)
 {
