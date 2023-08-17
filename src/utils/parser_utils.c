@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 17:05:49 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 18:48:47 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/18 00:23:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe)
 		sh->infiles->next = NULL;
 	}
 	else
-		lst_add_new_infile(sh->infiles, NULL, curr->next->str, pipe);
+		lst_add_new_here_doc(sh->infiles, curr, pipe);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 20:32:35 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/18 00:23:16 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void	free_lst_files(t_files *lst);
 int		list_len(t_lexer *files);
 t_files	*ft_lstlast_files(t_files *lst);
 t_files	*get_right_file(t_shell *sh, t_files *file);
+void	lst_add_new_here_doc(t_files *lst, t_lexer *lex, int pipe);
 
 // parser_utils.c
 void	expander_helper(t_shell *sh, t_lexer *curr);
