@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 19:26:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 20:32:35 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ void	handle_built_in(t_shell *sh, char *str);
 bool	check_path(t_shell *sh, char **path, char *cmd);
 bool	access_check(t_shell *sh, char *arg);
 bool	check_cmd(t_shell *sh);
+bool	check_binary(char *cmd);
+bool	check_bin_helper(char *sys_dir, char *cmd);
+
 //checks.c
 bool	check_word_token(int token);
 bool	ft_check_flag(char *str, int *i, int *check);
