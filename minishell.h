@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 18:42:21 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 11:44:22 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ char	*change_str_to_env(t_shell *sh, char *str);
 // envp2.c
 bool	check_existence_env(t_shell *sh, char *str);
 char	*get_home_from_env(t_shell *sh);
+char	**cpy_envp_add(char **envp, char *tmp);
 
 // directory execution
 // execute_pipes.c

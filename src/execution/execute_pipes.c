@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:49:56 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 19:49:38 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 15:17:33 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,14 @@ void	child_process_pipes(t_shell *sh, t_files *in, t_files *out)
 		&& ((in == NULL || in->fd > 0
 				|| (in->fd < 0 && sh->index > in->pos))
 			&& (out == NULL || out->fd > 0
-				|| (out->fd < 0
-					&& sh->index > out->pos))))
+				|| (out->fd < 0 && sh->index > out->pos))))
 	{
 		handle_built_in(sh, sh->cmd_table[sh->index]);
 		exit_status(sh, tmp, 0);
 	}
 	if ((in == NULL || in->fd > 0 || (in->fd < 0 && sh->index > in->pos))
 		&& (out == NULL || out->fd > 0
-			|| (out->fd < 0
-				&& sh->index > out->pos)))
+			|| (out->fd < 0 && sh->index > out->pos)))
 	{
 		tmp = ft_split(sh->cmd_table[sh->index], 1);
 		execve(sh->path_to_file_table[sh->index], tmp, sh->envp);
@@ -81,9 +79,9 @@ int	handle_child_pipes(t_shell *sh, t_files *in, t_files *out, int *fd)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (out && out->fd == -1)
+		if (out && out->fd == -1 && sh->index == out->pos)
 		{
-			write(2, "minishell: no such file or directory\n", 35);
+			write(2, "minishell: no such file or directory\n", 38);
 			exit_status(sh, NULL, 1);
 		}
 		which_dup_pipes(sh, in, out, fd);

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 19:23:48 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 11:45:45 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ void	handle_export(t_shell *sh, char *str)
 		return ;
 	}
 	if (check_existence_env(sh, &str[i]) == false)
-	{
-		sh->envp[len] = ft_strdup(&str[i]);
-		sh->envp[len + 1] = NULL;
-	}
+		sh->envp = cpy_envp_add(sh->envp, ft_strdup(&str[i]));
 }
 
 void	handle_unset(t_shell *sh, char *str)
