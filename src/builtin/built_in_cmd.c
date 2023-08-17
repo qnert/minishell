@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 19:43:16 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 20:20:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ void	handle_cd(t_shell *sh, char *str)
 	char	*tmp;
 
 	i = 0;
-	if (ft_strlen(str) == 2)
+	if (ft_strlen(str) == 2
+		|| (ft_strlen(str) == 4 && str[ft_strlen(str) - 1] == '~'))
 	{
 		go_to_home(sh);
 		return ;
@@ -119,7 +120,8 @@ void	handle_cd(t_shell *sh, char *str)
 		sh->status = 1;
 		perror("chdir");
 	}
+	else
+		sh->status = 0;
 	change_pwd(sh);
 	free(tmp);
-	sh->status = 0;
 }
