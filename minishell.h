@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 16:18:35 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 17:00:04 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ void	go_to_home(t_shell *sh);
 void	change_pwd(t_shell *sh);
 int		count_until_space(char *str);
 void	unset_helper(t_shell *sh, int i, int new, char *str);
+bool	check_special_char(char *str);
 
 // lexer_utils.c
 void	check_redirect_plus_helper(t_shell *sh, char *str, int i);
