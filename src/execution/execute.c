@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 19:36:04 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 20:23:14 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void	execute_cmd(t_shell *sh, t_files *in, t_files *out)
 	if ((in == NULL || in->fd > 0) && (out == NULL || out->fd > 0))
 	{
 		tmp = ft_split(sh->cmd_table[0], 1);
-		if (ft_strnstr(sh->cmd_table[0], "./", 2) == NULL)
-			execve(sh->path_to_file_table[0], tmp, sh->envp);
+		execve(sh->path_to_file_table[0], tmp, sh->envp);
 	}
 	dir = opendir(sh->path_to_file_table[0]);
 	exit_error(sh, tmp, dir, 0);
