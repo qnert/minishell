@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:42:55 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 19:30:59 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 11:45:26 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,26 @@ char	*get_home_from_env(t_shell *sh)
 	if (sh->envp && sh->envp[i])
 		return (ft_substr(sh->envp[i], 5, ft_strlen(sh->envp[i])));
 	return (NULL);
+}
+
+char	**cpy_envp_add(char **envp, char *tmp)
+{
+	int		i;
+	char	*str;
+	char	**envp_cpy;
+
+	i = 0;
+	envp_cpy = ft_calloc(get_len_matrix(envp) + 2, sizeof(char *));
+	while (envp[i] != NULL)
+	{
+		str = get_envp_name(envp[i]);
+		envp_cpy[i] = getenv(str);
+		str = ft_strjoin_free(str, "=");
+		envp_cpy[i] = ft_strjoin_free(str, envp_cpy[i]);
+		i++;
+	}
+	envp_cpy[i] = tmp;
+	envp_cpy[i + 1] = NULL;
+	free_arr(envp);
+	return (envp_cpy);
 }
