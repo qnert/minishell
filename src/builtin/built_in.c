@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 10:18:20 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/17 13:09:21 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	check_exit(t_shell *sh)
 
 void	handle_built_in(t_shell *sh, char *str)
 {
+	sh->check = 0;
 	replace_split_char(str);
 	if (ft_strncmp(str, "cd", 2) == 0)
 		handle_cd(sh, str);

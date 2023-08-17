@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:55:43 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 15:52:21 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 13:07:23 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ void	unset_helper(t_shell *sh, int i, int new, char *str)
 
 	erase_env_var(sh, i);
 	tmp = &str[new + count_until_space(&str[new])];
+	if (sh->check == 1)
+		free(str);
 	if (ft_strchr(tmp, ' ') && ft_strlen(tmp) != 6)
+	{
+		sh->check = 1;
 		handle_unset(sh, ft_strjoin("unset", tmp));
+	}
+	sh->check = 0;
 }
