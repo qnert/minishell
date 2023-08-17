@@ -74,7 +74,7 @@ typedef enum tokens
 // directory builtin
 // built_in_cmd.c
 void	handle_echo(char *str);
-void	handle_pwd(void);
+void	handle_pwd(t_shell *sh);
 void	handle_export(t_shell *sh, char *str);
 void	handle_unset(t_shell *sh, char *str);
 void	handle_cd(t_shell *sh, char *str);
@@ -188,6 +188,7 @@ void	go_to_home(t_shell *sh);
 void	change_pwd(t_shell *sh);
 int		count_until_space(char *str);
 void	unset_helper(t_shell *sh, int i, int new, char *str);
+bool	check_special_char(char *str);
 
 // lexer_utils.c
 void	check_redirect_plus_helper(t_shell *sh, char *str, int i);

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 11:45:45 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 20:20:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,17 @@ void	handle_echo(char *str)
 		printf("%s", &str[i]);
 }
 
-void	handle_pwd(void)
+void	handle_pwd(t_shell *sh)
 {
 	char	cwd[256];
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		perror("getcwd() error");
 	else
+	{
 		printf("%s\n", cwd);
+		sh->status = 0;
+	}
 }
 
 void	handle_export(t_shell *sh, char *str)
@@ -50,9 +53,15 @@ void	handle_export(t_shell *sh, char *str)
 	while (str[i] != '\0' && str[i] != 32)
 		i++;
 	i++;
-	if (str[i] == '\0')
+	if (ft_strlen(str) == 6)
 		return ;
-	if (str[i] == '=' || str[i] == 39)
+	if (str[i] == '-')
+	{
+		sh->status = 2;
+		return ((void)write(2, " parsing error\n", 24));
+	}
+	if (str[i] == '=' || str[i] == 39 || check_special_char(str) == true
+		|| ft_isdigit(str[i]))
 	{
 		write(2, " not a valid identifier\n", 24);
 		sh->status = 1;
@@ -60,6 +69,7 @@ void	handle_export(t_shell *sh, char *str)
 	}
 	if (check_existence_env(sh, &str[i]) == false)
 		sh->envp = cpy_envp_add(sh->envp, ft_strdup(&str[i]));
+	sh->status = 0;
 }
 
 void	handle_unset(t_shell *sh, char *str)
@@ -75,7 +85,8 @@ void	handle_unset(t_shell *sh, char *str)
 		i++;
 	i++;
 	new = i;
-	if (!str[i] || ft_isalpha(str[i]) == 0)
+	if (!str[i] || (ft_isalpha(str[i]) == 0 && str[i] != '_')
+		|| check_special_char(str) || ft_strchr(str, '='))
 		return (sh->status = 1, (void)write(2, " not a valid identifier\n", 24));
 	tmp = ft_substr(str, i, count_until_space(&str[i]));
 	tmp = ft_strjoin_free(tmp, "=");
@@ -95,7 +106,8 @@ void	handle_cd(t_shell *sh, char *str)
 	char	*tmp;
 
 	i = 0;
-	if (ft_strlen(str) == 2)
+	if (ft_strlen(str) == 2
+		|| (ft_strlen(str) == 4 && str[ft_strlen(str) - 1] == '~'))
 	{
 		go_to_home(sh);
 		return ;
@@ -108,6 +120,8 @@ void	handle_cd(t_shell *sh, char *str)
 		sh->status = 1;
 		perror("chdir");
 	}
+	else
+		sh->status = 0;
 	change_pwd(sh);
 	free(tmp);
 }
