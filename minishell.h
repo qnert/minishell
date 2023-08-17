@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 11:44:22 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 16:18:35 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ t_files	*get_right_file(t_shell *sh, t_files *file);
 void	expander_helper(t_shell *sh, t_lexer *curr);
 void	get_expand_helper(char *first_str, t_lexer *curr, int i);
 void	table_init_helper(t_shell *sh, t_lexer *curr, int *i);
+char	*right_here_doc_name(t_files *lst, char *str);
 void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe);
 
 // utils.c

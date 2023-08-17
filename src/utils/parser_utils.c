@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 17:05:49 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 17:44:23 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 16:25:46 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,28 @@ void	table_init_helper(t_shell *sh, t_lexer *curr, int *i)
 		sh->cmd_table[++(*i)] = ft_strdup("\1");
 }
 
+char	*right_here_doc_name(t_files *lst, char *str)
+{
+	int		i;
+	char	*tmp;
+	char	*ret_str;
+	t_files	*curr;
+
+	i = 0;
+	tmp = NULL;
+	curr = lst;
+	while (curr)
+	{
+		if (lst->delim != NULL)
+			i++;
+		curr = curr->next;
+	}
+	tmp = ft_itoa(i);
+	ret_str = ft_strjoin(str, tmp);
+	free(tmp);
+	return (ret_str);
+}
+
 void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe)
 {
 	if (sh->infiles == NULL)
@@ -60,9 +82,11 @@ void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe)
 		if (curr->next->token == SINGLE
 			|| (curr->next->next && curr->next->next->token == SINGLE
 				&& ft_strlen(curr->next->next->str) == 0))
-			sh->infiles->file_name = ft_strdup("here_docc");
+			sh->infiles->file_name
+				= right_here_doc_name(sh->infiles, "here_docc");
 		else
-			sh->infiles->file_name = ft_strdup("here_doc");
+			sh->infiles->file_name
+				= right_here_doc_name(sh->infiles, "here_doc");
 		if (curr->next->token == SINGLE
 			&& ft_strlen(curr->next->str) == 0 && curr->next->next)
 			sh->infiles->delim = ft_strdup(curr->next->next->str);
