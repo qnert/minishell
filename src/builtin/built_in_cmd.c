@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 18:46:43 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 19:43:16 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,17 @@ void	handle_echo(char *str)
 		printf("%s", &str[i]);
 }
 
-void	handle_pwd(void)
+void	handle_pwd(t_shell *sh)
 {
 	char	cwd[256];
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		perror("getcwd() error");
 	else
+	{
 		printf("%s\n", cwd);
+		sh->status = 0;
+	}
 }
 
 void	handle_export(t_shell *sh, char *str)
@@ -54,11 +57,11 @@ void	handle_export(t_shell *sh, char *str)
 		return ;
 	if (str[i] == '-')
 	{
-		write(2, " parsing error\n", 24);
 		sh->status = 2;
-		return ;
+		return ((void)write(2, " parsing error\n", 24));
 	}
-	if (str[i] == '=' || str[i] == 39 || check_special_char(str) == true)
+	if (str[i] == '=' || str[i] == 39 || check_special_char(str) == true
+		|| ft_isdigit(str[i]))
 	{
 		write(2, " not a valid identifier\n", 24);
 		sh->status = 1;
@@ -66,6 +69,7 @@ void	handle_export(t_shell *sh, char *str)
 	}
 	if (check_existence_env(sh, &str[i]) == false)
 		sh->envp = cpy_envp_add(sh->envp, ft_strdup(&str[i]));
+	sh->status = 0;
 }
 
 void	handle_unset(t_shell *sh, char *str)
@@ -81,7 +85,8 @@ void	handle_unset(t_shell *sh, char *str)
 		i++;
 	i++;
 	new = i;
-	if (!str[i] || ft_isalpha(str[i]) == 0 || check_special_char(str))
+	if (!str[i] || (ft_isalpha(str[i]) == 0 && str[i] != '_')
+		|| check_special_char(str) || ft_strchr(str, '='))
 		return (sh->status = 1, (void)write(2, " not a valid identifier\n", 24));
 	tmp = ft_substr(str, i, count_until_space(&str[i]));
 	tmp = ft_strjoin_free(tmp, "=");
@@ -116,4 +121,5 @@ void	handle_cd(t_shell *sh, char *str)
 	}
 	change_pwd(sh);
 	free(tmp);
+	sh->status = 0;
 }

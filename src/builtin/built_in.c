@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 15:21:43 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 19:26:28 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	handle_built_in(t_shell *sh, char *str)
 {
 	sh->check = 0;
 	replace_split_char(str);
-	if (ft_strncmp(str, "cd", 2) == 0)
+	if (ft_strncmp(str, "cd", 2) == 0 && get_len_matrix(sh->envp) > 0)
 		handle_cd(sh, str);
 	if (ft_strncmp(str, "echo", 4) == 0)
 		handle_echo(str);
@@ -75,7 +75,7 @@ void	handle_built_in(t_shell *sh, char *str)
 	if (ft_strncmp(str, "env", 3) == 0)
 		print_matrix(sh->envp);
 	if (ft_strncmp(str, "pwd", 3) == 0)
-		handle_pwd();
+		handle_pwd(sh);
 	if (ft_strncmp(str, "export", 6) == 0 && sh->pipes == 0)
 		handle_export(sh, str);
 	if (ft_strncmp(str, "unset", 5) == 0)

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 17:00:04 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 19:26:39 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef enum tokens
 // directory builtin
 // built_in_cmd.c
 void	handle_echo(char *str);
-void	handle_pwd(void);
+void	handle_pwd(t_shell *sh);
 void	handle_export(t_shell *sh, char *str);
 void	handle_unset(t_shell *sh, char *str);
 void	handle_cd(t_shell *sh, char *str);
