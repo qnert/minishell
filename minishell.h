@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 20:32:35 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:59:43 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ int		count_spaces(char *str);
 void	expander(t_shell *sh);
 void	get_expand(t_shell *sh, t_lexer *curr);
 char	*get_expand_here_doc(t_shell *sh, char *str);
+void	expand_to_home(t_shell *sh, t_lexer *curr);
 
 // parser.c
 void	table_init(t_shell *sh);
@@ -205,6 +206,7 @@ void	free_lst_files(t_files *lst);
 int		list_len(t_lexer *files);
 t_files	*ft_lstlast_files(t_files *lst);
 t_files	*get_right_file(t_shell *sh, t_files *file);
+void	lst_add_new_here_doc(t_files *lst, t_lexer *lex, int pipe);
 
 // parser_utils.c
 void	expander_helper(t_shell *sh, t_lexer *curr);

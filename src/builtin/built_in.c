@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 19:26:28 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/18 14:05:42 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ bool	check_built_in_child(char *str)
 {
 	if (ft_strncmp(str, "echo", 4) == 0)
 		return (true);
-	if (ft_strncmp(str, "exit", 4) == 0)
+	if ((ft_strncmp(str, "exit", 4) == 0 && !str[4])
+		|| (ft_strncmp(str, "exit", 4) == 0 && str[4] == 1))
 		return (true);
 	if (ft_strncmp(str, "pwd", 3) == 0)
 		return (true);
@@ -47,7 +48,10 @@ void	check_exit(t_shell *sh)
 	while (sh->cmd_table[i])
 	{
 		j = 0;
-		if (ft_strncmp(sh->cmd_table[i], "exit", 4) == 0)
+		if ((ft_strncmp(sh->cmd_table[i], "exit", 4) == 0
+			&& !sh->cmd_table[i][4])
+			|| (ft_strncmp(sh->cmd_table[i], "exit", 4) == 0
+			&& sh->cmd_table[i][4] == 1))
 		{
 			if (ft_strlen(sh->cmd_table[i]) == 4)
 				exit_status(sh, NULL, sh->status);

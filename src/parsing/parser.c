@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:10:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 17:44:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/18 00:30:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ bool	parser_main(t_shell *sh)
 	get_outfile(sh);
 	get_here_doc(sh);
 	check_and_write_here_doc(sh, sh->infiles);
-	get_outfile_append(sh);
 	expander(sh);
 	table_init(sh);
 	sh->path_to_file_table = malloc(sizeof(char *)

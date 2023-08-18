@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:26:08 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/17 12:51:35 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/18 14:08:29 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	check_failing_exit(t_shell *sh, int i, int j)
 	if (ft_strchr(&sh->cmd_table[i][j], 1) != 0
 		&& !ft_isalpha(sh->cmd_table[i][j]))
 	{
-		write(2, " too many arguments\n", 20);
+		write(2, "minishell: exit: too many arguments\n", 37);
 		terminate_struct(sh);
 		free_arr(sh->envp);
 		free(sh);
@@ -32,7 +32,7 @@ void	check_failing_exit(t_shell *sh, int i, int j)
 		|| (ft_atoll(&sh->cmd_table[i][j]) < 0 && sh->cmd_table[i][j] != '-')
 		|| !sh->cmd_table[i][j])
 	{
-		write(2, " numeric argument required\n", 26);
+		write(2, "minishell: exit: numeric argument required\n", 44);
 		terminate_struct(sh);
 		free_arr(sh->envp);
 		free(sh);
