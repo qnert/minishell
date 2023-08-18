@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 20:20:02 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/18 14:33:30 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,7 @@ void	handle_cd(t_shell *sh, char *str)
 	i = 0;
 	if (ft_strlen(str) == 2
 		|| (ft_strlen(str) == 4 && str[ft_strlen(str) - 1] == '~'))
-	{
-		go_to_home(sh);
-		return ;
-	}
+		return (go_to_home(sh));
 	while (str[i] && str[i] != ' ')
 		i++;
 	tmp = ft_substr(str, i + 1, ft_strlen(str));

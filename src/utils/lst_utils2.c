@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:36:27 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/18 00:22:38 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/18 13:36:43 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,20 @@ void	lst_add_new_here_doc(t_files *lst, t_lexer *lex, int pipe)
 	new_node = malloc(sizeof(t_files));
 	while (curr->next)
 		curr = curr->next;
-	if (lex->next->token == SINGLE
+	if (lex->next->token == SINGLE || lex->next->token == DOUBLE
 		|| (lex->next->next && lex->next->next->token == SINGLE
-			&& ft_strlen(lex->next->next->str) == 0))
+		&& ft_strlen(lex->next->next->str) == 0)
+		|| (lex->next->next && lex->next->next->token == DOUBLE
+		&& ft_strlen(lex->next->next->str) == 0))
 		new_node->file_name
 			= right_here_doc_name(lst, "here_docc");
 	else
 		new_node->file_name
 			= right_here_doc_name(lst, "here_doc");
-	if (lex->next->token == SINGLE
+	if ((lex->next->token == SINGLE
 		&& ft_strlen(lex->next->str) == 0 && lex->next->next)
+		|| (lex->next->token == DOUBLE
+		&& ft_strlen(lex->next->str) == 0 && lex->next->next))
 		new_node->delim = ft_strdup(lex->next->next->str);
 	else
 		new_node->delim = ft_strdup(lex->next->str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/18 16:52:37 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/18 16:59:43 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ int		count_spaces(char *str);
 void	expander(t_shell *sh);
 void	get_expand(t_shell *sh, t_lexer *curr);
 char	*get_expand_here_doc(t_shell *sh, char *str);
+void	expand_to_home(t_shell *sh, t_lexer *curr);
 
 // parser.c
 void	table_init(t_shell *sh);
