@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 16:23:22 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/18 16:58:59 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	read_till_limiter(t_shell *sh, t_files *curr)
 	line = get_next_line(STDIN_FILENO);
 	while (line != NULL)
 	{
-		if (ft_strncmp(line, curr->delim,ft_strlen(curr->delim)) == 0
+		if (ft_strncmp(line, curr->delim, ft_strlen(curr->delim)) == 0
 			&& (ft_strlen(line) - 1) == ft_strlen(curr->delim))
 			break ;
 		if (ft_strncmp(curr->file_name, "here_docc", 9) != 0)
@@ -79,45 +79,69 @@ t_lexer	*get_right_start_point(t_shell *sh)
 	return (tmp);
 }
 
-void	concat_right(t_shell *sh, t_lexer *curr, int *i)
+void	concat_right_helper(t_shell *sh, t_lexer *curr, int *i)
 {
-	if (check_word_token(curr->token) && sh->check == 0)
-	{
-		if (curr->token == 0 && curr->next && curr->next->token == 0)
-			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\1");
-		else if (check_word_token(curr->token) && !ft_strncmp(curr->str, "echo", 4)
-				&& curr->next && (curr->next->token == 6 || curr->next->token == 7)
-				&& !ft_strncmp(curr->next->str, "-n", 2))
-			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\2");
-		else if ((curr->token == 6 || curr->token == 7) && curr->b_space == 1)
-			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\1");
-		else if (curr->token == 0 && curr->next && curr->next->f_space == 1 && curr->str[0] != 32)
-			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\1");
-		else
-			sh->cmd_table[++(*i)] = ft_strdup(curr->str);
-		sh->check = 1;
-	}
-	else if (curr->token == 0 && curr->next && (curr->next->token == 6 || curr->next->token == 7)
-			&& curr->next->f_space == 1 && (curr->next == NULL || curr->b_space == 0))
-		sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
-	else if ((curr->token == 6 || curr->token == 7) && curr->f_space == 1 && (curr->next == NULL || curr->b_space == 0))
+	if (curr->token == 0 && curr->next
+		&& (curr->next->token == 6 || curr->next->token == 7)
+		&& curr->next->f_space == 1
+		&& (curr->next == NULL || curr->b_space == 0))
+		sh->cmd_table[(*i)] = ft_strjoin_free
+			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
+	else if ((curr->token == 6 || curr->token == 7)
+		&& curr->f_space == 1 && (curr->next == NULL || curr->b_space == 0))
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
 	else if ((check_word_token(curr->token)
 			&& curr->next == NULL) && sh->check == 1)
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
 	else if (curr->token == 0 && curr->next && curr->next->token == 0
-			&& ft_strlen(curr->str) != 0 && sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
+		&& ft_strlen(curr->str) != 0 && sh->check == 1)
+		sh->cmd_table[(*i)] = ft_strjoin_free
+			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
 	else if ((curr->token == 6 || curr->token == 7) && curr->next != NULL
-			&& curr->b_space == 1 && curr->f_space == 0 && ft_strlen(curr->str) != 0 && sh->check == 1)
-			sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
+		&& curr->b_space == 1 && curr->f_space == 0
+		&& ft_strlen(curr->str) != 0 && sh->check == 1)
+		sh->cmd_table[(*i)] = ft_strjoin_free
+			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
 	else if ((curr->token == 6 || curr->token == 7) && curr->next != NULL
-			&& curr->b_space == 1 && curr->f_space == 1 && sh->cmd_table[(*i)][ft_strlen(sh->cmd_table[(*i)]) - 1] == '\1' && sh->check == 1)
-			sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
+		&& curr->b_space == 1 && curr->f_space == 1
+		&& sh->cmd_table[(*i)][ft_strlen(sh->cmd_table[(*i)]) - 1] == '\1'
+		&& sh->check == 1)
+		sh->cmd_table[(*i)] = ft_strjoin_free
+			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
 	else if ((curr->token == 6 || curr->token == 7) && curr->next != NULL
-			&& curr->b_space == 1 && curr->f_space == 1 && sh->check == 1)
-			sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free(ft_strjoin_free(sh->cmd_table[(*i)], "\1"), curr->str), "\1");
+		&& curr->b_space == 1 && curr->f_space == 1 && sh->check == 1)
+		sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free
+				(ft_strjoin_free(sh->cmd_table[(*i)], "\1"), curr->str), "\1");
 	else if (check_word_token(curr->token)
 		&& (curr->next != NULL) && sh->check == 1)
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
+}
+
+void	concat_right(t_shell *sh, t_lexer *curr, int *i)
+{
+	if (check_word_token(curr->token) && sh->check == 0)
+	{
+		if (curr->token == 0 && curr->next
+			&& curr->next->token == 0)
+			sh->cmd_table[++(*i)] = ft_strjoin_free
+				(ft_strdup(curr->str), "\1");
+		else if (check_word_token(curr->token)
+			&& !ft_strncmp(curr->str, "echo", 4)
+			&& curr->next
+			&& (curr->next->token == 6 || curr->next->token == 7)
+			&& !ft_strncmp(curr->next->str, "-n", 2))
+			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\2");
+		else if ((curr->token == 6 || curr->token == 7) && curr->b_space == 1)
+			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\1");
+		else if (curr->token == 0 && curr->next
+			&& curr->next->f_space == 1 && curr->str[0] != 32)
+			sh->cmd_table[++(*i)] = ft_strjoin_free(ft_strdup(curr->str), "\1");
+		else
+			sh->cmd_table[++(*i)] = ft_strdup(curr->str);
+		sh->check = 1;
+	}
+	else if (check_word_token(curr->token) && sh->check == 1)
+	{
+		concat_right_helper(sh, curr, i);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 11:47:32 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:59:34 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	print_list(t_lexer *lst)
 	while (curr)
 	{
 		if (curr->str)
-			printf("%s %d %d %d\n", curr->str, curr->token, curr->f_space, curr->b_space);
+			printf("%s %d\n", curr->str, curr->token);
 		curr = curr->next;
 	}
 }
 
-int		check_spaces(char *str)
+int	check_spaces(char *str)
 {
 	int	i;
 
@@ -72,23 +72,6 @@ int	shell_loop(t_shell *sh)
 			else
 				execute_main(sh);
 		}
-		// printf("amount of pipes: %d\n", sh->pipes);
-		// replace_split_char(sh->cmd_table[0]);
-		// printf("%zu\n", ft_strlen(sh->cmd_table[0]));
-		// print_matrix(sh->cmd_table);
-		// if (sh->outfiles != NULL)
-		// {
-		// 	printf("outfile: %s\n", sh->outfiles->file_name);
-		// 	printf("fd: %d\n", sh->outfiles->fd);
-			// if (sh->infiles->delim != NULL)
-			// {
-			// 	printf("delim: %s\n", sh->infiles->delim);
-			// 	unlink(sh->infiles->file_name);
-			// }
-		// if (sh->token_list != NULL && sh->token_list->str != NULL)
-		// {
-		// 	print_list(sh->token_list);
-		// }
 		terminate_struct(sh);
 		if (!isatty(0))
 		{

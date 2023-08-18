@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/18 00:23:16 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/18 16:52:37 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,9 @@ void	replace_split_char(char *str);
 char	*ft_charjoin_free(char *str, char c);
 void	change_f_b_spaces(t_lexer *lst, char *str, int i, int start);
 void	replace_space_char(char *str, int tmp);
+
+//utils3.c
+bool	check_dot(char *str);
 
 // no own directory
 // main.c
