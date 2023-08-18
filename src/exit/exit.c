@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:26:08 by njantsch          #+#    #+#             */
 /*   Updated: 2023/08/18 14:08:29 by njantsch         ###   ########.fr       */
@@ -76,7 +76,8 @@ void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 					&& ft_strchr(sh->path_to_file_table[i], '/') == 0)
 				|| ft_strlen(sh->cmd_table[i]) == 0
 				|| (ft_strnstr(sh->cmd_table[0], "./", 2) == NULL
-					&& dir == NULL))
+					&& dir == NULL)
+				|| check_dot(sh->cmd_table[i]))
 			&& check_built_in_main(sh->cmd_table[i]) == false))
 	{
 		if (dir != NULL)

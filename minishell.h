@@ -228,6 +228,9 @@ char	*ft_charjoin_free(char *str, char c);
 void	change_f_b_spaces(t_lexer *lst, char *str, int i, int start);
 void	replace_space_char(char *str, int tmp);
 
+//utils3.c
+bool	check_dot(char *str);
+
 // no own directory
 // main.c
 void	print_list(t_lexer *lst);
