@@ -6,11 +6,22 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:36:19 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/02 17:30:17 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/20 00:48:15 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	handle_cchars(void)
+{
+	struct termios	term;
+
+	if (tcgetattr(0, &term) != 0)
+		perror("minishell: tcgetattr");
+	term.c_lflag &= ~ECHOCTL;
+	if (tcsetattr(0, 0, &term) != 0)
+		perror("minishell: tcgetattr");
+}
 
 void	sig_handler(int signal)
 {
@@ -27,6 +38,7 @@ void	set_signals(void)
 {
 	struct sigaction	int_sig;
 
+	// handle_cchars();
 	int_sig.sa_handler = &sig_handler;
 	sigaction(SIGINT, &int_sig, NULL);
 	signal(SIGQUIT, SIG_IGN);
