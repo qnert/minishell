@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:21:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 17:11:50 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/19 17:29:59 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	expander(t_shell *sh)
 			if (curr == NULL)
 				return ;
 		}
+		if (ft_strchr(curr->str, '~') != 0)
+			expand_to_home(sh, curr);
 		if ((curr->token == 0 || curr->token == 7)
 			&& ft_strchr(curr->str, '$') != 0)
 			expander_helper(sh, curr);
@@ -66,7 +68,8 @@ void	get_expand(t_shell *sh, t_lexer *curr)
 	while (curr->str[i] && ft_strchr(curr->str + i, '$') != 0)
 	{
 		start = i++;
-		while (curr->str[i] && curr->str[i] != ' ' && curr->str[i] != '$')
+		while (curr->str[i] && curr->str[i] != ' ' && curr->str[i] != '$'
+			&& curr->str[i] != '\'' && curr->str[i] != '/')
 			i++;
 		if (curr->str[i - 1] == '?' && curr->str[i - 2] != '$')
 			i--;
@@ -104,4 +107,31 @@ char	*get_expand_here_doc(t_shell *sh, char *str)
 		first_str = ft_strjoin_free(first_str, &str[i]);
 	free(str);
 	return (first_str);
+}
+
+void	expand_to_home(t_shell *sh, t_lexer *curr)
+{
+	int		i;
+	int		check;
+	char	*tmp;
+
+	i = 0;
+	check = 0;
+	tmp = NULL;
+	while (curr->str[i])
+	{
+		if ((curr->str[i] == '~' && i == 0 && !curr->str[i + 1])
+			|| (curr->str[i] == '~' && curr->str[i + 1] == '/'
+			&& i == 0))
+			check = 1;
+		i++;
+	}
+	if (check == 0)
+		return ;
+	tmp = get_home_from_env(sh);
+	if (!tmp)
+		return ((void)write(2, "miniHell: cd: HOME not set\n", 27));
+	tmp = ft_strjoin_free(tmp, curr->str + 1);
+	free(curr->str);
+	curr->str = tmp;
 }

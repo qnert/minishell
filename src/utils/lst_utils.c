@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:19:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 12:50:14 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/17 16:19:32 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	lst_add_new_infile(t_files *lst, char *str, char *delim, int pipe)
 	while (curr->next)
 		curr = curr->next;
 	if (str == NULL)
-		new_node->file_name = ft_strdup("here_doc");
+		new_node->file_name = right_here_doc_name(lst, "here_doc");
 	else
 		new_node->file_name = ft_strdup(str);
 	if (delim != NULL)

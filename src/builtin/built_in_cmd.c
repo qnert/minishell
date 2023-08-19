@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 15:50:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/19 17:23:07 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,17 @@ void	handle_echo(char *str)
 		printf("%s", &str[i]);
 }
 
-void	handle_pwd(void)
+void	handle_pwd(t_shell *sh)
 {
 	char	cwd[256];
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		perror("getcwd() error");
 	else
+	{
 		printf("%s\n", cwd);
+		sh->status = 0;
+	}
 }
 
 void	handle_export(t_shell *sh, char *str)
@@ -50,19 +53,23 @@ void	handle_export(t_shell *sh, char *str)
 	while (str[i] != '\0' && str[i] != 32)
 		i++;
 	i++;
-	if (str[i] == '\0')
+	if (ft_strlen(str) == 6)
 		return ;
-	if (str[i] == '=' || str[i] == 39)
+	if (str[i] == '-')
+	{
+		sh->status = 2;
+		return ((void)write(2, " parsing error\n", 24));
+	}
+	if (str[i] == '=' || str[i] == 39 || check_special_char(str) == true
+		|| ft_isdigit(str[i]))
 	{
 		write(2, " not a valid identifier\n", 24);
 		sh->status = 1;
 		return ;
 	}
 	if (check_existence_env(sh, &str[i]) == false)
-	{
-		sh->envp[len] = ft_strdup(&str[i]);
-		sh->envp[len + 1] = NULL;
-	}
+		sh->envp = cpy_envp_add(sh->envp, ft_strdup(&str[i]));
+	sh->status = 0;
 }
 
 void	handle_unset(t_shell *sh, char *str)
@@ -78,7 +85,8 @@ void	handle_unset(t_shell *sh, char *str)
 		i++;
 	i++;
 	new = i;
-	if (!str[i] || ft_isalpha(str[i]) == 0)
+	if (!str[i] || (ft_isalpha(str[i]) == 0 && str[i] != '_')
+		|| check_special_char(str) || ft_strchr(str, '='))
 		return (sh->status = 1, (void)write(2, " not a valid identifier\n", 24));
 	tmp = ft_substr(str, i, count_until_space(&str[i]));
 	tmp = ft_strjoin_free(tmp, "=");
@@ -86,11 +94,9 @@ void	handle_unset(t_shell *sh, char *str)
 	while (sh->envp && sh->envp[i]
 		&& ft_strncmp(sh->envp[i], tmp, ft_strlen(tmp)))
 		i++;
+	free(tmp);
 	if (!sh->envp || sh->envp[i] == NULL)
-	{
-		free(tmp);
 		return ;
-	}
 	unset_helper(sh, i, new, str);
 }
 
@@ -101,10 +107,7 @@ void	handle_cd(t_shell *sh, char *str)
 
 	i = 0;
 	if (ft_strlen(str) == 2)
-	{
-		go_to_home(sh);
-		return ;
-	}
+		return (go_to_home(sh));
 	while (str[i] && str[i] != ' ')
 		i++;
 	tmp = ft_substr(str, i + 1, ft_strlen(str));
@@ -113,6 +116,8 @@ void	handle_cd(t_shell *sh, char *str)
 		sh->status = 1;
 		perror("chdir");
 	}
+	else
+		sh->status = 0;
 	change_pwd(sh);
 	free(tmp);
 }

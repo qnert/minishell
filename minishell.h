@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 18:42:21 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/19 15:19:10 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,14 @@ typedef enum tokens
 // directory builtin
 // built_in_cmd.c
 void	handle_echo(char *str);
-void	handle_pwd(void);
+void	handle_pwd(t_shell *sh);
 void	handle_export(t_shell *sh, char *str);
 void	handle_unset(t_shell *sh, char *str);
 void	handle_cd(t_shell *sh, char *str);
 
 // built_in.c
-bool	check_built_in_child(char *str);
-bool	check_built_in_main(char *str);
+bool	check_built_in_child(t_shell *sh, char *str);
+bool	check_built_in_main(t_shell *sh, char *str);
 void	check_exit(t_shell *sh);
 void	handle_built_in(t_shell *sh, char *str);
 
@@ -90,6 +90,9 @@ void	handle_built_in(t_shell *sh, char *str);
 bool	check_path(t_shell *sh, char **path, char *cmd);
 bool	access_check(t_shell *sh, char *arg);
 bool	check_cmd(t_shell *sh);
+bool	check_binary(char *cmd);
+bool	check_bin_helper(char *sys_dir, char *cmd);
+
 //checks.c
 bool	check_word_token(int token);
 bool	ft_check_flag(char *str, int *i, int *check);
@@ -112,6 +115,7 @@ char	*change_str_to_env(t_shell *sh, char *str);
 // envp2.c
 bool	check_existence_env(t_shell *sh, char *str);
 char	*get_home_from_env(t_shell *sh);
+char	**cpy_envp_add(char **envp, char *tmp);
 
 // directory execution
 // execute_pipes.c
@@ -159,6 +163,7 @@ int		count_spaces(char *str);
 void	expander(t_shell *sh);
 void	get_expand(t_shell *sh, t_lexer *curr);
 char	*get_expand_here_doc(t_shell *sh, char *str);
+void	expand_to_home(t_shell *sh, t_lexer *curr);
 
 // parser.c
 void	table_init(t_shell *sh);
@@ -184,6 +189,7 @@ void	go_to_home(t_shell *sh);
 void	change_pwd(t_shell *sh);
 int		count_until_space(char *str);
 void	unset_helper(t_shell *sh, int i, int new, char *str);
+bool	check_special_char(char *str);
 
 // lexer_utils.c
 void	check_redirect_plus_helper(t_shell *sh, char *str, int i);
@@ -200,11 +206,13 @@ void	free_lst_files(t_files *lst);
 int		list_len(t_lexer *files);
 t_files	*ft_lstlast_files(t_files *lst);
 t_files	*get_right_file(t_shell *sh, t_files *file);
+void	lst_add_new_here_doc(t_files *lst, t_lexer *lex, int pipe);
 
 // parser_utils.c
 void	expander_helper(t_shell *sh, t_lexer *curr);
 void	get_expand_helper(char *first_str, t_lexer *curr, int i);
 void	table_init_helper(t_shell *sh, t_lexer *curr, int *i);
+char	*right_here_doc_name(t_files *lst, char *str);
 void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe);
 
 // utils.c
@@ -219,6 +227,9 @@ void	replace_split_char(char *str);
 char	*ft_charjoin_free(char *str, char c);
 void	change_f_b_spaces(t_lexer *lst, char *str, int i, int start);
 void	replace_space_char(char *str, int tmp);
+
+//utils3.c
+bool	check_dot(char *str);
 
 // no own directory
 // main.c

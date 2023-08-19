@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:26:08 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 18:42:13 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/19 15:20:30 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	check_failing_exit(t_shell *sh, int i, int j)
 	if (ft_strchr(&sh->cmd_table[i][j], 1) != 0
 		&& !ft_isalpha(sh->cmd_table[i][j]))
 	{
-		write(2, " too many arguments\n", 20);
+		write(2, "minishell: exit: too many arguments\n", 37);
 		terminate_struct(sh);
 		free_arr(sh->envp);
 		free(sh);
@@ -32,7 +32,7 @@ void	check_failing_exit(t_shell *sh, int i, int j)
 		|| (ft_atoll(&sh->cmd_table[i][j]) < 0 && sh->cmd_table[i][j] != '-')
 		|| !sh->cmd_table[i][j])
 	{
-		write(2, " numeric argument required\n", 26);
+		write(2, "minishell: exit: numeric argument required\n", 44);
 		terminate_struct(sh);
 		free_arr(sh->envp);
 		free(sh);
@@ -76,8 +76,9 @@ void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 					&& ft_strchr(sh->path_to_file_table[i], '/') == 0)
 				|| ft_strlen(sh->cmd_table[i]) == 0
 				|| (ft_strnstr(sh->cmd_table[0], "./", 2) == NULL
-					&& dir == NULL))
-			&& check_built_in_main(sh->cmd_table[i]) == false))
+					&& dir == NULL)
+				|| check_dot(sh->cmd_table[i]))
+			&& check_built_in_main(sh, sh->cmd_table[i]) == false))
 	{
 		if (dir != NULL)
 			closedir(dir);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 13:09:14 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/19 15:59:22 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	execute_cmd(t_shell *sh, t_files *in, t_files *out)
 	DIR		*dir;
 
 	tmp = NULL;
-	if (check_built_in_child(sh->cmd_table[0]) == true
+	if (check_built_in_child(sh, sh->cmd_table[0]) == true
 		&& ((in == NULL || in->fd > 0) && (out == NULL || out->fd > 0)))
 	{
 		handle_built_in(sh, sh->cmd_table[0]);
@@ -39,8 +39,7 @@ void	execute_cmd(t_shell *sh, t_files *in, t_files *out)
 	if ((in == NULL || in->fd > 0) && (out == NULL || out->fd > 0))
 	{
 		tmp = ft_split(sh->cmd_table[0], 1);
-		if (ft_strnstr(sh->cmd_table[0], "./", 2) == NULL)
-			execve(sh->path_to_file_table[0], tmp, sh->envp);
+		execve(sh->path_to_file_table[0], tmp, sh->envp);
 	}
 	dir = opendir(sh->path_to_file_table[0]);
 	exit_error(sh, tmp, dir, 0);
@@ -52,13 +51,16 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 
 	outfile = get_right_file(sh, sh->outfiles);
 	infile = ft_lstlast_files(sh->infiles);
-	if (check_built_in_main(sh->cmd_table[0]) == true)
+	if (check_built_in_main(sh, sh->cmd_table[0]) == true)
 		return (handle_built_in(sh, sh->cmd_table[0]));
 	pid2 = fork();
 	if (pid2 == 0)
 	{
 		if (outfile && outfile->fd == -1)
+		{
+			write(2, "minishell: no such file or directory\n", 35);
 			exit_status(sh, NULL, 1);
+		}
 		which_dup(infile, outfile);
 		execute_cmd(sh, infile, outfile);
 	}

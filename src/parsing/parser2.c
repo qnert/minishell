@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 17:27:51 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 10:18:59 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/18 00:30:27 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	get_outfile(t_shell *sh)
 	{
 		if (curr->token == PIPE)
 			pipes++;
+		if (curr->token == GREAT_GREAT)
+			get_outfile_append(sh);
 		if (curr->token == GREAT)
 		{
 			if (sh->outfiles == NULL)

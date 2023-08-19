@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 17:05:49 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/19 20:50:58 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/19 20:51:44 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,47 @@ void	table_init_helper(t_shell *sh, t_lexer *curr, int *i)
 		sh->cmd_table[++(*i)] = ft_strdup("\1");
 }
 
-void	 get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe)
+char	*right_here_doc_name(t_files *lst, char *str)
+{
+	int		i;
+	char	*tmp;
+	char	*ret_str;
+	t_files	*curr;
+
+	i = 0;
+	tmp = NULL;
+	curr = lst;
+	while (curr)
+	{
+		if (lst->delim != NULL)
+			i++;
+		curr = curr->next;
+	}
+	tmp = ft_itoa(i);
+	ret_str = ft_strjoin(str, tmp);
+	free(tmp);
+	return (ret_str);
+}
+
+void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe)
 {
 	if (sh->infiles == NULL)
 	{
 		sh->infiles = malloc(sizeof(t_files));
-		if (curr->next->token == SINGLE
+		if (curr->next->token == SINGLE || curr->next->token == DOUBLE
 			|| (curr->next->next && curr->next->next->token == SINGLE
-				&& ft_strlen(curr->next->next->str) == 0))
-			sh->infiles->file_name = ft_strdup("here_docc");
+			&& ft_strlen(curr->next->next->str) == 0)
+			|| (curr->next->next && curr->next->next->token == DOUBLE
+			&& ft_strlen(curr->next->next->str) == 0))
+			sh->infiles->file_name
+				= right_here_doc_name(sh->infiles, "here_docc");
 		else
-			sh->infiles->file_name = ft_strdup("here_doc");
-		if (curr->next->token == SINGLE
+			sh->infiles->file_name
+				= right_here_doc_name(sh->infiles, "here_doc");
+		if ((curr->next->token == SINGLE
 			&& ft_strlen(curr->next->str) == 0 && curr->next->next)
+			|| (curr->next->token == DOUBLE
+			&& ft_strlen(curr->next->str) == 0 && curr->next->next))
 			sh->infiles->delim = ft_strdup(curr->next->next->str);
 		else
 			sh->infiles->delim = ft_strdup(curr->next->str);
@@ -73,5 +101,5 @@ void	 get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe)
 		sh->infiles->next = NULL;
 	}
 	else
-		lst_add_new_infile(sh->infiles, NULL, curr->next->str, pipe);
+		lst_add_new_here_doc(sh->infiles, curr, pipe);
 }
