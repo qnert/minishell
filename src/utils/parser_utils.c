@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 17:05:49 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/16 17:44:23 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/19 20:50:58 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	table_init_helper(t_shell *sh, t_lexer *curr, int *i)
 		sh->cmd_table[++(*i)] = ft_strdup("\1");
 }
 
-void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe)
+void	 get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe)
 {
 	if (sh->infiles == NULL)
 	{
