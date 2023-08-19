@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:42:55 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/17 11:45:26 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/19 21:59:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	check_existence_env(t_shell *sh, char *str)
 	{
 		if (ft_isalpha(str[i - 1]) && str[i] == '\0')
 			return (true);
-		write(2, " not a valid identifier\n", 24);
+		write(2, "minishell: not a valid identifier\n", 35);
 		sh->status = 1;
 		return (true);
 	}

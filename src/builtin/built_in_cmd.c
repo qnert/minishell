@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/19 17:23:07 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 21:57:45 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ void	handle_export(t_shell *sh, char *str)
 	if (str[i] == '-')
 	{
 		sh->status = 2;
-		return ((void)write(2, " parsing error\n", 24));
+		return ((void)write(2, "minishell: parsing error\n", 26));
 	}
 	if (str[i] == '=' || str[i] == 39 || check_special_char(str) == true
 		|| ft_isdigit(str[i]))
 	{
-		write(2, " not a valid identifier\n", 24);
+		write(2, "minishell: export: not a valid identifier\n", 43);
 		sh->status = 1;
 		return ;
 	}

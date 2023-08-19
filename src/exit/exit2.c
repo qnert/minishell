@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:45:40 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/19 15:20:41 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 22:03:08 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ char	*get_exit_code_string(t_shell *sh, char *str)
 	i = 2;
 	status = ft_itoa(sh->status);
 	if (!str[i])
-		return (status);
+		return (free(str), status);
 	while (str[i] && str[i] != '$')
 		i++;
 	tmp = ft_substr(str, 2, i - 2);
+	free(str);
 	res = ft_strjoin_free(status, tmp);
 	free(tmp);
 	return (res);
@@ -40,13 +41,13 @@ void	exit_status_helper(t_shell *sh, char **tmp, DIR *dir, int i)
 	if (access(sh->path_to_file_table[i], X_OK) == -1
 		&& check_built_in_main(sh, sh->cmd_table[i]) == false)
 	{
-		write(2, "minishell: non executable\n", 26);
+		write(2, "minishell: non executable\n", 27);
 		exit_status(sh, tmp, 126);
 	}
 	if (dir != NULL)
 	{
 		closedir(dir);
-		write(2, "minishell: is a directory\n", 26);
+		write(2, "minishell: is a directory\n", 27);
 		exit_status(sh, tmp, 126);
 	}
 	exit_status(sh, tmp, 1);

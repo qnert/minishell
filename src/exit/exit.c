@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:26:08 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/19 15:20:30 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 21:53:15 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 			closedir(dir);
 		if (sh->cmd_table[i][0] == 1 && ft_strlen(sh->cmd_table[i]) == 1)
 			exit_status(sh, tmp, 0);
-		write(2, "minishell: command not found\n", 29);
+		write(2, "minishell: command not found\n", 30);
 		exit_status(sh, tmp, 127);
 	}
 	exit_status_helper(sh, tmp, dir, i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/19 15:59:22 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 21:59:24 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 	{
 		if (outfile && outfile->fd == -1)
 		{
-			write(2, "minishell: no such file or directory\n", 35);
+			write(2, "minishell: no such file or directory\n", 38);
 			exit_status(sh, NULL, 1);
 		}
 		which_dup(infile, outfile);
