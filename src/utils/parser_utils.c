@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 17:05:49 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/19 20:51:44 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/19 21:00:20 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	table_init_helper(t_shell *sh, t_lexer *curr, int *i)
 		sh->cmd_table[++(*i)] = ft_strdup("\1");
 }
 
-char	*right_here_doc_name(t_files *lst, char *str)
+char	*right_here_doc_name(t_files *lst, char *str, int x)
 {
 	int		i;
 	char	*tmp;
@@ -62,7 +62,7 @@ char	*right_here_doc_name(t_files *lst, char *str)
 	i = 0;
 	tmp = NULL;
 	curr = lst;
-	while (curr)
+	while (curr->next && x == 1)
 	{
 		if (lst->delim != NULL)
 			i++;
@@ -85,10 +85,10 @@ void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe)
 			|| (curr->next->next && curr->next->next->token == DOUBLE
 			&& ft_strlen(curr->next->next->str) == 0))
 			sh->infiles->file_name
-				= right_here_doc_name(sh->infiles, "here_docc");
+				= right_here_doc_name(sh->infiles, "here_docc", 0);
 		else
 			sh->infiles->file_name
-				= right_here_doc_name(sh->infiles, "here_doc");
+				= right_here_doc_name(sh->infiles, "here_doc", 0);
 		if ((curr->next->token == SINGLE
 			&& ft_strlen(curr->next->str) == 0 && curr->next->next)
 			|| (curr->next->token == DOUBLE

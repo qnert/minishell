@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/19 15:19:10 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:59:11 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ void	lst_add_new_here_doc(t_files *lst, t_lexer *lex, int pipe);
 void	expander_helper(t_shell *sh, t_lexer *curr);
 void	get_expand_helper(char *first_str, t_lexer *curr, int i);
 void	table_init_helper(t_shell *sh, t_lexer *curr, int *i);
-char	*right_here_doc_name(t_files *lst, char *str);
+char	*right_here_doc_name(t_files *lst, char *str, int x);
 void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe);
 
 // utils.c

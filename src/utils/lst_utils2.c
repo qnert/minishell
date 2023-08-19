@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:36:27 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/18 13:36:43 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:58:20 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ void	lst_add_new_here_doc(t_files *lst, t_lexer *lex, int pipe)
 		|| (lex->next->next && lex->next->next->token == DOUBLE
 		&& ft_strlen(lex->next->next->str) == 0))
 		new_node->file_name
-			= right_here_doc_name(lst, "here_docc");
+			= right_here_doc_name(lst, "here_docc", 1);
 	else
 		new_node->file_name
-			= right_here_doc_name(lst, "here_doc");
+			= right_here_doc_name(lst, "here_doc", 1);
 	if ((lex->next->token == SINGLE
 		&& ft_strlen(lex->next->str) == 0 && lex->next->next)
 		|| (lex->next->token == DOUBLE
