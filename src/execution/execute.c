@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/17 20:23:14 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 15:59:22 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	execute_cmd(t_shell *sh, t_files *in, t_files *out)
 	DIR		*dir;
 
 	tmp = NULL;
-	if (check_built_in_child(sh->cmd_table[0]) == true
+	if (check_built_in_child(sh, sh->cmd_table[0]) == true
 		&& ((in == NULL || in->fd > 0) && (out == NULL || out->fd > 0)))
 	{
 		handle_built_in(sh, sh->cmd_table[0]);
@@ -51,7 +51,7 @@ void	execute_no_pipes(t_shell *sh, t_files *infile, t_files *outfile)
 
 	outfile = get_right_file(sh, sh->outfiles);
 	infile = ft_lstlast_files(sh->infiles);
-	if (check_built_in_main(sh->cmd_table[0]) == true)
+	if (check_built_in_main(sh, sh->cmd_table[0]) == true)
 		return (handle_built_in(sh, sh->cmd_table[0]));
 	pid2 = fork();
 	if (pid2 == 0)

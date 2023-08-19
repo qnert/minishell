@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/18 14:33:30 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 17:23:07 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ void	handle_cd(t_shell *sh, char *str)
 	char	*tmp;
 
 	i = 0;
-	if (ft_strlen(str) == 2
-		|| (ft_strlen(str) == 4 && str[ft_strlen(str) - 1] == '~'))
+	if (ft_strlen(str) == 2)
 		return (go_to_home(sh));
 	while (str[i] && str[i] != ' ')
 		i++;
