@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/18 16:59:43 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 15:19:10 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	handle_unset(t_shell *sh, char *str);
 void	handle_cd(t_shell *sh, char *str);
 
 // built_in.c
-bool	check_built_in_child(char *str);
-bool	check_built_in_main(char *str);
+bool	check_built_in_child(t_shell *sh, char *str);
+bool	check_built_in_main(t_shell *sh, char *str);
 void	check_exit(t_shell *sh);
 void	handle_built_in(t_shell *sh, char *str);
 

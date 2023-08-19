@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:26:08 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/18 14:08:29 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 15:20:30 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 				|| (ft_strnstr(sh->cmd_table[0], "./", 2) == NULL
 					&& dir == NULL)
 				|| check_dot(sh->cmd_table[i]))
-			&& check_built_in_main(sh->cmd_table[i]) == false))
+			&& check_built_in_main(sh, sh->cmd_table[i]) == false))
 	{
 		if (dir != NULL)
 			closedir(dir);

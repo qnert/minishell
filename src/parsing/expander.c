@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:21:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/18 17:07:49 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 17:29:59 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,16 +120,18 @@ void	expand_to_home(t_shell *sh, t_lexer *curr)
 	tmp = NULL;
 	while (curr->str[i])
 	{
-		if ((curr->str[i] == '~' && ft_strlen(curr->str) == 1
-			&& !curr->str[i - 1])
+		if ((curr->str[i] == '~' && i == 0 && !curr->str[i + 1])
 			|| (curr->str[i] == '~' && curr->str[i + 1] == '/'
-			&& !curr->str[i - 1]))
+			&& i == 0))
 			check = 1;
 		i++;
 	}
 	if (check == 0)
 		return ;
 	tmp = get_home_from_env(sh);
+	if (!tmp)
+		return ((void)write(2, "miniHell: cd: HOME not set\n", 27));
 	tmp = ft_strjoin_free(tmp, curr->str + 1);
+	free(curr->str);
 	curr->str = tmp;
 }

@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:49:56 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/18 00:28:05 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 15:19:48 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	child_process_pipes(t_shell *sh, t_files *in, t_files *out)
 	DIR		*dir;
 
 	tmp = NULL;
-	if (check_built_in_child(sh->cmd_table[sh->index]) == true
+	if (check_built_in_child(sh, sh->cmd_table[sh->index]) == true
 		&& ((in == NULL || in->fd > 0
 				|| (in->fd < 0 && sh->index > in->pos))
 			&& (out == NULL || out->fd > 0
@@ -74,7 +74,7 @@ int	handle_child_pipes(t_shell *sh, t_files *in, t_files *out, int *fd)
 
 	if (pipe(fd) == -1)
 		return (perror("pipe"), -1);
-	if (check_built_in_main(sh->cmd_table[sh->index]) == true)
+	if (check_built_in_main(sh, sh->cmd_table[sh->index]) == true)
 		handle_built_in(sh, sh->cmd_table[sh->index]);
 	pid = fork();
 	if (pid == 0)

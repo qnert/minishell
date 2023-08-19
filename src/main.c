@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/18 00:37:59 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 17:19:16 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ int	shell_loop(t_shell *sh)
 				execute_main(sh);
 		}
 		terminate_struct(sh);
+		free(str);
 		if (!isatty(0))
 		{
-			free(str);
 			str = get_next_line(0);
 			if (str)
 				str = ft_strtrim(str, "\n");

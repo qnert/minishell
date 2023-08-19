@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:45:40 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 18:41:38 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/19 15:20:41 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	exit_status_helper(t_shell *sh, char **tmp, DIR *dir, int i)
 	if (sh->path_to_file_table[0] == NULL && dir == NULL)
 		exit_status(sh, tmp, 0);
 	if (access(sh->path_to_file_table[i], X_OK) == -1
-		&& check_built_in_main(sh->cmd_table[i]) == false)
+		&& check_built_in_main(sh, sh->cmd_table[i]) == false)
 	{
 		write(2, "minishell: non executable\n", 26);
 		exit_status(sh, tmp, 126);

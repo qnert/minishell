@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/17 20:33:30 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/19 15:27:13 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	check_path(t_shell *sh, char **path, char *cmd)
 		free(cmd_path);
 		i++;
 	}
-	if (check_built_in_main(cmd) == true)
+	if (check_built_in_main(sh, cmd) == true)
 		return (sh->path_to_file_table[sh->index++] = ft_strdup(""), true);
 	return (sh->exit_code = 127, false);
 }
@@ -71,8 +71,8 @@ bool	check_cmd(t_shell *sh)
 	{
 		if (access_check(sh, sh->cmd_table[i]) == false)
 		{
-			if (check_built_in_main(sh->cmd_table[i]) == false
-				&& check_built_in_child(sh->cmd_table[i]) == false)
+			if (check_built_in_main(sh, sh->cmd_table[i]) == false
+				&& check_built_in_child(sh, sh->cmd_table[i]) == false)
 			{
 				sh->path_to_file_table[sh->index] = NULL;
 				return (false);
