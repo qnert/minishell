@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/20 00:32:53 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/20 17:04:19 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <fcntl.h>
 # include <dirent.h>
 # include <termios.h>
+# include <errno.h>
 
 typedef struct shell
 {
@@ -242,5 +243,6 @@ int		main(int argc, char **argv, char **envp);
 // signals.c
 void	sig_handler(int signal);
 void	set_signals(void);
+void	handle_cchars(void);
 
 #endif
