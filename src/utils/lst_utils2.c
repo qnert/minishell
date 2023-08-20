@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:36:27 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/19 21:11:48 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/20 18:32:09 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,28 @@ void	lst_add_new_here_doc(t_files *lst, t_lexer *lex, int pipe)
 		curr = curr->next;
 	if (lex->next->token == SINGLE || lex->next->token == DOUBLE
 		|| (lex->next->next && lex->next->next->token == SINGLE
-		&& ft_strlen(lex->next->next->str) == 0)
+			&& ft_strlen(lex->next->next->str) == 0)
 		|| (lex->next->next && lex->next->next->token == DOUBLE
-		&& ft_strlen(lex->next->next->str) == 0))
+			&& ft_strlen(lex->next->next->str) == 0))
 		new_node->file_name
 			= right_here_doc_name(lst, "here_docc", 1);
 	else
 		new_node->file_name
 			= right_here_doc_name(lst, "here_doc", 1);
+	set_new_node_hd(curr, lex, new_node, pipe);
+}
+
+void	set_new_node_hd(t_files *curr, t_lexer *lex, t_files *new, int pipe)
+{
 	if ((lex->next->token == SINGLE
-		&& ft_strlen(lex->next->str) == 0 && lex->next->next)
+			&& ft_strlen(lex->next->str) == 0 && lex->next->next)
 		|| (lex->next->token == DOUBLE
-		&& ft_strlen(lex->next->str) == 0 && lex->next->next))
-		new_node->delim = ft_strdup(lex->next->next->str);
+			&& ft_strlen(lex->next->str) == 0 && lex->next->next))
+		new->delim = ft_strdup(lex->next->next->str);
 	else
-		new_node->delim = ft_strdup(lex->next->str);
-	new_node->fd = ft_outfile_check(new_node->file_name);
-	new_node->pos = pipe;
-	new_node->next = NULL;
-	curr->next = new_node;
+		new->delim = ft_strdup(lex->next->str);
+	new->fd = ft_outfile_check(new->file_name);
+	new->pos = pipe;
+	new->next = NULL;
+	curr->next = new;
 }

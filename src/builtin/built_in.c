@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/19 17:08:14 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/20 18:59:39 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	check_exit(t_shell *sh)
 	{
 		j = 0;
 		if ((ft_strncmp(sh->cmd_table[i], "exit", 4) == 0
-			&& !sh->cmd_table[i][4])
+				&& !sh->cmd_table[i][4])
 			|| (ft_strncmp(sh->cmd_table[i], "exit", 4) == 0
-			&& sh->cmd_table[i][4] == 1))
+				&& sh->cmd_table[i][4] == 1))
 		{
 			if (ft_strlen(sh->cmd_table[i]) == 4)
 				exit_status(sh, NULL, sh->status);
