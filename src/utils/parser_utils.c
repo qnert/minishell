@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 17:05:49 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/19 21:12:45 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/20 18:35:24 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,24 +81,15 @@ void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe)
 		sh->infiles = malloc(sizeof(t_files));
 		if (curr->next->token == SINGLE || curr->next->token == DOUBLE
 			|| (curr->next->next && curr->next->next->token == SINGLE
-			&& ft_strlen(curr->next->next->str) == 0)
+				&& ft_strlen(curr->next->next->str) == 0)
 			|| (curr->next->next && curr->next->next->token == DOUBLE
-			&& ft_strlen(curr->next->next->str) == 0))
+				&& ft_strlen(curr->next->next->str) == 0))
 			sh->infiles->file_name
 				= right_here_doc_name(sh->infiles, "here_docc", 0);
 		else
 			sh->infiles->file_name
 				= right_here_doc_name(sh->infiles, "here_doc", 0);
-		if ((curr->next->token == SINGLE
-			&& ft_strlen(curr->next->str) == 0 && curr->next->next)
-			|| (curr->next->token == DOUBLE
-			&& ft_strlen(curr->next->str) == 0 && curr->next->next))
-			sh->infiles->delim = ft_strdup(curr->next->next->str);
-		else
-			sh->infiles->delim = ft_strdup(curr->next->str);
-		sh->infiles->fd = ft_outfile_check(sh->infiles->file_name);
-		sh->infiles->pos = pipe;
-		sh->infiles->next = NULL;
+		add_hd_name(sh, curr, pipe);
 	}
 	else
 		lst_add_new_here_doc(sh->infiles, curr, pipe);

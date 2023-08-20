@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/20 00:32:53 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/20 19:09:13 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ void	get_here_doc(t_shell *sh);
 bool	parser_main(t_shell *sh);
 
 // parser2.c
-void	set_outfile_vars(t_shell *sh, int pipes);
+void	set_outfile_vars(t_shell *sh, t_lexer *curr, int pipes, int check);
 void	get_outfile(t_shell *sh);
 void	get_outfile_append(t_shell *sh);
 
@@ -216,6 +216,10 @@ void	table_init_helper(t_shell *sh, t_lexer *curr, int *i);
 char	*right_here_doc_name(t_files *lst, char *str, int x);
 void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe);
 
+// parser_utils2.c
+void	add_hd_name(t_shell *sh, t_lexer *curr, int pipe);
+void	concat_right_helper2(t_shell *sh, t_lexer *curr, int *i);
+
 // utils.c
 t_shell	*shell_init(char **envp);
 int		get_len_matrix(char **matrix);
@@ -228,9 +232,11 @@ void	replace_split_char(char *str);
 char	*ft_charjoin_free(char *str, char c);
 void	change_f_b_spaces(t_lexer *lst, char *str, int i, int start);
 void	replace_space_char(char *str, int tmp);
+void	set_new_node_hd(t_files *curr, t_lexer *lex, t_files *new, int pipe);
 
 //utils3.c
 bool	check_dot(char *str);
+char	*readline_or_gnl(void);
 
 // no own directory
 // main.c
@@ -242,5 +248,6 @@ int		main(int argc, char **argv, char **envp);
 // signals.c
 void	sig_handler(int signal);
 void	set_signals(void);
+void	handle_cchars(void);
 
 #endif

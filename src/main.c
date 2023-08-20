@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/20 00:20:17 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/20 19:08:45 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,23 @@ int	check_spaces(char *str)
 	return (0);
 }
 
+void	do_operation(t_shell *sh, char *str)
+{
+	add_history(str);
+	if (lexer(sh, str) == false)
+	{
+		write(2, "minishell: parse error\n", 23);
+		sh->status = 2;
+	}
+	else if (parser_main(sh) == false)
+	{
+		write(2, "minishell: parse error\n", 23);
+		sh->status = 2;
+	}
+	else
+		execute_main(sh);
+}
+
 int	shell_loop(t_shell *sh)
 {
 	int		tmp;
@@ -46,42 +63,14 @@ int	shell_loop(t_shell *sh)
 
 	if (sh == NULL)
 		return (0);
-	if (!isatty(0))
-	{
-		str = get_next_line(0);
-		if (str)
-			str = ft_strtrim(str, "\n");
-	}
-	else
-		str = readline("miniHell > ");
+	str = readline_or_gnl();
 	while (str != NULL)
 	{
 		if (check_spaces(str) && str[0] != '\0')
-		{
-			add_history(str);
-			if (lexer(sh, str) == false)
-			{
-				write(2, "minishell: parse error\n", 23);
-				sh->status = 2;
-			}
-			else if (parser_main(sh) == false)
-			{
-				write(2, "minishell: parse error\n", 23);
-				sh->status = 2;
-			}
-			else
-				execute_main(sh);
-		}
+			do_operation(sh, str);
 		terminate_struct(sh);
 		free(str);
-		if (!isatty(0))
-		{
-			str = get_next_line(0);
-			if (str)
-				str = ft_strtrim(str, "\n");
-		}
-		else
-			str = readline("miniHell > ");
+		str = readline_or_gnl();
 	}
 	tmp = sh->status;
 	terminate_struct(sh);

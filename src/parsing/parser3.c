@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/18 16:58:59 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/20 18:48:33 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,24 +97,8 @@ void	concat_right_helper(t_shell *sh, t_lexer *curr, int *i)
 		&& ft_strlen(curr->str) != 0 && sh->check == 1)
 		sh->cmd_table[(*i)] = ft_strjoin_free
 			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
-	else if ((curr->token == 6 || curr->token == 7) && curr->next != NULL
-		&& curr->b_space == 1 && curr->f_space == 0
-		&& ft_strlen(curr->str) != 0 && sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free
-			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
-	else if ((curr->token == 6 || curr->token == 7) && curr->next != NULL
-		&& curr->b_space == 1 && curr->f_space == 1
-		&& sh->cmd_table[(*i)][ft_strlen(sh->cmd_table[(*i)]) - 1] == '\1'
-		&& sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free
-			(ft_strjoin_free(sh->cmd_table[(*i)], curr->str), "\1");
-	else if ((curr->token == 6 || curr->token == 7) && curr->next != NULL
-		&& curr->b_space == 1 && curr->f_space == 1 && sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free(ft_strjoin_free
-				(ft_strjoin_free(sh->cmd_table[(*i)], "\1"), curr->str), "\1");
-	else if (check_word_token(curr->token)
-		&& (curr->next != NULL) && sh->check == 1)
-		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
+	else
+		concat_right_helper2(sh, curr, i);
 }
 
 void	concat_right(t_shell *sh, t_lexer *curr, int *i)
