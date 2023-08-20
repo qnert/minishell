@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:36:19 by skunert           #+#    #+#             */
 /*   Updated: 2023/08/20 18:20:48 by njantsch         ###   ########.fr       */
@@ -16,10 +16,10 @@ void	handle_cchars(void)
 {
 	struct termios	term;
 
-	if (tcgetattr(0, &term) != 0)
+	if (tcgetattr(1, &term) == -1)
 		perror("minishell: tcgetattr");
 	term.c_lflag &= ~ECHOCTL;
-	if (tcsetattr(0, TCSANOW, &term) != 0)
+	if (tcsetattr(1, TCSANOW, &term) == -1)
 		perror("minishell: tcsetattr");
 }
 
@@ -38,7 +38,7 @@ void	set_signals(void)
 {
 	struct sigaction	int_sig;
 
-	if (isatty(0))
+	if (isatty(0) != 0)
 		handle_cchars();
 	int_sig.sa_handler = &sig_handler;
 	sigaction(SIGINT, &int_sig, NULL);
