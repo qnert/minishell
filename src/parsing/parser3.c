@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 22:27:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/21 22:39:59 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,7 @@ void	read_till_limiter(t_shell *sh, t_files *curr)
 	signal(SIGINT, sig_handler_heredoc);
 	line = get_next_line(STDIN_FILENO);
 	while (line != NULL && g_cntrlc == false)
-	{
-		if (ft_strncmp(line, curr->delim, ft_strlen(curr->delim)) == 0
-			&& (ft_strlen(line) - 1) == ft_strlen(curr->delim))
-			break ;
-		if (ft_strncmp(curr->file_name, "here_docc", 9) != 0)
-			line = get_expand_here_doc(sh, line);
-		if (ft_strlen(line) == 0)
-		{
-			free(line);
-			line = ft_strdup("\n");
-		}
-		ft_putstr_fd(line, curr->fd);
-		free(line);
-		line = get_next_line(STDIN_FILENO);
-	}
+		line = rtl_loop(sh, curr, line);
 	free(line);
 	signal(SIGINT, sig_handler);
 	if (g_cntrlc == false)
