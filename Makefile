@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I $(shell brew --prefix readline)/include
+CFLAGS = -Wall -Wextra -Werror -I $(shell brew --prefix readline)/include -Wno-gnu-include-next
 NAME = minishell
 
 SRCS = ./src/main.c ./src/builtin/built_in.c ./src/utils/utils.c ./src/envp/envp.c \

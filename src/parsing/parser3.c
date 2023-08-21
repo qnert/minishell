@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 16:47:31 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/21 20:17:28 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	read_till_limiter(t_shell *sh, t_files *curr)
 {
 	char	*line;
 
-	signal(SIGINT, sig_handler_heredoc);
 	line = get_next_line(STDIN_FILENO);
 	while (line != NULL)
 	{
@@ -38,31 +37,17 @@ void	read_till_limiter(t_shell *sh, t_files *curr)
 	close(curr->fd);
 	curr->fd = open(curr->file_name, O_RDONLY);
 	unlink(curr->file_name);
-	exit_status(sh, NULL, 0);
 }
 
 void	check_and_write_here_doc(t_shell *sh, t_files *infiles)
 {
-	pid_t	pid;
 	t_files	*curr;
 
 	curr = infiles;
 	while (curr)
 	{
 		if (curr->delim != NULL)
-		{
-			signal(SIGINT, SIG_IGN);
-			pid = fork();
-			if (pid == -1)
-				return ;
-			if (pid == 0)
-				read_till_limiter(sh, curr);
-			else
-			{
-				wait(0);
-				signal(SIGINT, sig_handler);
-			}
-		}
+			read_till_limiter(sh, curr);
 		curr = curr->next;
 	}
 }

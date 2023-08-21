@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:51:23 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/16 10:52:15 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/21 20:19:05 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	ft_check_flag(char *str, int *i, int *check)
 {
 	int	tmp;
 
-	tmp = 0;
+	tmp = *i;
 	if (str[*i] != '-')
 		return (false);
 	while (str[*i] && str[*i] == '-')
