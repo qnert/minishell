@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 18:37:38 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/21 22:44:23 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/21 23:45:24 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,24 @@ void	concat_right_helper2(t_shell *sh, t_lexer *curr, int *i)
 		sh->cmd_table[(*i)] = ft_strjoin_free(sh->cmd_table[(*i)], curr->str);
 }
 
-char	*rtl_loop(t_shell *sh, t_files *curr, char *line)
+void	rtl_loop(t_shell *sh, t_files *curr, char *line)
 {
-	if (ft_strncmp(line, curr->delim, ft_strlen(curr->delim)) == 0
-		&& (ft_strlen(line) - 1) == ft_strlen(curr->delim))
-		return (NULL);
-	if (ft_strncmp(curr->file_name, "here_docc", 9) != 0)
-		line = get_expand_here_doc(sh, line);
-	if (ft_strlen(line) == 0)
+	while (line != NULL && g_cntrlc == false)
 	{
+		if (ft_strncmp(line, curr->delim, ft_strlen(curr->delim)) == 0
+			&& (ft_strlen(line) - 1) == ft_strlen(curr->delim))
+			break ;
+		if (ft_strncmp(curr->file_name, "here_docc", 9) != 0)
+			line = get_expand_here_doc(sh, line);
+		if (ft_strlen(line) == 0)
+		{
+			free(line);
+			line = ft_strdup("\n");
+		}
+		ft_putstr_fd(line, curr->fd);
 		free(line);
-		line = ft_strdup("\n");
+		line = get_next_line(STDIN_FILENO);
 	}
-	ft_putstr_fd(line, curr->fd);
-	free(line);
-	line = get_next_line(STDIN_FILENO);
-	return (line);
+	if (line)
+		free(line);
 }

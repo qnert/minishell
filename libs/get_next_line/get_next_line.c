@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 20:20:12 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/21 23:26:55 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_str_trim_line(char *line_str)
 		i++;
 	if (ft_strchr(line_str, '\n'))
 		i++;
-	buff = ft_calloc(i + 1, sizeof(char));
+	buff = ft_calloc(i + 2, sizeof(char));
 	if (buff == NULL)
 		return (NULL);
 	while (line_str[j] != '\n' && line_str[j])
@@ -61,7 +61,8 @@ char	*ft_str_trim_line(char *line_str)
 		j++;
 	}
 	if (line_str[j] == '\n')
-		buff[j] = '\n';
+		buff[j++] = '\n';
+	buff[j] = '\0';
 	return (buff);
 }
 
