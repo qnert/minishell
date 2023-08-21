@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 13:21:22 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/21 16:39:14 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,5 +251,6 @@ int		main(int argc, char **argv, char **envp);
 void	sig_handler(int signal);
 void	set_signals(void);
 void	handle_cchars(void);
+void	sig_handler_heredoc(int sig);
 
 #endif
