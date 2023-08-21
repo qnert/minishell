@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 22:39:59 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/21 23:44:24 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	read_till_limiter(t_shell *sh, t_files *curr)
 	g_cntrlc = false;
 	signal(SIGINT, sig_handler_heredoc);
 	line = get_next_line(STDIN_FILENO);
-	while (line != NULL && g_cntrlc == false)
-		line = rtl_loop(sh, curr, line);
-	free(line);
+	rtl_loop(sh, curr, line);
 	signal(SIGINT, sig_handler);
 	if (g_cntrlc == false)
 	{
