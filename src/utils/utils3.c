@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:50:23 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/20 19:09:54 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/21 13:21:12 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,20 @@ char	*readline_or_gnl(void)
 	else
 		str = readline("miniHell > ");
 	return (str);
+}
+
+int	count_equal(char *str)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			count++;
+		i++;
+	}
+	return (count);
 }

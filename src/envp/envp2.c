@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:42:55 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/19 21:59:02 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/21 13:26:39 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	check_existence_env(t_shell *sh, char *str)
 		sh->status = 1;
 		return (true);
 	}
-	tmp = ft_substr(str, 0, i);
+	tmp = ft_substr(str, 0, i + 1);
 	i = 0;
 	while (sh->envp[i] && ft_strncmp(sh->envp[i], tmp, ft_strlen(tmp)))
 		i++;
@@ -51,6 +51,17 @@ char	*get_home_from_env(t_shell *sh)
 	return (NULL);
 }
 
+char	*getenv_own(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	i++;
+	return (ft_substr(str, i, ft_strlen(str) + 1));
+}
+
 char	**cpy_envp_add(char **envp, char *tmp)
 {
 	int		i;
@@ -63,6 +74,8 @@ char	**cpy_envp_add(char **envp, char *tmp)
 	{
 		str = get_envp_name(envp[i]);
 		envp_cpy[i] = getenv(str);
+		if (!envp_cpy[i])
+			envp_cpy[i] = getenv_own(envp[i]);
 		str = ft_strjoin_free(str, "=");
 		envp_cpy[i] = ft_strjoin_free(str, envp_cpy[i]);
 		i++;

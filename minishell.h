@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/20 19:09:13 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/21 13:21:22 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ void	set_new_node_hd(t_files *curr, t_lexer *lex, t_files *new, int pipe);
 //utils3.c
 bool	check_dot(char *str);
 char	*readline_or_gnl(void);
+int		count_equal(char *str);
 
 // no own directory
 // main.c
