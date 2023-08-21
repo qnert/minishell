@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 21:37:43 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/21 22:49:24 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ bool	check_built_in_child(t_shell *sh, char *str);
 bool	check_built_in_main(t_shell *sh, char *str);
 void	check_exit(t_shell *sh);
 void	handle_built_in(t_shell *sh, char *str);
+void	exp_add_new_var(t_shell *sh, char *str, char *tmp, int i);
 
 // directory checks
 // access.c
@@ -223,6 +224,7 @@ void	get_here_doc_helper(t_shell *sh, t_lexer *curr, int pipe);
 // parser_utils2.c
 void	add_hd_name(t_shell *sh, t_lexer *curr, int pipe);
 void	concat_right_helper2(t_shell *sh, t_lexer *curr, int *i);
+char	*rtl_loop(t_shell *sh, t_files *curr, char *line);
 
 // utils.c
 t_shell	*shell_init(char **envp);

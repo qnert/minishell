@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/20 18:59:39 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/21 22:51:09 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,25 @@ void	handle_built_in(t_shell *sh, char *str)
 			return ;
 		handle_unset(sh, str);
 	}
+}
+
+void	exp_add_new_var(t_shell *sh, char *str, char *tmp, int i)
+{
+	if (check_existence_env(sh, &str[i]) == false)
+	{
+		if (count_equal(str) != count_spaces(str))
+			sh->envp = cpy_envp_add(sh->envp, ft_strdup(&str[i]));
+		else
+			sh->envp = cpy_envp_add(sh->envp,
+					ft_substr(str, i, count_until_space(&str[i])));
+	}
+	tmp = &str[i + count_until_space(&str[i])];
+	if (sh->check == 1)
+		free(str);
+	if (ft_strchr(tmp, ' ') && ft_strlen(tmp) != 6 && count_equal(tmp) > 0)
+	{
+		sh->check = 1;
+		handle_export(sh, ft_strjoin_free(ft_strdup("export"), tmp));
+	}
+	sh->status = 0;
 }

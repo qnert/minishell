@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 13:42:43 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/21 22:49:39 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	handle_export(t_shell *sh, char *str)
 	char	*tmp;
 
 	i = 0;
+	tmp = NULL;
 	while (str[i] != '\0' && str[i] != 32)
 		i++;
 	i++;
@@ -66,22 +67,7 @@ void	handle_export(t_shell *sh, char *str)
 		sh->status = 1;
 		return ;
 	}
-	if (check_existence_env(sh, &str[i]) == false)
-	{
-		if (count_equal(str) != count_spaces(str))
-			sh->envp = cpy_envp_add(sh->envp, ft_strdup(&str[i]));
-		else
-			sh->envp = cpy_envp_add(sh->envp, ft_substr(str, i, count_until_space(&str[i])));
-	}
-	tmp = &str[i + count_until_space(&str[i])];
-	if (sh->check == 1)
-		free(str);
-	if (ft_strchr(tmp, ' ') && ft_strlen(tmp) != 6 && count_equal(tmp) > 0)
-	{
-		sh->check = 1;
-		handle_export(sh, ft_strjoin_free(ft_strdup("export"), tmp));
-	}
-	sh->status = 0;
+	exp_add_new_var(sh, str, tmp, i);
 }
 
 void	handle_unset(t_shell *sh, char *str)
