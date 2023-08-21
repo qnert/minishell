@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:36:19 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 16:41:19 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/21 21:37:33 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	sig_handler_heredoc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		close(STDIN_FILENO);
-		write(1, "\n", 1);
+		g_cntrlc = true;
+		ioctl(0, TIOCSTI, "\n");
 	}
 }
 

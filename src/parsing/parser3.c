@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 20:17:28 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/21 21:38:42 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void	read_till_limiter(t_shell *sh, t_files *curr)
 {
 	char	*line;
 
+	g_cntrlc = false;
+	signal(SIGINT, sig_handler_heredoc);
 	line = get_next_line(STDIN_FILENO);
-	while (line != NULL)
+	while (line != NULL && g_cntrlc == false)
 	{
 		if (ft_strncmp(line, curr->delim, ft_strlen(curr->delim)) == 0
 			&& (ft_strlen(line) - 1) == ft_strlen(curr->delim))
@@ -34,6 +36,7 @@ void	read_till_limiter(t_shell *sh, t_files *curr)
 		line = get_next_line(STDIN_FILENO);
 	}
 	free(line);
+	signal(SIGINT, sig_handler);
 	close(curr->fd);
 	curr->fd = open(curr->file_name, O_RDONLY);
 	unlink(curr->file_name);

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 16:39:14 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/21 21:37:43 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <dirent.h>
 # include <termios.h>
 # include <errno.h>
+# include <sys/ioctl.h>
+
+bool	g_cntrlc;
 
 typedef struct shell
 {
