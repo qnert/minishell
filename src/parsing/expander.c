@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:21:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/20 18:59:17 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/22 01:14:50 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ char	*get_expand_here_doc(t_shell *sh, char *str)
 		first_str = ft_strdup("");
 	while (str[i] && ft_strchr(str + i, '$') != 0)
 	{
-		start = i;
-		while (str[++i] && ft_isalnum(str[i]))
+		start = i++;
+		while (str[i] && ft_isalnum(str[i]))
 			i++;
 		env_var = change_str_to_env(sh, ft_substr(str, start, i - start));
 		first_str = ft_strjoin_free(first_str, env_var);
