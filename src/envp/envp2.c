@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:42:55 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/21 13:26:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/22 01:57:06 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*getenv_own(char *str)
 	while (str[i] && str[i] != '=')
 		i++;
 	i++;
-	return (ft_substr(str, i, ft_strlen(str) + 1));
+	return (&str[i]);
 }
 
 char	**cpy_envp_add(char **envp, char *tmp)
