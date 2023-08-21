@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:27:58 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 21:38:42 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/21 22:27:39 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ void	read_till_limiter(t_shell *sh, t_files *curr)
 	}
 	free(line);
 	signal(SIGINT, sig_handler);
-	close(curr->fd);
-	curr->fd = open(curr->file_name, O_RDONLY);
+	if (g_cntrlc == false)
+	{
+		close(curr->fd);
+		curr->fd = open(curr->file_name, O_RDONLY);
+	}
 	unlink(curr->file_name);
 }
 
