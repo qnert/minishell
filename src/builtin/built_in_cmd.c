@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 22:49:39 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/22 01:45:53 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,18 @@ void	handle_unset(t_shell *sh, char *str)
 	new = i;
 	if (!str[i] || (ft_isalpha(str[i]) == 0 && str[i] != '_')
 		|| check_special_char(str) || ft_strchr(str, '='))
+	{
+		if (sh->check == 1)
+			free(str);
 		return (sh->status = 1, (void)write(2, " not a valid identifier\n", 24));
+	}
 	tmp = ft_substr(str, i, count_until_space(&str[i]));
 	tmp = ft_strjoin_free(tmp, "=");
 	i = 0;
 	while (sh->envp && sh->envp[i]
 		&& ft_strncmp(sh->envp[i], tmp, ft_strlen(tmp)))
 		i++;
-	free(tmp);
-	if (!sh->envp || sh->envp[i] == NULL)
-		return ;
-	unset_helper(sh, i, new, str);
+	return (free(tmp), unset_helper(sh, i, new, str));
 }
 
 void	handle_cd(t_shell *sh, char *str)
