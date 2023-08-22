@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 13:08:35 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/19 15:27:13 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:38:44 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ bool	access_check(t_shell *sh, char *arg)
 	char	**path;
 
 	i = 0;
-	while (sh->envp[i] && ft_strncmp(sh->envp[i], "PATH", 4) != 0)
+	while (sh->envp && sh->envp[i] && ft_strncmp(sh->envp[i], "PATH", 4) != 0)
 		i++;
-	if (sh->envp[i])
+	if (sh->envp && sh->envp[i])
 		path = ft_split(sh->envp[i] + 5, ':');
 	else
 		path = NULL;

@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 11:46:16 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/17 11:48:46 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:59:09 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ int	get_len_matrix(char **matrix)
 	int	len;
 
 	len = 0;
-	while (matrix[len] != NULL)
+	if (!matrix || !matrix[0])
+		return (0);
+	while (matrix && matrix[len] != NULL)
 		len++;
 	return (len);
 }
@@ -62,8 +64,10 @@ void	terminate_struct(t_shell *sh)
 	free_lst_files(sh->outfiles);
 	sh->outfiles = NULL;
 	sh->pipes = 0;
-	free_arr(sh->cmd_table);
-	free_arr(sh->path_to_file_table);
+	if (sh->cmd_table && sh->cmd_table[0])
+		free_arr(sh->cmd_table);
+	if (sh->cmd_table && sh->cmd_table[0])
+		free_arr(sh->path_to_file_table);
 	sh->path_to_file_table = NULL;
 	sh->cmd_table = NULL;
 	sh->check = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:42:55 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/21 13:26:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/22 18:01:18 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ bool	check_existence_env(t_shell *sh, char *str)
 	}
 	tmp = ft_substr(str, 0, i + 1);
 	i = 0;
-	while (sh->envp[i] && ft_strncmp(sh->envp[i], tmp, ft_strlen(tmp)))
+	while (sh->envp && sh->envp[i]
+		&& ft_strncmp(sh->envp[i], tmp, ft_strlen(tmp)))
 		i++;
-	if (sh->envp[i] == NULL)
+	if (!sh->envp || !sh->envp[i])
 		return (free(tmp), false);
 	free(sh->envp[i]);
 	sh->envp[i] = ft_strdup(str);
@@ -59,7 +60,7 @@ char	*getenv_own(char *str)
 	while (str[i] && str[i] != '=')
 		i++;
 	i++;
-	return (ft_substr(str, i, ft_strlen(str) + 1));
+	return (&str[i]);
 }
 
 char	**cpy_envp_add(char **envp, char *tmp)
@@ -69,8 +70,11 @@ char	**cpy_envp_add(char **envp, char *tmp)
 	char	**envp_cpy;
 
 	i = 0;
-	envp_cpy = ft_calloc(get_len_matrix(envp) + 2, sizeof(char *));
-	while (envp[i] != NULL)
+	if (envp)
+		envp_cpy = ft_calloc(get_len_matrix(envp) + 2, sizeof(char *));
+	else
+		envp_cpy = ft_calloc(2, sizeof(char *));
+	while (envp && envp[i])
 	{
 		str = get_envp_name(envp[i]);
 		envp_cpy[i] = getenv(str);

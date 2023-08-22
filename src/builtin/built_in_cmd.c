@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/22 01:45:53 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/22 18:59:07 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ void	handle_cd(t_shell *sh, char *str)
 	char	*tmp;
 
 	i = 0;
+	if (ft_strncmp(str, "cd - ", 5) == 0 || ft_strncmp(str, "cd -", 4) == 0)
+		return (handle_old_pwd(sh), change_old_pwd(sh), change_pwd(sh));
+	change_old_pwd(sh);
 	if (ft_strlen(str) == 2)
 		return (go_to_home(sh));
 	while (str[i] && str[i] != ' ')

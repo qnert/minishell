@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:25:45 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/19 22:02:08 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/22 17:36:35 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,12 @@ char	**cpy_envp(char **envp)
 	char	**envp_cpy;
 
 	i = 0;
+	if (!envp || !envp[0])
+		return (NULL);
 	envp_cpy = ft_calloc(get_len_matrix(envp) + 1, sizeof(char *));
-	while (envp[i] != NULL)
+	if (!envp_cpy)
+		return (NULL);
+	while (envp && envp[i] != NULL)
 	{
 		str = get_envp_name(envp[i]);
 		envp_cpy[i] = getenv(str);

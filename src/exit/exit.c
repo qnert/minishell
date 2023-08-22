@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:26:08 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/19 21:53:15 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/22 18:30:05 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	exit_error(t_shell *sh, char **tmp, DIR *dir, int i)
 void	exit_status(t_shell *sh, char **tmp, int status)
 {
 	terminate_struct(sh);
-	if (tmp)
+	if (tmp && tmp[0])
 		free_arr(tmp);
 	free_arr(sh->envp);
 	free(sh);

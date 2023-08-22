@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:39:05 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 22:51:09 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:12:32 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	handle_built_in(t_shell *sh, char *str)
 {
 	sh->check = 0;
 	replace_split_char(str);
-	if (ft_strncmp(str, "cd", 2) == 0 && get_len_matrix(sh->envp) > 0)
+	if (ft_strncmp(str, "cd", 2) == 0)
 		handle_cd(sh, str);
 	if (ft_strncmp(str, "echo", 4) == 0)
 		handle_echo(str);
