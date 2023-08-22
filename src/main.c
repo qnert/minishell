@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:24:59 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/20 19:08:45 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:52:13 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	shell_loop(t_shell *sh)
 	{
 		if (check_spaces(str) && str[0] != '\0')
 			do_operation(sh, str);
+		g_cntrlc = 0;
 		terminate_struct(sh);
 		free(str);
 		str = readline_or_gnl();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:36:19 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 21:37:33 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/22 18:50:25 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ void	sig_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		write(2, "\n", 1);
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
+		if (!g_cntrlc)
+			rl_redisplay();
 	}
 }
 

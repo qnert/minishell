@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 18:41:03 by njantsch          #+#    #+#             */
-/*   Updated: 2023/08/19 21:59:24 by skunert          ###   ########.fr       */
+/*   Updated: 2023/08/22 18:51:12 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,13 @@ void	execute_main(t_shell *sh)
 	if (sh->pipes == 0)
 	{
 		check_exit(sh);
+		g_cntrlc = 1;
 		execute_no_pipes(sh, infile, outfile);
 	}
 	else
 	{
 		check_exit(sh);
+		g_cntrlc = 1;
 		execute_pipes(sh, infile, outfile);
 	}
 }

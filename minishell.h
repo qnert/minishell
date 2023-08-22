@@ -6,7 +6,7 @@
 /*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:14 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/21 23:45:10 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:14:37 by njantsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,11 @@ void	change_pwd(t_shell *sh);
 int		count_until_space(char *str);
 void	unset_helper(t_shell *sh, int i, int new, char *str);
 bool	check_special_char(char *str);
+
+// builtin_utils2.c
+void	set_old_pwd(t_shell *sh, char *tmp, char *path, char *cwd);
+void	change_old_pwd(t_shell *sh);
+void	handle_old_pwd(t_shell *sh);
 
 // lexer_utils.c
 void	check_redirect_plus_helper(t_shell *sh, char *str, int i);

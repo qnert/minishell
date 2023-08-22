@@ -7,7 +7,8 @@ SRCS = ./src/main.c ./src/builtin/built_in.c ./src/utils/utils.c ./src/envp/envp
 		./src/lexing/lexer2.c ./src/parsing/parser.c ./src/parsing/parser2.c \
 		./src/execution/execute.c ./src/parsing/parser3.c ./src/utils/utils2.c ./src/utils/utils3.c ./src/execution/execute_pipes.c \
 		./src/signals.c ./src/utils/builtin_utils.c ./src/utils/lst_utils2.c ./src/checks/file_check.c \
-		./src/parsing/expander.c ./src/exit/exit.c ./src/exit/exit2.c ./src/envp/envp2.c ./src/checks/checks.c ./src/utils/parser_utils2.c
+		./src/parsing/expander.c ./src/exit/exit.c ./src/exit/exit2.c ./src/envp/envp2.c ./src/checks/checks.c ./src/utils/parser_utils2.c \
+		./src/utils/builtin_utils2.c
 
 OBJS = $(SRCS:.c=.o)
 
