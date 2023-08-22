@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njantsch <njantsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:02:53 by skunert           #+#    #+#             */
-/*   Updated: 2023/08/22 18:59:07 by njantsch         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:14:04 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	handle_echo(char *str)
 	if (check == 1 || ft_check_flag(str, &i, &check) == false)
 		printf("%s\n", &str[i]);
 	else if (check == 0)
-		printf("%s", &str[i]);
+		printf("%s\n", &str[i]);
 }
 
 void	handle_pwd(t_shell *sh)
